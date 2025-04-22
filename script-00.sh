@@ -214,7 +214,7 @@ systemctl start sysstat
 # Cambiar nombre tarjeta de red
 # **************************************
 # Comprobamos que tarjeta de red vamos a renombrar
-dmesg | grep -i eth
+# dmesg | grep -i eth
 
 # Deshabilitamos el renombrado de interfaces en /etc/default/grub
 sed -i 's/GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="net.ifnames=0 biosdevname=0"/g' /etc/default/grub
