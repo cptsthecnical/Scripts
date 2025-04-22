@@ -1,7 +1,6 @@
 # Instalación de paquetes iniciales
 echo "Instalando paquetes..."
-apt-get update
-apt-get upgrade -y
+apt-get update && apt-get upgrade -y
 
 apt-get install -y \
     iputils-ping lm-sensors iproute2 sudo vim net-tools curl \
