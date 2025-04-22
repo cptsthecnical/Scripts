@@ -7,7 +7,10 @@ apt-get install -y \
     iputils-ping lm-sensors iproute2 sudo vim net-tools curl \
     lsb-release arping wget sysstat ntpdate snmp snmpd tcpdump \
     ngrep iptraf-ng mlocate tar gzip tree ca-certificates \
-    screen man-db mailutils dnsutils telnet rsyslog nmap
+    screen man-db mailutils dnsutils telnet rsyslog nmap 
+    
+# realizao instalaciones de paquetes pentesting 
+# apt-get install -y tshark
 
 # Configuración de sensores
 echo "Configurando sensores:"
