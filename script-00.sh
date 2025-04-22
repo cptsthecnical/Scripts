@@ -48,9 +48,9 @@ systemctl restart rsyslog
 
 # Idioma
 # **************************************
-localectl
-localectl set-locale LANG=en_US.UTF-8
-localectl
+#localectl
+#localectl set-locale LANG=en_US.UTF-8
+#localectl
 
 # Configuro vimrc
 # **************************************
@@ -224,7 +224,21 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 # Modificamos el archivo /etc/network/interfaces reemplazando ens33 por eth0
 # auto eth0
+cp /etc/network/interfaces /etc/network/_interfaces.ori
+cat <<EOF > /etc/network/interfaces
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
 
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+allow-hotplug eth0
+iface eth0  inet dhcp
+EOF
 
 # Deshabilitar IPv6
 # **************************************
