@@ -2,8 +2,12 @@
 echo "Instalando paquetes..."
 apt-get update
 apt-get install systemd systemctl systemd-sysv -y
-apt-get install -y iputils-ping lm-sensors iproute2 sudo vim systemctl net-tools curl
-apt install -y lsb-release net-tools arping wget sysstat ntpdate snmp snmpd tcpdump ngrep iptraf-ng mlocate tar gzip tree ca-certificates screen man-db mailutils dnsutils telnet rsyslog
+apt-get update
+apt-get install -y \
+    iputils-ping lm-sensors iproute2 sudo vim net-tools curl \
+    lsb-release arping wget sysstat ntpdate snmp snmpd tcpdump \
+    ngrep iptraf-ng mlocate tar gzip tree ca-certificates \
+    screen man-db mailutils dnsutils telnet rsyslog
 
 # Configuración de sensores
 echo "Configurando sensores:"
