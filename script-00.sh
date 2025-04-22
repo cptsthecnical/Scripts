@@ -30,7 +30,7 @@ alias df='df --exclude-type=tmpfs'
 
 ## Cambiar diseño del prompt
 # **************************************
-PS1='\[\e[0;90m\]r00t🐋\e[38;5;213m[\H]\e[38;5;213m\e[1;32m \w\e[0;37m $: '
+PS1='\[\e[0;90m\]r00t箱\e[38;5;213m[\H]\e[38;5;213m\e[1;32m \w\e[0;37m $: '
 
 ## cambiar colores para ls
 # **************************************
