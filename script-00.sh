@@ -16,6 +16,14 @@ echo "Configurando sensores:"
 sensors-detect --auto
 systemctl restart lm-sensors
 
+# modificar hostname
+sudo hostname isaac.laboratory
+
+mv /etc/hostname /etc/hostname.old
+cat <<EOF > /etc/hostname
+isaac.laboratory
+EOF
+
 # Configuro bashrc
 cat <<EOF > ~/.bashrc
 ## alias del servidor
