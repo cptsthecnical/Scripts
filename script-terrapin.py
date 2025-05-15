@@ -12,15 +12,15 @@ OUTPUT=$(ssh -vvv -oBatchMode=yes -oConnectTimeout=5 \
     "$USER@$IP" exit 2>&1)
 
 if echo "$OUTPUT" | grep -q "no matching kex algorithm"; then
-    echo "[✔] NO vulnerable (rechaza Kex inseguro)"
+    echo "✅ NO vulnerable (rechaza Kex inseguro)"
 elif echo "$OUTPUT" | grep -q "no matching cipher"; then
-    echo "[✔] NO vulnerable (rechaza Cipher inseguro)"
+    echo "✅ NO vulnerable (rechaza Cipher inseguro)"
 elif echo "$OUTPUT" | grep -q "no matching MAC found"; then
-    echo "[✔] NO vulnerable (rechaza MAC inseguro)"
+    echo "✅ NO vulnerable (rechaza MAC inseguro)"
 elif echo "$OUTPUT" | grep -q "Connection established"; then
-    echo "[!] VULNERABLE a Terrapin (algoritmos inseguros aceptados)"
+    echo "❎ VULNERABLE a Terrapin (algoritmos inseguros aceptados)"
 else
-    echo "[?] No se pudo determinar con certeza. Revisa manualmente:"
+    echo "🆘 No se pudo determinar con certeza. Revisa manualmente:"
     echo "$OUTPUT" | tail -n 10
 fi
 
@@ -35,3 +35,4 @@ fi
 # > Ciphers aes256-gcm@openssh.com,aes128-gcm@openssh.com
 # --------------------------------------------------------------------------------------------
 # > systemctl restart ssh
+# ============================================================================================
