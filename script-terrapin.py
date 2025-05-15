@@ -20,7 +20,7 @@ elif echo "$OUTPUT" | grep -q "no matching MAC found"; then
 elif echo "$OUTPUT" | grep -q "Connection established"; then
     echo "❎ VULNERABLE a Terrapin (algoritmos inseguros aceptados)"
 else
-    echo "🆘 No se pudo determinar con certeza. Revisa manualmente:"
+    echo "⚠️ No se pudo determinar con certeza. Revisa manualmente:"
     echo "$OUTPUT" | tail -n 10
 fi
 
