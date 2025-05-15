@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# lanzo el script ,/script-terrapin.py y me pedirá agregar la ip y el usuario de la máquina a atacar
+# ¿Que es? :: Terrapin es una vulnerabilidad en el protocolo SSH (en ciertos Kex como "ChaCha20-Poly1305") que permite manipular el canal de comunicación antes de la autenticación, rompiendo la integridad de la sesión.
+# Uso      :: Lanzo el script ./script-terrapin.py y me pedirá agregar la ip y el usuario de la máquina a atacar.
 read -p "Introduce la IP del servidor: " IP
 read -p "Introduce el nombre de usuario: " USER
 
