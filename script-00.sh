@@ -3,7 +3,7 @@ echo "Instalando paquetes..."
 apt-get update && apt-get upgrade -y
 
 apt-get install -y \
-    iputils-ping lm-sensors iproute2 sudo vim net-tools curl \
+    iputils-ping lm-sensors iproute2 sudo vim net-tools curl btop\
     lsb-release arping wget sysstat ntpdate snmp snmpd tcpdump \
     ngrep iptraf-ng mlocate tar gzip tree ca-certificates \
     screen man-db mailutils dnsutils telnet rsyslog nmap 
