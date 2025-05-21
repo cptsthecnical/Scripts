@@ -5,7 +5,7 @@ apt-get update && apt-get upgrade -y
 apt-get install -y \
     # nmap john hydra sqlmap whatweb tshark \                            # paquetes ciberseguridad
     iputils-ping lm-sensors iproute2 sudo vim net-tools curl btop\
-    lsb-release arping wget sysstat ntpdate snmp snmpd tcpdump powertop\
+    lsb-release arping wget sysstat ntpdate snmp snmpd tcpdump \
     ngrep iptraf-ng mlocate tar gzip tree ca-certificates \
     screen man-db mailutils dnsutils telnet rsyslog  
     
@@ -31,7 +31,6 @@ cat <<EOF > ~/.bashrc
 alias ls='ls --color=auto'
 alias la='ls $LS_OPTIONS -lhai'
 alias _liberarespacioram='sudo sync; echo 1 | sudo tee /proc/sys/vm/drop_caches | echo "petición realizada correctamente." && echo "" && free -h'
-alias _consumoElectrico='sudo powertop'
 alias cp='cp -i'
 alias mv='mv -i'
 alias rm='rm -i'
