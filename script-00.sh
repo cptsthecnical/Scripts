@@ -44,6 +44,19 @@ PS1='\[\e[0;90m\]r00t箱\e[38;5;213m[\H]\e[38;5;213m\e[1;32m \w\e[0;37m $: '
 ## cambiar colores para ls
 # **************************************
 export LS_COLORS="di=1;32:fi=0;37:ln=1;35:so=0;38;5;208:pi=0;34:bd=0;33:cd=0;33:or=0;31:mi=0;31:ex=1;31"
+
+## función para escanear vulnerabilidades
+# **************************************
+_vuln_scan() {
+  read -p "Introduce la IP a escanear: " ip
+  if [[ -z "$ip" ]]; then
+    echo "No se ha introducido una IP válida."
+    return 1
+  fi
+
+  echo "[*] Escaneando $ip con Nmap + scripts de vulnerabilidades..."
+  sudo nmap -sS -sV --script vuln -p- -T2 -Pn "$ip"
+}
 EOF
 
 ## Configuración mínima de logs
