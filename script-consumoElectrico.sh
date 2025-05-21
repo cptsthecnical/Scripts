@@ -24,6 +24,6 @@ logger -t powertop-log "$MENSAJE"
 echo "$MENSAJE"
 
 # *************************************************************
-# Ejemplo cada 5 minutos:
+# 📋 Ejemplo cada 5 minutos:
 # sudo crontab -e
 # */5 * * * * /ruta/completa/script-consumoElectrico.sh
