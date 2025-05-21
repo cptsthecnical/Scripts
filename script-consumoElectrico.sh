@@ -26,4 +26,4 @@ echo "$MENSAJE"
 # *************************************************************
 # Ejemplo cada 5 minutos:
 # sudo crontab -e
-# */5 * * * * /ruta/completa/log_powertop.sh
+# */5 * * * * /ruta/completa/script-consumoElectrico.sh
