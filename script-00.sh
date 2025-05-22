@@ -17,13 +17,33 @@ echo "Configurando sensores:"
 sensors-detect --auto
 systemctl restart lm-sensors
 
-# modificar hostname
-sudo hostname isaac.laboratory
+# modificar hostname · forma antigua
+# sudo hostname isaac.laboratory
+# mv /etc/hostname /etc/hostname.old
+# cat <<EOF > /etc/hostname
+# isaac.laboratory
+# EOF
 
-mv /etc/hostname /etc/hostname.old
-cat <<EOF > /etc/hostname
-isaac.laboratory
-EOF
+# modificar hostname · forma nueva
+# Preguntar al usuario si desea cambiar el hostname
+read -p "¿Deseas agregar un nuevo hostname? (s/n): " respuesta
+
+if [[ "$respuesta" == "s" || "$respuesta" == "S" ]]; then
+    # Solicitar el nuevo hostname
+    read -p "Introduce el nuevo hostname (sin espacios): " new_hostname
+
+    # Modificar hostname
+    sudo hostname "$new_hostname"
+
+    # Hacer una copia de seguridad del archivo /etc/hostname
+    sudo mv /etc/hostname /etc/hostname.old
+
+    # Escribir el nuevo hostname en /etc/hostname
+    echo "$new_hostname" | sudo tee /etc/hostname > /dev/null
+    echo "El hostname se ha cambiado a: $new_hostname"
+else
+    echo "Continuando con la instalación sin cambiar el hostname."
+fi
 
 # Configuro bashrc
 cat <<EOF > ~/.bashrc
