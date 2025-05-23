@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# 🧠 Script Radar Security
+# 🧠 Evalua actualizaciones pendientes, permisos de archivos críticos y directorios, configuración SSH, firewall, usuarios sin contraseña, 
+
 import os
 import subprocess
 
@@ -28,6 +31,14 @@ def check_root_permissions():
         else:
             print(f"Los permisos de {file} son seguros.")
 
+def check_tmp_permissions():
+    print("Comprobando permisos del directorio /tmp...")
+    tmp_permissions = os.stat('/tmp').st_mode
+    if tmp_permissions & 0o777 != 0o177:  # Verifica que los permisos sean 1777
+        print(f"{RED}Advertencia: Los permisos de /tmp no son seguros.{RESET}")
+    else:
+        print("Los permisos de /tmp son seguros.")
+        
 def check_ssh_config():
     print("Comprobando configuración de SSH...")
     ssh_config = '/etc/ssh/sshd_config'
@@ -75,21 +86,13 @@ def check_empty_passwords():
     except Exception as e:
         print(f"Error al comprobar usuarios sin contraseña: {e}")
 
-def check_tmp_permissions():
-    print("Comprobando permisos del directorio /tmp...")
-    tmp_permissions = os.stat('/tmp').st_mode
-    if tmp_permissions & 0o777 != 0o177:  # Verifica que los permisos sean 1777
-        print(f"{RED}Advertencia: Los permisos de /tmp no son seguros.{RESET}")
-    else:
-        print("Los permisos de /tmp son seguros.")
-
 def main():
     check_updates()
     check_root_permissions()
+    check_tmp_permissions()
     check_ssh_config()
     check_firewall()
     check_empty_passwords()
-    check_tmp_permissions()
 
 if __name__ == "__main__":
     main()
