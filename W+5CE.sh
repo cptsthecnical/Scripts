@@ -6,7 +6,7 @@
 if ! command -v powertop >/dev/null 2>&1; then
     read -p "Powertop no está instalado. ¿Quieres instalarlo? (s/n): " opcion
     if [[ "$opcion" == "s" || "$opcion" == "S" ]]; then
-        sudo apt update && sudo apt install -y powertop
+        sudo apt install -y powertop
     else
         echo "No se puede continuar sin powertop. Saliendo..."
         exit 1
