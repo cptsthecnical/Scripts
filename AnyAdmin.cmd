@@ -1,6 +1,6 @@
 @echo off
 color 0C
-echo Script para ejecutar un archivo como admin desde Anydesk.
+echo Script para ejecutar un archivo como admin desde Anydesk
 pause
 setlocal
 :: script de Windows para entrar como Administrador en sesiones Anydesk::
@@ -18,6 +18,6 @@ echo Introduce el nombre de usuario de Active Directory
 set /p usuario= (ej: craig.federighi): 
 
 :: Ejecutar con runas usando los datos introducidos
-C:\Windows\System32\runas /netonly /user:%dominio%\%usuario% %ruta%
+C:\Windows\System32\runas /user:%dominio%\%usuario% %ruta%
 
 endlocal
