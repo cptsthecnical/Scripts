@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# 🧠 Script Radar Security
+# 🧠 Radar Security:
 # 🧠 Evalúa actualizaciones pendientes, permisos de archivos críticos, configuración SSH, firewall, usuarios sin contraseña,
 # 🧠 seguridad del kernel y configuraciones adicionales.
 
