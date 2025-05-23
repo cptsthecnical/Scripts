@@ -3,6 +3,7 @@
 # 🧠 Evalua actualizaciones pendientes, permisos de archivos críticos y directorios, configuración SSH, firewall, usuarios sin contraseña, 
 
 import os
+import stat
 import subprocess
 
 # Códigos de escape ANSI para colores
