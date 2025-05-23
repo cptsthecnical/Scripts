@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # 🧠 Radar Security:
-# 🧠 Evalúa actualizaciones pendientes, permisos de archivos críticos, configuración SSH, firewall, usuarios sin contraseña,
-# 🧠 seguridad del kernel y configuraciones adicionales.
+# 🧠 Evalúa actualizaciones pendientes, permisos de archivos críticos, configuración SSH, firewall, usuarios sin contraseña, seguridad del kernel y configuraciones adicionales.
 
 import os
 import subprocess
