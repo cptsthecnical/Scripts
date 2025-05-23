@@ -75,7 +75,7 @@ _vuln_scan() {
   fi
 
   echo "[*] Escaneando $ip con Nmap + scripts de vulnerabilidades..."
-  sudo nmap -sS -sV --script vuln -p- -T2 -Pn "$ip"
+  sudo nmap -sV --script vuln "$ip"
 }
 EOF
 
