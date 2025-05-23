@@ -1,4 +1,7 @@
 #!/bin/bash
+# 🧠 Consumo Eléctrico:
+# 🧠 Conocer el consumo eléctrico a través de la monitorización del paquete powertop
+
 # Verificar si powertop está instalado
 if ! command -v powertop >/dev/null 2>&1; then
     read -p "Powertop no está instalado. ¿Quieres instalarlo? (s/n): " opcion
