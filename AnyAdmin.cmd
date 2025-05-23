@@ -3,7 +3,8 @@ color 0C
 echo Script para ejecutar un archivo como admin desde Anydesk
 pause
 setlocal
-:: script de Windows para entrar como Administrador en sesiones Anydesk::
+:: script de Windows para entrar como Administrador en sesiones (pensado para Anydesk)::
+:: también se puede utilizar : https://support.anydesk.com/es/knowledge/administrative-privileges-and-elevation-uac
 
 :: Preguntar dominio
 echo Introduce el nombre del dominio 
