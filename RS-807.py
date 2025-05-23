@@ -21,36 +21,32 @@ def check_updates():
     except Exception as e:
         print(f"Error al comprobar actualizaciones: {e}")
 
-def check_root_permissions():
-    print("Comprobando permisos de archivos críticos...")
-    critical_files = ['/etc/passwd', '/etc/shadow', '/etc/sudoers']
-    for file in critical_files:
-        permissions = os.stat(file).st_mode
-        if permissions & 0o777 != 0o600:  # Verifica que los permisos sean 600
-            print(f"{RED}Advertencia: Los permisos de {file} no son seguros.{RESET}")
+def check_permissions(path, expected_mode, expected_owner, expected_group):
+    try:
+        st = os.stat(path)
+        mode = stat.S_IMODE(st.st_mode)
+        uid = st.st_uid
+        gid = st.st_gid
+        actual_owner = subprocess.getoutput(f'stat -c %U {path}')
+        actual_group = subprocess.getoutput(f'stat -c %G {path}')
+        if mode != expected_mode or actual_owner != expected_owner or actual_group != expected_group:
+            print(f"⚠️  {path} tiene permisos {oct(mode)}, propietario {actual_owner}:{actual_group}. Se recomienda {oct(expected_mode)} {expected_owner}:{expected_group}.")
         else:
-            print(f"Los permisos de {file} son seguros.")
+            print(f"✅ {path} tiene permisos y propietario correctos.")
+    except Exception as e:
+        print(f"Error al verificar {path}: {e}")
 
-def check_tmp_permissions():
-    print("Comprobando permisos del directorio /tmp...")
-    tmp_permissions = os.stat('/tmp').st_mode
-    if tmp_permissions & 0o777 != 0o177:  # Verifica que los permisos sean 1777
-        print(f"{RED}Advertencia: Los permisos de /tmp no son seguros.{RESET}")
-    else:
-        print("Los permisos de /tmp son seguros.")
-        
 def check_ssh_config():
-    print("Comprobando configuración de SSH...")
-    ssh_config = '/etc/ssh/sshd_config'
-    if os.path.exists(ssh_config):
-        with open(ssh_config, 'r') as file:
-            config = file.read()
+    path = '/etc/ssh/sshd_config'
+    try:
+        with open(path, 'r') as f:
+            config = f.read()
             if 'PermitRootLogin yes' in config:
-                print(f"{RED}Advertencia: PermitRootLogin está habilitado.{RESET}")
+                print(f"⚠️  {path} permite el acceso directo de root. Se recomienda establecer 'PermitRootLogin no'.")
             else:
-                print("La configuración de SSH es segura.")
-    else:
-        print("No se encontró el archivo de configuración de SSH.")
+                print(f"✅ {path} tiene una configuración segura para 'PermitRootLogin'.")
+    except Exception as e:
+        print(f"Error al verificar {path}: {e}")
 
 def check_firewall():
     print("Comprobando estado del firewall (UFW)...")
@@ -88,8 +84,11 @@ def check_empty_passwords():
 
 def main():
     check_updates()
-    check_root_permissions()
-    check_tmp_permissions()
+    print("🔐 Verificando archivos y directorios críticos:")
+    check_permissions('/etc/passwd', 0o644, 'root', 'root')
+    check_permissions('/etc/shadow', 0o640, 'root', 'shadow')
+    check_permissions('/etc/sudoers', 0o440, 'root', 'root')
+    check_permissions('/tmp', 0o1777, 'root', 'root')
     check_ssh_config()
     check_firewall()
     check_empty_passwords()
