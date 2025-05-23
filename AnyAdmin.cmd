@@ -1,6 +1,6 @@
 @echo off
 color 0C
-echo Script para ejecutar un archivo como admin desde Anydesk
+echo Script para ejecutar un archivo como admin desde Anydesk.
 pause
 setlocal
 :: script de Windows para entrar como Administrador en sesiones Anydesk::
