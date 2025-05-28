@@ -1,4 +1,5 @@
 #!/bin/bash
+# 🧠 Con este script comprueba si el correo pasado es real y existe
 
 # Función para comprobar si swaks está instalado
 function check_swaks {
