@@ -68,9 +68,10 @@ export LS_COLORS="di=1;32:fi=0;37:ln=1;35:so=0;38;5;208:pi=0;34:bd=0;33:cd=0;33:
 ## función para escanear vulnerabilidades
 # **************************************
 _vuln_scan() {
+  echo "[*] Esta función realiza un escaneo de vulnerabilidades sobre la IP especificada."
   read -p "Introduce la IP a escanear: " ip
   if [[ -z "$ip" ]]; then
-    echo "No se ha introducido una IP válida."
+    echo "[!] No se ha introducido una IP válida."
     return 1
   fi
 
