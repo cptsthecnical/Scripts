@@ -57,11 +57,11 @@ alias rm='rm -i'
 alias grep='grep --color=auto'
 alias df='df --exclude-type=tmpfs'
 
-## Cambiar diseño del prompt
+## Cambiar diseño del prompt (estilo cyberpunk)
 # **************************************
 PS1='\[\e[0;90m\]r00t箱\e[38;5;213m[\H]\e[38;5;213m\e[1;32m \w\e[0;37m $: '
 
-## cambiar colores para ls
+## cambiar colores para ls (estilo cyberpunk)
 # **************************************
 export LS_COLORS="di=1;32:fi=0;37:ln=1;35:so=0;38;5;208:pi=0;34:bd=0;33:cd=0;33:or=0;31:mi=0;31:ex=1;31"
 
@@ -100,7 +100,7 @@ systemctl restart rsyslog
 #localectl set-locale LANG=en_US.UTF-8
 #localectl
 
-# Configuro vimrc
+# Configuro vimrc (estilo cyberpunk)
 # **************************************
 cat <<EOF > ~/.vimrc
 " configuración archivo .vimrc
