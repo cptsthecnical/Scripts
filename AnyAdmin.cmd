@@ -1,4 +1,5 @@
 @echo off
+:: 🧠 script para ejecutar un archivo como admin desde Anydesk
 color 0C
 echo Script para ejecutar un archivo como admin desde Anydesk
 pause
