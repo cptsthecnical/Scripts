@@ -3,28 +3,19 @@ echo "Instalando paquetes..."
 apt-get update && apt-get upgrade -y
 
 # instalaciones
-    # agregar estos paquetes en caso de necesidad de ciberseguridad:
-    # nmap john hydra sqlmap whatweb tshark \                            # paquetes ciberseguridad
+    # agregar estos paquetes en caso de necesidad de ciberseguridad (dentro del ciclo de apt install no admite comentarios):
+    # nmap john hydra sqlmap whatweb tshark \
 apt-get install -y \
+    nmap \
     iputils-ping lm-sensors iproute2 sudo vim net-tools curl btop iftop \
     lsb-release arping wget sysstat ntpdate snmp snmpd tcpdump \
     ngrep iptraf-ng mlocate tar gzip tree ca-certificates \
     screen man-db mailutils dnsutils telnet rsyslog  
-    
-# realizao instalaciones de paquetes pentesting 
-# apt-get install -y tshark
 
 # Configuración de sensores
 echo "Configurando sensores:"
 sensors-detect --auto
 systemctl restart lm-sensors
-
-# modificar hostname · forma antigua
-# sudo hostname isaac.laboratory
-# mv /etc/hostname /etc/hostname.old
-# cat <<EOF > /etc/hostname
-# isaac.laboratory
-# EOF
 
 # modificar hostname · forma nueva
 # Preguntar al usuario si desea cambiar el hostname
@@ -251,14 +242,14 @@ view systemonly included .1.3.6.1.2.1.1.2
 view systemonly included .1.3.6.1.2.1.1.6
 
 # =====[PERMISOS-VISTAS]============================================================================================
-# Limitar acceso a solo lectura para la vista definida
+# Permitir acceso de lectura para la vista definida
 access readonly "" any noauth exact systemonly none none
 
 # Permitir acceso de lectura y escritura para la vista definida
-access rwcommunity "" any noauth exact systemonly none none
+#access rwcommunity "" any noauth exact systemonly none none
 
-# Permitir acceso de lectura y escritura con autenticación y cifrado
-access rwcommunity "" any authPriv exact all none none
+# Permitir acceso de lectura y escritura con autenticación y cifrado para la vista definida
+#access rwcommunity "" any authPriv exact all none none
 EOF
 
 systemctl start snmpd
