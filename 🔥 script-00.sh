@@ -30,13 +30,14 @@ read -p "¿Deseas agregar un nuevo hostname? (s/n): " respuesta
 
 if [[ "$respuesta" == "s" || "$respuesta" == "S" ]]; then
     # Solicitar el nuevo hostname
-    read -p "Introduce el nuevo hostname (sin espacios): " new_hostname
+    read -p "Introduce el nuevo hostname (isaac.laboratory-00): " new_hostname
 
     # Modificar hostname
     sudo hostname "$new_hostname"
 
     # Hacer una copia de seguridad del archivo /etc/hostname
     sudo mv /etc/hostname /etc/hostname.old
+    touch /etc/hostname
 
     # Escribir el nuevo hostname en /etc/hostname
     echo "$new_hostname" | sudo tee /etc/hostname > /dev/null
@@ -207,41 +208,55 @@ source /etc/bash.bashrc
 
 # servidor de SNMP
 # **************************************
-cp -ar /etc/snmp/snmpd.conf /etc/snmp/snmpd.ori
+mv /etc/snmp/snmpd.conf /etc/snmp/snmpd.conf.ori
+touch /etc/snmp/snmpd.conf
 cat <<EOF > /etc/snmp/snmpd.conf
 #
 # SNMPD Configuration
 # Isaac (v2) - 2025
 #
 agentAddress udp:161
-      
+
+# =====[DEFINO-RED-SNMP]============================================================================================
 rocommunity MaltLiquor_25 localhost
-rocommunity MaltLiquor_25 10.1.0.0/16
-rocommunity MaltLiquor_25 192.168.0.0/24
+rocommunity MaltLiquor_25 39.1.0.0/16
+rocommunity MaltLiquor_25 192.168.1.0/24
 
-syslocation "CPD - Grafometal S.A."
-syscontact  "Informatica <informatica@grafometal.es>"
+# =====[ESCRITURA-VALORES]==========================================================================================
+# sobreescribo o fuerzo valores
+syslocation "🤖 CPD"
+syscontact "🤖 Informatica <informatica@aptelliot.es>"
 
+# =====[HABILITO-OIDS]==============================================================================================
 # OIDs importantes:
-# sysObjectID: .1.3.6.1.2.1.1.2
-# sysDescr: .1.3.6.1.2.1.1.1
-# sysUpTime: .1.3.6.1.2.1.1.3
-# sysContact: .1.3.6.1.2.1.1.4
-# sysName: .1.3.6.1.2.1.1.5
-# sysLocation: .1.3.6.1.2.1.1.6
-# sysServices: .1.3.6.1.2.1.1.7
+# sysObjectID: .1.3.6.1.2.1.1.2  # Identificador único del objeto del sistema (por ejemplo, el tipo de dispositivo)
+# sysDescr: .1.3.6.1.2.1.1.1     # Descripción del sistema (por ejemplo, el modelo y la versión del firmware)
+# sysUpTime: .1.3.6.1.2.1.1.3    # Tiempo que el sistema ha estado funcionando desde el último reinicio
+# sysContact: .1.3.6.1.2.1.1.4   # Información de contacto del administrador del sistema
+# sysName: .1.3.6.1.2.1.1.5      # Nombre del sistema
+# sysLocation: .1.3.6.1.2.1.1.6  # Ubicación física del sistema
+# sysServices: .1.3.6.1.2.1.1.7  # Servicios disponibles en el sistema (por ejemplo, SNMP, HTTP, FTP)
 
+# =====[PERSONALIZACIÓN-RAMAS]======================================================================================
 # Ramas personalizadas
 #extend test1 /bin/echo "Hello world"
 #exec 1.3.6.1.4.1.2021.8 /bin/echo "Hello world"
 
+# =====[ACCESOS-RESTRICTIVOS]=======================================================================================
 # Solo exponer árbol de OID seguro
-#view systemonly included .1.3.6.1.4.1.2021.8
-view systemonly included .1.3.6.1.2.1.1
-view systemonly included .1.3.6.1.2.1.2
+view systemonly included .1.3.6.1.2.1.1.1
+view systemonly included .1.3.6.1.2.1.1.2
+view systemonly included .1.3.6.1.2.1.1.6
 
+# =====[PERMISOS-VISTAS]============================================================================================
 # Limitar acceso a solo lectura para la vista definida
-#access readonly "" any noauth exact systemonly none none
+access readonly "" any noauth exact systemonly none none
+
+# Permitir acceso de lectura y escritura para la vista definida
+access rwcommunity "" any noauth exact systemonly none none
+
+# Permitir acceso de lectura y escritura con autenticación y cifrado
+access rwcommunity "" any authPriv exact all none none
 EOF
 
 systemctl start snmpd
