@@ -288,7 +288,8 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 # Modificamos el archivo /etc/network/interfaces reemplazando ens33 por eth0
 # auto eth0
-cp /etc/network/interfaces /etc/network/_interfaces.ori
+mv /etc/network/interfaces /etc/network/_interfaces.ori
+touch /etc/network/interfaces
 cat <<EOF > /etc/network/interfaces
 # This file describes the network interfaces available on your system
 # and how to activate them. For more information, see interfaces(5).
@@ -308,6 +309,5 @@ EOF
 # **************************************
 echo -e "# Deshabilitamos IPv6\nnet.ipv6.conf.all.disable_ipv6 = 1\nnet.ipv6.conf.default.disable_ipv6 = 1\nnet.ipv6.conf.lo.disable_ipv6 = 1" >> /etc/sysctl.conf
 sysctl -p
-
 
 echo "¡Listo! Los paquetes se instalaron y la configuración está completa."
