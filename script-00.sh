@@ -192,6 +192,8 @@ echo 'echo "Información del sistema::"' >> /etc/bash.bashrc
 echo 'echo "CPU: $(grep -m1 "model name" /proc/cpuinfo | cut -d ":" -f2 | sed "s/^ //")"' >> /etc/bash.bashrc
 echo 'echo "Memoria libre: $(free -h | awk '"'"'/^Mem:/ {print $7}'"'"')"' >> /etc/bash.bashrc
 echo 'echo "Espacio en disco: $(df -h / | awk '"'"'$NF=="/"{print $4}'"'"')"' >> /etc/bash.bashrc
+echo "Memoria escrita: $(awk '{sum += $10} END {print sum * 512 / (1024^4)}' /proc/diskstats) TB" >> /etc/bash.bashrc
+echo "Encendido permanente: $(awk '{ print int($1/86400) " days, " int(($1%86400)/3600) " hours, " int(($1%3600)/60) " minutes" }' /proc/uptime)" >> /etc/bash.bashrc
 echo 'sensors 2>/dev/null || echo "No se detectaron sensores."' >> /etc/bash.bashrc
 echo 'lsb_release -sd 2>/dev/null || echo "No LSB modules available."' >> /etc/bash.bashrc
 echo 'uname -srm' >> /etc/bash.bashrc
