@@ -2,9 +2,10 @@
 echo "Instalando paquetes..."
 apt-get update && apt-get upgrade -y
 
-# instalaciones
-    # agregar estos paquetes en caso de necesidad de ciberseguridad (dentro del ciclo de apt install no admite comentarios):
-    # nmap john hydra sqlmap whatweb tshark \
+# instalaciones ciberseguridad
+    # apt install -y nmap john hydra sqlmap whatweb tshark 
+    
+# instalaciones general 
 apt-get install -y \
     nmap \
     iputils-ping lm-sensors iproute2 sudo vim net-tools curl btop iftop \
