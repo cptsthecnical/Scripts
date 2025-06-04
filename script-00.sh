@@ -55,8 +55,8 @@ fi
 # Configuro bashrc
 cat <<EOF > ~/.bashrc
 ## alias del servidor
-alias ls='ls --color=auto --group-directories-first'
-alias la='ls $LS_OPTIONS -lhai --group-directories-first'
+alias ls='ls -ha --color=auto --group-directories-first'
+alias la='ls $LS_OPTION -lhai --group-directories-first'
 alias _liberarespacioram='sudo sync; echo 1 | sudo tee /proc/sys/vm/drop_caches | echo "petición realizada correctamente." && echo "" && free -h'
 alias cp='cp -i'
 alias mv='mv -i'
