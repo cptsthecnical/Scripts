@@ -2,9 +2,19 @@
 echo "Instalando paquetes..."
 apt-get update && apt-get upgrade -y
 
-# instalaciones ciberseguridad
-    # apt install -y nmap john hydra sqlmap whatweb tshark 
-    
+## Paquetes de ciberseguridad:
+# Preguntar al usuario si quiere instalar paquetes de ciberseguridad
+# -------------------------------------------------------------------
+read -p "¿Deseas instalar paquetes de ciberseguridad como nmap john hydra...? (s/n): " respuestaCyber
+
+if [[ "$respuestaCyber" == "s" || "$respuestaCyber" == "S" ]]; then
+    apt install -y nmap john hydra sqlmap whatweb tshark 
+    echo "Paquetes de ciberseguridad instalados."
+else
+    echo "Continuando con la instalación sin paquetes de instalación."
+fi
+# ------------------------------------------------------------------- 
+
 # instalaciones general 
 apt-get install -y \
     nmap \
@@ -18,11 +28,12 @@ echo "Configurando sensores:"
 sensors-detect --auto
 systemctl restart lm-sensors
 
-# modificar hostname · forma nueva
+## modificar hostname:
 # Preguntar al usuario si desea cambiar el hostname
-read -p "¿Deseas agregar un nuevo hostname? (s/n): " respuesta
+# -------------------------------------------------------------------
+read -p "¿Deseas agregar un nuevo hostname? (s/n): " respuestaHost
 
-if [[ "$respuesta" == "s" || "$respuesta" == "S" ]]; then
+if [[ "$respuestaHost" == "s" || "$respuestaHost" == "S" ]]; then
     # Solicitar el nuevo hostname
     read -p "Introduce el nuevo hostname (isaac.laboratory-00): " new_hostname
 
@@ -39,6 +50,7 @@ if [[ "$respuesta" == "s" || "$respuesta" == "S" ]]; then
 else
     echo "Continuando con la instalación sin cambiar el hostname."
 fi
+# -------------------------------------------------------------------
 
 # Configuro bashrc
 cat <<EOF > ~/.bashrc
