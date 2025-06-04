@@ -8,7 +8,7 @@ apt-get update && apt-get upgrade -y
 read -p "¿Deseas instalar paquetes de ciberseguridad como nmap john hydra...? (s/n): " respuestaCyber
 
 if [[ "$respuestaCyber" == "s" || "$respuestaCyber" == "S" ]]; then
-    apt install -y nmap john hydra sqlmap whatweb tshark 
+    apt install -y nmap john hydra sqlmap whatweb tshark exiftool
     echo "Paquetes de ciberseguridad instalados."
 else
     echo "Continuando con la instalación sin paquetes de instalación."
