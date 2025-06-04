@@ -9,7 +9,8 @@ read -p "¿Deseas instalar paquetes de ciberseguridad como nmap john hydra...? (
 
 if [[ "$respuestaCyber" == "s" || "$respuestaCyber" == "S" ]]; then
     apt install -y nmap john hydra sqlmap whatweb tshark exiftool
-    echo "Paquetes de ciberseguridad instalados."
+    echo "Paquetes de ciberseguridad instalados:"
+    echo "nmap, john, hydra, sqlmap, whatweb, tshark, exiftool."
 else
     echo "Continuando con la instalación sin paquetes de instalación."
 fi
@@ -318,5 +319,5 @@ EOF
 echo -e "# Deshabilitamos IPv6\nnet.ipv6.conf.all.disable_ipv6 = 1\nnet.ipv6.conf.default.disable_ipv6 = 1\nnet.ipv6.conf.lo.disable_ipv6 = 1" >> /etc/sysctl.conf
 sysctl -p
 
-echo "⚠️ Recuerda cambiar el host en /etc/hosts por el mismo que acabas de agregar en /etc/hostname"
+echo -e "\e[31m⚠️ Recuerda cambiar el host en /etc/hosts por el mismo que acabas de agregar en /etc/hostname\e[0m"
 echo "¡Listo! Los paquetes se instalaron y la configuración está completa."
