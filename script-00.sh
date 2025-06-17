@@ -67,6 +67,9 @@ alias df='df --exclude-type=tmpfs'
 
 ## Cambiar diseño del prompt (estilo cyberpunk)
 # **************************************
+# red
+# PS1='\[\e[0;90m\]r00t箱\e[38;5;196m[\H]\e[38;5;196m\e[1;32m \w\e[0;37m $: '
+# cyberpunk
 PS1='\[\e[0;90m\]r00t箱\e[38;5;213m[\H]\e[38;5;213m\e[1;32m \w\e[0;37m $: '
 
 ## cambiar colores para ls (estilo cyberpunk)
