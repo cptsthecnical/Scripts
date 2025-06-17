@@ -110,13 +110,16 @@ chmod 777 /usr/bin/scanvuln
 ## Configuración mínima de logs
 # **************************************
 # Logrotate estandar para cualquier servidor (configuracion minima):
-# Configura la rotación semanal, mantiene 54 semanas rotadas, agrega fechas a los nombres, comprime los logs antiguos y permite configuraciones adicionales desde /etc/logrotate.d.
+# Configura la rotación mensual, mantiene 12 meses rotados, agrega fechas a los nombres, comprime los logs antiguos, elimina archivos de dos años y permite configuraciones adicionales desde /etc/logrotate.d.
 cat  <<EOF > /etc/logrotate.conf
-# logrotate.conf
-weekly
-rotate 54
+# logrotate.conf - Patricio 01.2024
+monthly
+rotate 12
 dateext
 compress
+notifempty
+maxage 730
+create 640 root adm
 include /etc/logrotate.d
 EOF
 systemctl enable rsyslog
