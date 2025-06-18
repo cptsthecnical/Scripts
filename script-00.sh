@@ -84,8 +84,8 @@ PS1='\[\e[0;90m\]r00t箱\e[38;5;196m[\H]\e[38;5;196m\e[1;32m \w\e[0;37m $: '
 export LS_COLORS="di=1;32:fi=0;37:ln=1;35:so=0;38;5;208:pi=0;34:bd=0;33:cd=0;33:or=0;31:mi=0;31:ex=1;31"
 EOF
 
-# agrego comandos:
-# scanvuln
+# agrego mis propios comandos:
+# comando : scanvuln
 # -------------------------------------------------------------------
 cat <<EOF > /usr/bin/scanvuln
 #!/bin/bash
@@ -118,7 +118,7 @@ EOF
 
 chmod 777 /usr/bin/scanvuln
 
-# pingtime
+# comando : pingtime
 # -------------------------------------------------------------------
 cat <<EOF > /usr/bin/pingtime
 #!/bin/bash
