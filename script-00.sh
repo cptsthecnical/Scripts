@@ -141,12 +141,12 @@ if [[ "$respuesta" =~ ^[Ss]$ ]]; then
 
   # Información inicial del host
   {
-    echo "================================================================================"
+    echo -e "================================================================================\n"
     echo "Información inicial para $host"
     echo "Fecha: $(date)"
     ip neigh show "$host"
     nslookup "$host"
-    echo -e "================================================================================/n"
+    echo -e "================================================================================\n"
   } >> "$log_file"
 
   read -rp "¿Registrar todos los logs (a) o solo cambios de estado (c)? [a/c]: " modo
