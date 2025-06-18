@@ -122,11 +122,29 @@ chmod 777 /usr/bin/scanvuln
 # -------------------------------------------------------------------
 cat <<EOF > /usr/bin/pingtime
 #!/bin/bash
-pingtime() {
+if [[ -z "$1" ]]; then
+  echo "Uso: pingtime <IP|host>"
+  exit 1
+fi
+
+read -rp "¿Quieres guardar el registro? (s/n): " respuesta
+
+log_dir="/var/log/ping"
+mkdir -p "$log_dir"
+
+timestamp=$(date '+%Y%m%d_%H%M%S')
+log_file="$log_dir/ping_${1}_${timestamp}.log"
+
+if [[ "$respuesta" =~ ^[Ss]$ ]]; then
+  ping "$1" | while IFS= read -r line; do
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $line" | tee -a "$log_file"
+  done
+  echo "Registro guardado en $log_file"
+else
   ping "$1" | while IFS= read -r line; do
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $line"
   done
-}
+fi
 EOF
 
 chmod 777 /usr/bin/pingtime
