@@ -140,7 +140,7 @@ log_file="$log_dir/ping_${1}_${timestamp}.log"
 if [[ "$respuesta" =~ ^[Ss]$ ]]; then
   # Añado informacion con nmap del host
   ip neigh show "$1" >> "$log_file"
-  dig -x "$1" >> "$log_file"
+  nslookup "$1" >> "$log_file"
   echo -e "================================================================================\n" >> "$log_file"
 
   read -rp "¿Registrar todos los logs (a) o solo cambios de estado (c)? [a/c]: " modo
