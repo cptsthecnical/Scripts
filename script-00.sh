@@ -346,7 +346,7 @@ allow-hotplug eth0
 iface eth0  inet dhcp
 EOF
 
-# Crontab
+# editor de texto por defecto
 # **************************************
 # modifico el editor por defecto del sistema para muchas aplicaciones (como crontab)
 # Para el usuario actual
@@ -355,6 +355,7 @@ echo "export EDITOR=vim" >> ~/.bashrc
 # Para root (si usas sudo crontab -e)
 sudo bash -c 'echo "export VISUAL=vim" >> /root/.bashrc'
 sudo bash -c 'echo "export EDITOR=vim" >> /root/.bashrc'
+. "$HOME/.cargo/env"
 
 # Deshabilitar IPv6
 # **************************************
