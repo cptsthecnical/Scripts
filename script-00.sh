@@ -35,19 +35,26 @@ systemctl restart lm-sensors
 read -p "¿Deseas agregar un nuevo hostname? (s/n): " respuestaHost
 
 if [[ "$respuestaHost" == "s" || "$respuestaHost" == "S" ]]; then
-    # Solicitar el nuevo hostname
     read -p "Introduce el nuevo hostname (isaac.laboratory-00): " new_hostname
 
-    # Modificar hostname
     sudo hostname "$new_hostname"
 
-    # Hacer una copia de seguridad del archivo /etc/hostname
     sudo mv /etc/hostname /etc/hostname.old
-    touch /etc/hostname
-
-    # Escribir el nuevo hostname en /etc/hostname
     echo "$new_hostname" | sudo tee /etc/hostname > /dev/null
     echo "El hostname se ha cambiado a: $new_hostname"
+
+    sudo mv /etc/hosts /etc/hosts.old
+
+    sudo tee /etc/hosts > /dev/null <<EOF
+127.0.0.1   localhost
+127.0.1.1   $new_hostname
+
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+EOF
+
 else
     echo "Continuando con la instalación sin cambiar el hostname."
 fi
