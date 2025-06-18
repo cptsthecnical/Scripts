@@ -72,12 +72,6 @@ alias rm='rm -i'
 alias grep='grep --color=auto'
 alias df='df --exclude-type=tmpfs'
 
-pingtime() {
-  ping "$1" | while IFS= read -r line; do
-    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $line"
-  done
-}
-
 ## Cambiar diseño del prompt (estilo cyberpunk)
 # **************************************
 # color 1
@@ -90,7 +84,8 @@ PS1='\[\e[0;90m\]r00t箱\e[38;5;196m[\H]\e[38;5;196m\e[1;32m \w\e[0;37m $: '
 export LS_COLORS="di=1;32:fi=0;37:ln=1;35:so=0;38;5;208:pi=0;34:bd=0;33:cd=0;33:or=0;31:mi=0;31:ex=1;31"
 EOF
 
-# creo comando para escanear vulnerabilidades red
+# agrego comandos:
+# scanvuln
 # -------------------------------------------------------------------
 cat <<EOF > /usr/bin/scanvuln
 #!/bin/bash
@@ -122,6 +117,19 @@ sudo nmap -sV --script vuln "$ip"
 EOF
 
 chmod 777 /usr/bin/scanvuln
+
+# pingtime
+# -------------------------------------------------------------------
+cat <<EOF > /usr/bin/pingtime
+#!/bin/bash
+pingtime() {
+  ping "$1" | while IFS= read -r line; do
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $line"
+  done
+}
+EOF
+
+chmod 777 /usr/bin/pingtime
 
 ## Configuración mínima de logs
 # **************************************
