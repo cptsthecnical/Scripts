@@ -138,10 +138,35 @@ timestamp=$(date '+%Y%m%d_%H%M%S')
 log_file="$log_dir/ping_${1}_${timestamp}.log"
 
 if [[ "$respuesta" =~ ^[Ss]$ ]]; then
+  read -rp "¿Registrar todos los logs (a) o solo cambios de estado (c)? [a/c]: " modo
+
+  last_state=""
+
   ping "$1" | while IFS= read -r line; do
-    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $line" | tee -a "$log_file"
+    date_str="[$(date '+%Y-%m-%d %H:%M:%S')]"
+    echo_line="$date_str $line"
+
+    if [[ "$modo" =~ ^[Aa]$ ]]; then
+      # Guardar todo
+      echo "$echo_line" | tee -a "$log_file"
+    else
+      # Solo cambios de estado
+      # Detectar si hay respuesta (linea con "bytes from") o timeout/error (no respuesta)
+      if echo "$line" | grep -q "bytes from"; then
+        current_state="up"
+      else
+        current_state="down"
+      fi
+
+      if [[ "$current_state" != "$last_state" ]]; then
+        echo "$echo_line" | tee -a "$log_file"
+        last_state="$current_state"
+      fi
+    fi
   done
+
   echo "Registro guardado en $log_file"
+
 else
   ping "$1" | while IFS= read -r line; do
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $line"
