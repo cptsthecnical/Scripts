@@ -70,7 +70,7 @@ alias df='df --exclude-type=tmpfs'
 # prompt desarrollo
 # PS1='\[\e[1;31m\]r00t箱[\H] \w $: \[\e[0m\]'
 # prompt produccion
-PS1='\[\e[0;90m\]r00t箱\e[38;5;213m[\H]\e[38;5;213m\e[1;32m \w\e[0;37m $: '
+PS1='\[\e[0;90m\]r00t箱\e[38;5;196m[\H]\e[38;5;196m\e[1;32m \w\e[0;37m $: '
 
 ## cambiar colores para ls (estilo cyberpunk)
 # **************************************
