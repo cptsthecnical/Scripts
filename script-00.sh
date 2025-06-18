@@ -86,11 +86,12 @@ EOF
 
 # agrego mis propios comandos:
 # comando : scanvuln
+# escanea rapidamente las vulnerabilidades de la IP asignada
 # -------------------------------------------------------------------
 cat <<EOF > /usr/bin/scanvuln
 #!/bin/bash
 if ! command -v nmap &>/dev/null; then
-  read -rp "[!] Nmap no está instalado. ¿Quieres instalarlo? (s/n): " respuesta
+  read -rp "[!] Nmap no esta instalado. ¿Quieres instalarlo? (s/n): " respuesta
   if [[ "$respuesta" =~ ^[Ss]$ ]]; then
     echo "[*] Instalando nmap..."
     sudo apt-get update && sudo apt-get install -y nmap
@@ -108,7 +109,7 @@ echo "[*] Este comando realiza un escaneo de vulnerabilidades sobre la IP espec�
 read -rp "Introduce la IP a escanear: " ip
 
 if [[ -z "$ip" ]]; then
-  echo "[!] No se ha introducido una IP válida."
+  echo "[!] No se ha introducido una IP valida."
   exit 1
 fi
 
@@ -119,6 +120,7 @@ EOF
 chmod 777 /usr/bin/scanvuln
 
 # comando : pingtime
+# hace un ping registrando la fecha y tiempo exacto y de manera opcional guarda cada peticion en la ruta /var/log/ping/
 # -------------------------------------------------------------------
 cat <<EOF > /usr/bin/pingtime
 #!/bin/bash
@@ -316,7 +318,7 @@ syscontact "🤖 Informatica <informatica@aptelliot.es>"
 #exec 1.3.6.1.4.1.2021.8 /bin/echo "Hello world"
 
 # =====[ACCESOS-RESTRICTIVOS]=======================================================================================
-# Solo exponer árbol de OID seguro
+# Solo exponer arbol de OID seguro
 view systemonly included .1.3.6.1.2.1.1.1
 view systemonly included .1.3.6.1.2.1.1.2
 view systemonly included .1.3.6.1.2.1.1.6
@@ -395,4 +397,4 @@ echo -e "# Deshabilitamos IPv6\nnet.ipv6.conf.all.disable_ipv6 = 1\nnet.ipv6.con
 sysctl -p
 
 echo -e "\e[31m⚠️ Recuerda cambiar el host en /etc/hosts por el mismo que acabas de agregar en /etc/hostname\e[0m"
-echo "¡Listo! Los paquetes se instalaron y la configuración está completa."
+echo "¡Listo! Los paquetes se instalaron y la configuración esta completa."
