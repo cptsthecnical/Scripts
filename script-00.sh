@@ -339,6 +339,16 @@ allow-hotplug eth0
 iface eth0  inet dhcp
 EOF
 
+# CRONTAB
+# **************************************
+# modifico el editor por defecto del sistema para muchas aplicaciones (como crontab)
+# Para el usuario actual
+echo "export VISUAL=vim" >> ~/.bashrc
+echo "export EDITOR=vim" >> ~/.bashrc
+# Para root (si usas sudo crontab -e)
+sudo bash -c 'echo "export VISUAL=vim" >> /root/.bashrc'
+sudo bash -c 'echo "export EDITOR=vim" >> /root/.bashrc'
+
 # Deshabilitar IPv6
 # **************************************
 echo -e "# Deshabilitamos IPv6\nnet.ipv6.conf.all.disable_ipv6 = 1\nnet.ipv6.conf.default.disable_ipv6 = 1\nnet.ipv6.conf.lo.disable_ipv6 = 1" >> /etc/sysctl.conf
