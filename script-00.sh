@@ -138,8 +138,8 @@ systemctl restart rsyslog
 # Idioma
 # **************************************
 #localectl
-#localectl set-locale LANG=en_US.UTF-8
-#localectl
+localectl set-locale LANG=en_US.UTF-8
+localectl
 
 # Configuro vimrc (estilo cyberpunk)
 # **************************************
@@ -303,7 +303,7 @@ EOF
 systemctl start snmpd
 systemctl enable snmpd
 
-# HORA
+# Hora
 # **************************************
 timedatectl
 ntpdate hora.roa.es
@@ -346,7 +346,7 @@ allow-hotplug eth0
 iface eth0  inet dhcp
 EOF
 
-# CRONTAB
+# Crontab
 # **************************************
 # modifico el editor por defecto del sistema para muchas aplicaciones (como crontab)
 # Para el usuario actual
