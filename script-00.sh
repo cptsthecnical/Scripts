@@ -72,6 +72,12 @@ alias rm='rm -i'
 alias grep='grep --color=auto'
 alias df='df --exclude-type=tmpfs'
 
+pingtime() {
+  ping "$1" | while IFS= read -r line; do
+    echo "$(date '+%Y-%m-%d %H:%M:%S') $line"
+  done
+}
+
 ## Cambiar diseño del prompt (estilo cyberpunk)
 # **************************************
 # color 1
