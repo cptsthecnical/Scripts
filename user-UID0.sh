@@ -37,7 +37,7 @@ sudo useradd \
 echo "$usuario:$pass1" | sudo chpasswd
 
 # Preguntar si se deben crear los enlaces simbólicos desde /root
-read -p "¿Deseas crear enlaces simbólicos de los archivos de configuración de root (.bashrc, .vimrc y .selected_editor)? Elige (s) si quieres sonservar la misma configuración... [s/N]: " enlazar
+read -p "¿Deseas crear enlaces simbólicos de los archivos de configuración de root (.bashrc, .vimrc y .selected_editor)? Elige (s) si quieres conservar la misma configuración... [s/N]: " enlazar
 if [[ "$enlazar" == "s" || "$enlazar" == "S" ]]; then
   sudo ln -sf /root/.bashrc "/home/$usuario/.bashrc"
   sudo ln -sf /root/.vimrc "/home/$usuario/.vimrc"
