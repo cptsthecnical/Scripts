@@ -1,3 +1,32 @@
+#!/bin/bash
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+echo "${YELLOW}El siguiente script, va a realizar los siguientes cambios:"
+echo "${YELLOW}    - Actualizo el sistema y paquetes actuales"
+echo "${NC}        nmap, iputils-ping, lm-sensors, iproute2, sudo, vim, net-tools, curl, btop, iftop, lsb-release, arping, wget, sysstat, ntpdate, snmp, snmpd, tcpdump, ngrep, iptraf-ng, mlocate, tar, gzip, tree, ca-certificates, screen, man-db, mailutils, dnsutils, telnet, rsyslog."
+echo "${YELLOW}    - Configuro paquete sensors."
+echo "${YELLOW}    - Configuro en archivo de ~/.bashrc"
+echo "${YELLOW}    - "
+echo "${YELLOW}    - "
+echo "${YELLOW}    - "
+echo "${YELLOW}    - "
+echo "${YELLOW}    - "
+echo "${YELLOW}    - Condicionales:"
+echo "${YELLOW}        + Instalación de paquetes de sibreseguridad: ${NC}nmap john hydra sqlmap whatweb tshark exiftool."
+echo "${YELLOW}        + Cambiar de hostname."
+echo "${NC}"
+
+echo -e "¿Quieres continuar con la instalación? (s/n)"
+read -r respuesta
+
+if [[ ! "$respuesta" =~ ^[Ss]$ ]]; then
+    echo "Instalación cancelada."
+    exit 0
+fi
+
+# Si responde sí, el script sigue ejecutándose...
+
 # Instalación de paquetes iniciales
 echo "Instalando paquetes..."
 apt-get update && apt-get upgrade -y
