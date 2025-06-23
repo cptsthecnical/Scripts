@@ -1,25 +1,26 @@
 #!/bin/bash
 YELLOW='\033[1;33m'
 NC='\033[0m'
-echo "${YELLOW}"
-echo "El siguiente script, va a realizar los siguientes cambios:"
-echo "    - Actualizo el sistema y paquetes actuales"
-echo "    - Instalación de paquetes de sibreseguridad (opcional)."
-echo "    - Configuro paquete sensors."
-echo "    - Configuro el hostname (opcional)."
-echo "    - Configuro en archivo de ~/.bashrc"
-echo "    - Agrego mis propios comandos [scanvuln y pingtime]."
-echo "    - Configuro sistema de logs."
-echo "    - Configuro Idioma."
-echo "    - Configuro .vimrc."
-echo "    - Configuro dibujo con ASCII y mensaje de monitorización de vienbenida en /etc/bash.bashrc"
-echo "    - Configuro SNMP."
-echo "    - Configuro NTP (elección de configuración según necesidades)."
-echo "    - Habilito sar."
-echo "    - Modifico las interfaces de red y cambio nombre por eth0."
-echo "    - Especifíco editor de texto vim por defecto."
-echo "    - Deshabilito IPv6."
-echo "${NC}"
+
+echo -e "${YELLOW}El siguiente script, va a realizar los siguientes cambios:
+
+    - Actualizo el sistema y paquetes actuales
+    - Instalación de paquetes de ciberseguridad (opcional).
+    - Configuro paquete sensors.
+    - Configuro el hostname (opcional).
+    - Configuro en archivo de ~/.bashrc
+    - Agrego mis propios comandos [scanvuln y pingtime].
+    - Configuro sistema de logs.
+    - Configuro Idioma.
+    - Configuro .vimrc.
+    - Configuro dibujo con ASCII y mensaje de monitorización de bienvenida en /etc/bash.bashrc
+    - Configuro SNMP.
+    - Configuro NTP (elección de configuración según necesidades).
+    - Habilito sar.
+    - Modifico las interfaces de red y cambio nombre por eth0.
+    - Especifíco editor de texto vim por defecto.
+    - Deshabilito IPv6.
+    ${NC}"
 
 echo -e "¿Quieres continuar con la instalación? (s/n):"
 read -r respuesta
@@ -38,6 +39,7 @@ apt-get update && apt-get upgrade -y
 ## Paquetes de ciberseguridad:
 # Preguntar al usuario si quiere instalar paquetes de ciberseguridad
 # -------------------------------------------------------------------
+echo -e "${YELLOW}Paquetes de red-hat: ${NC}"
 read -p "¿Deseas instalar paquetes de ciberseguridad como sqlmap john hydra...? (s/n): " respuestaCyber
 
 if [[ "$respuestaCyber" == "s" || "$respuestaCyber" == "S" ]]; then
@@ -65,10 +67,11 @@ systemctl restart lm-sensors
 ## modificar hostname:
 # Preguntar al usuario si desea cambiar el hostname
 # -------------------------------------------------------------------
+echo -e "${YELLOW}Cambiar hostname: ${NC}"
 read -p "¿Deseas agregar un nuevo hostname? (s/n): " respuestaHost
 
 if [[ "$respuestaHost" == "s" || "$respuestaHost" == "S" ]]; then
-    read -p "Introduce el nuevo hostname (isaac.laboratory-00): " new_hostname
+    read -p "${YELLOW}Introduce el nuevo hostname (isaac.laboratory-00): ${NC}" new_hostname
 
     sudo hostname "$new_hostname"
 
@@ -412,7 +415,7 @@ echo ""
 echo "${YELLOW}Opción 2 (Servicio NTP - ntpd, actualización continua) => para servidores: ${NC}"
 echo "    ⚠️  Carga constante muy baja, pero mantiene la hora siempre sincronizada con servidores NTP públicos."
 echo ""
-read -rp "${YELLOW}Selecciona una opción (1 o 2): ${NC}" opcion
+read -rp "Selecciona una opción (1 o 2): " opcion
 
 case "$opcion" in
   1)
