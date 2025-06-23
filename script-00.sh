@@ -1,23 +1,27 @@
 #!/bin/bash
 YELLOW='\033[1;33m'
 NC='\033[0m'
-
-echo "${YELLOW}El siguiente script, va a realizar los siguientes cambios:"
-echo "${YELLOW}    - Actualizo el sistema y paquetes actuales"
-echo "${NC}        nmap, iputils-ping, lm-sensors, iproute2, sudo, vim, net-tools, curl, btop, iftop, lsb-release, arping, wget, sysstat, ntpdate, snmp, snmpd, tcpdump, ngrep, iptraf-ng, mlocate, tar, gzip, tree, ca-certificates, screen, man-db, mailutils, dnsutils, telnet, rsyslog."
-echo "${YELLOW}    - Configuro paquete sensors."
-echo "${YELLOW}    - Configuro en archivo de ~/.bashrc"
-echo "${YELLOW}    - "
-echo "${YELLOW}    - "
-echo "${YELLOW}    - "
-echo "${YELLOW}    - "
-echo "${YELLOW}    - "
-echo "${YELLOW}    - Condicionales:"
-echo "${YELLOW}        + Instalación de paquetes de sibreseguridad: ${NC}nmap john hydra sqlmap whatweb tshark exiftool."
-echo "${YELLOW}        + Cambiar de hostname."
+echo "${YELLOW}"
+echo "El siguiente script, va a realizar los siguientes cambios:"
+echo "    - Actualizo el sistema y paquetes actuales"
+echo "    - Instalación de paquetes de sibreseguridad (opcional)."
+echo "    - Configuro paquete sensors."
+echo "    - Configuro el hostname (opcional)."
+echo "    - Configuro en archivo de ~/.bashrc"
+echo "    - Agrego mis propios comandos [scanvuln y pingtime]."
+echo "    - Configuro sistema de logs."
+echo "    - Configuro Idioma."
+echo "    - Configuro .vimrc."
+echo "    - Configuro dibujo con ASCII y mensaje de monitorización de vienbenida en /etc/bash.bashrc"
+echo "    - Configuro SNMP."
+echo "    - Configuro NTP (elección de configuración según necesidades)."
+echo "    - Habilito sar."
+echo "    - Modifico las interfaces de red y cambio nombre por eth0."
+echo "    - Especifíco editor de texto vim por defecto."
+echo "    - Deshabilito IPv6."
 echo "${NC}"
 
-echo -e "¿Quieres continuar con la instalación? (s/n)"
+echo -e "¿Quieres continuar con la instalación? (s/n):"
 read -r respuesta
 
 if [[ ! "$respuesta" =~ ^[Ss]$ ]]; then
