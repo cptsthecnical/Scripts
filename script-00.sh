@@ -514,5 +514,5 @@ sudo bash -c 'echo "export EDITOR=vim" >> /root/.bashrc'
 echo -e "# Deshabilitamos IPv6\nnet.ipv6.conf.all.disable_ipv6 = 1\nnet.ipv6.conf.default.disable_ipv6 = 1\nnet.ipv6.conf.lo.disable_ipv6 = 1" >> /etc/sysctl.conf
 sysctl -p
 
-echo -e "\e[31m¡Listo! Los paquetes se instalaron y la configuración esta completa.\e[0m"
-echo -e "\e[31mAbre una nueva sesión para trabajar sobre los cambios.\e[0m"
+echo -e "${YELLOW}¡Listo! Los paquetes se instalaron y la configuración esta completa. ${NC}"
+echo -e "${YELLOW}Abre una nueva sesión para trabajar sobre los cambios. ${NC}"
