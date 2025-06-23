@@ -49,7 +49,7 @@ fi
 apt-get install -y \
     nmap \
     iputils-ping lm-sensors iproute2 sudo vim net-tools curl btop iftop \
-    lsb-release arping wget sysstat ntpdate snmp snmpd tcpdump \
+    lsb-release arping wget sysstat snmp snmpd tcpdump \
     ngrep iptraf-ng mlocate tar gzip tree ca-certificates \
     screen man-db mailutils dnsutils telnet rsyslog  
 
@@ -399,11 +399,63 @@ systemctl enable snmpd
 
 # Hora
 # **************************************
-timedatectl
-ntpdate hora.roa.es
 timedatectl set-timezone Europe/Madrid
-# sincroniza la hora del servidor con el servidor horario oficial de España
-echo -e "## actualizacion de hora \n00 6 * * * /usr/sbin/ntpdate -s hora.roa.es" >> /var/spool/cron/crontabs/root
+echo "${YELLOW}Selecciona el método que deseas configurar para la configuración ntp:"
+echo ""
+echo "Opción 1 (Cron + ntpdate, actualización puntual) => para equipos de bajo rendimiento: ${NC}"
+echo "    ⚠️  Menor carga, pero precisión baja. Ejecuta ntpdate una vez al día mediante cron, sincronizando ntp."
+echo ""
+echo "${YELLOW}Opción 2 (Servicio NTP - ntpd, actualización continua) => para servidores: ${NC}"
+echo "    ⚠️  Carga constante muy baja, pero mantiene la hora siempre sincronizada con servidores NTP públicos."
+echo ""
+read -rp "${YELLOW}Selecciona una opción (1 o 2): ${NC}" opcion
+
+case "$opcion" in
+  1)
+    echo ""
+    echo "Configurando sincronización puntual (cron + ntpdate)..."
+    apt-get install -y ntpdate
+    ntpdate hora.roa.es
+    echo "00 6 * * * /usr/sbin/ntpdate -s hora.roa.es" | crontab -l 2>/dev/null | grep -v 'ntpdate -s hora.roa.es' | { cat; echo "00 6 * * * /usr/sbin/ntpdate -s hora.roa.es"; } | crontab -
+    echo "✅ Configuración completada con método puntual (cron + ntpdate)."
+    ;;
+  2)
+    echo ""
+    echo "Configurando sincronización continua (ntpd)..."
+    apt install ntp -y
+    systemctl stop ntp
+    mv /etc/ntpsec/ntp.conf /etc/ntpsec/ntp.old.conf 2>/dev/null
+    cat <<EOF > /etc/ntp.conf
+# /etc/ntpsec/ntp.conf, configuration for ntpd; see ntp.conf(5) for help
+driftfile /var/lib/ntpsec/ntp.drift
+leapfile /usr/share/zoneinfo/leap-seconds.list
+
+# This should be maxclock 7, but the pool entries count towards maxclock.
+tos maxclock 11
+
+# Comment this out if you have a refclock and want it to be able to discipline
+# the clock by itself (e.g. if the system is not connected to the network).
+tos minclock 4 minsane 3
+
+# pool.ntp.org maps to about 1000 low-stratum NTP servers.  Your server will
+# pick a different set every time it starts up.  Please consider joining the
+# pool: <https://www.pool.ntp.org/join.html>
+server 0.es.pool.ntp.org iburst
+server 1.es.pool.ntp.org iburst
+server 2.es.pool.ntp.org iburst
+server 3.es.pool.ntp.org iburst
+
+# By default, exchange time with everybody, but don't allow configuration.
+restrict default kod nomodify nopeer noquery limited
+EOF
+    systemctl restart ntp
+    echo "✅ Configuración completada con método continuo (ntpd)."
+    ;;
+  *)
+    echo "❌ Opción no válida. Abortando."
+    exit 1
+    ;;
+esac
 
 # SAR Habilitamos monitorizacion
 # **************************************
