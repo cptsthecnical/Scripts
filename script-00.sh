@@ -420,10 +420,8 @@ systemctl enable snmpd
 # **************************************
 timedatectl set-timezone Europe/Madrid
 echo -e "${YELLOW}Selecciona el método que deseas configurar para la configuración ntp: ${NC}"
-echo -e "${YELLOW}Opción 1 (Cron + ntpdate, actualización puntual) => para equipos de bajo rendimiento: ${NC}"
-echo -e "${YELLOW}Menor carga, pero precisión baja. Ejecuta ntpdate una vez al día mediante cron, sincronizando ntp. ${NC}"
-echo -e "${YELLOW}Opción 2 (Servicio NTP - ntpd, actualización continua) => para servidores: ${NC}"
-echo -e "${YELLOW}Carga constante muy baja, pero mantiene la hora siempre sincronizada con servidores NTP públicos. ${NC}"
+echo -e "${YELLOW}Opción 1 (Cron + ntpdate, actualización puntual) => para equipos de bajo rendimiento: Ejecuta ntpdate una vez al día mediante cron, sincronizando ntp. ${NC}"
+echo -e "${YELLOW}Opción 2 (Servicio NTP - ntpd, actualización continua) => para servidores: Mantiene la hora siempre sincronizada con servidores NTP públicos. ${NC}"
 echo ""
 read -rp "Selecciona una opción (1 o 2): " opcion
 
