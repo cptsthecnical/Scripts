@@ -160,7 +160,6 @@ chmod 777 /usr/bin/scanvuln
 # limpieza con el mensaje de bienvenida
 # -------------------------------------------------------------------
 cat <<EOF> /usr/bin/plain
-
 #!/bin/bash
 clear
 echo "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
@@ -203,16 +202,18 @@ echo "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMN0dooodoldKWMMMMMMMMMMMMMMMMMMMMMMMMM
 echo "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWWWWWNXWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
 echo "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
 
-echo 'echo "Información del sistema:"'
-echo 'echo "CPU: $(grep -m1 '\''model name'\'' /proc/cpuinfo | cut -d ":" -f2 | sed '\''s/^ //'\'' )"'
-echo 'echo "Memoria libre: $(free -h | awk '\''/^Mem:/ {print $7}'\'')"'
-echo 'echo "Espacio en disco: $(df -h / | awk '\''$NF=="/"{print $4}'\'')"'
-echo 'echo "Memoria escrita: $(awk '\''{sum += $10} END {print sum * 512 / (1024*1024*1024*1024)}'\'' /proc/diskstats) TB"'
-echo 'echo "Encendido permanente: $(awk '\''{ print int($1/86400) " days, " int(($1%86400)/3600) " hours, " int(($1%3600)/60) " minutes" }'\'' /proc/uptime)"'
-echo 'sensors 2>/dev/null || echo "No se detectaron sensores."'
-echo 'lsb_release -sd 2>/dev/null || echo "No LSB modules available."'
-echo 'uname -srm'
+echo "Información del sistema:"
+echo "CPU: $(grep -m1 'model name' /proc/cpuinfo | cut -d ':' -f2 | sed 's/^ //')"
+echo "Memoria libre: $(free -h | awk '/^Mem:/ {print $7}')"
+echo "Espacio en disco: $(df -h / | awk '$NF=="/" {print $4}')"
+echo "Memoria escrita: $(awk '{sum += $10} END {print sum * 512 / (1024*1024*1024*1024)}' /proc/diskstats) TB"
+echo "Encendido permanente: $(awk '{ print int($1/86400) \" days, \" int(($1%86400)/3600) \" hours, \" int(($1%3600)/60) \" minutes\" }' /proc/uptime)"
+sensors 2>/dev/null || echo "No se detectaron sensores."
+lsb_release -sd 2>/dev/null || echo "No LSB modules available."
+uname -srm
 EOF
+
+chmod 770 /usr/bin/plain
 
 # comando : pingtime
 # hace un ping registrando la fecha y tiempo exacto y de manera opcional guarda cada peticion en la ruta /var/log/ping/
