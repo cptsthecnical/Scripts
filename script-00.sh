@@ -160,8 +160,20 @@ chmod 777 /usr/bin/scanvuln
 # -------------------------------------------------------------------
 cat <<EOF > /usr/bin/pingtime
 #!/bin/bash
+log_dir="/var/log/ping"
+
+# Si el primer argumento es -r, cambiar al directorio de logs
+if [[ "$1" == "-r" ]]; then
+  cd "$log_dir" 2>/dev/null || { echo "No se pudo acceder a $log_dir"; exit 1; }
+  echo "Ubicación actual: $(pwd)"
+  ls -l --color=auto
+  exit 0
+fi
+
 if [[ -z "$1" ]]; then
-  echo "Uso: $0 <IP|host>"
+  echo "================================================================================"
+  echo "Uso: pingtime <IP|host>                                     # monitorizar ping"
+  echo "Uso: pingtime -r                                            # ver logs"
   exit 1
 fi
 
