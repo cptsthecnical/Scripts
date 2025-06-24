@@ -20,6 +20,7 @@ echo -e "${YELLOW}El siguiente script, va a realizar los siguientes cambios:
     - Modifico las interfaces de red y cambio nombre por eth0.
     - Especifíco editor de texto vim por defecto.
     - Deshabilito IPv6.
+    - Genero un archivo SWAP de memoría a medida (opcional).
     ${NC}"
 
 echo -e "¿Quieres continuar con la instalación? (s/n):"
@@ -523,6 +524,42 @@ sudo bash -c 'echo "export EDITOR=vim" >> /root/.bashrc'
 # **************************************
 echo -e "# Deshabilitamos IPv6\nnet.ipv6.conf.all.disable_ipv6 = 1\nnet.ipv6.conf.default.disable_ipv6 = 1\nnet.ipv6.conf.lo.disable_ipv6 = 1" >> /etc/sysctl.conf
 sysctl -p
+
+# Archivo SWAP
+# **************************************
+# Preguntar al usuario si desea crear un archivo swap
+# -------------------------------------------------------------------
+echo -e "${YELLOW}Archivo SWAP: ${NC}"
+read -p "¿Deseas agregar el archivo /swapfile? (s/n): " respuestaswap
+
+if [[ "$respuestaswap" == "s" || "$respuestaswap" == "S" ]]; then
+    read -p "Introduce en GB el total de memoria (2G, 4G, 8G): " new_swap
+    # crear archivo swap de XGB
+    sudo fallocate -l "$new_swap" /swapfile
+    
+    # dar permisos correctos
+    sudo chmod 600 /swapfile
+    
+    # formatear como swap
+    sudo mkswap /swapfile
+    
+    # activar swap
+    sudo swapon /swapfile
+    
+    # verificar que está activo
+    swapon --show
+    free -h
+    
+    # para que el swapfile se active en cada arranque, añade esta línea a /etc/fstab
+    echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+
+    echo "✅ Configuración completada con archivo swap: /swapfile - "$respuestaswap"B."
+EOF
+
+else
+    echo "Continuando con la instalación sin crear el archivo /swapfile."
+fi
+# -------------------------------------------------------------------
 
 echo -e "${YELLOW}¡Listo! Los paquetes se instalaron y la configuración esta completa. ${NC}"
 echo -e "${YELLOW}Abre una nueva sesión para trabajar sobre los cambios. ${NC}"
