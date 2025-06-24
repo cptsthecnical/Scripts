@@ -71,7 +71,7 @@ echo -e "${YELLOW}Cambiar hostname: ${NC}"
 read -p "¿Deseas agregar un nuevo hostname? (s/n): " respuestaHost
 
 if [[ "$respuestaHost" == "s" || "$respuestaHost" == "S" ]]; then
-    read -p "${YELLOW}Introduce el nuevo hostname (isaac.laboratory-00): ${NC}" new_hostname
+    read -p "Introduce el nuevo hostname (isaac.laboratory-00): " new_hostname
 
     sudo hostname "$new_hostname"
 
