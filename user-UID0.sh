@@ -2,6 +2,17 @@
 # 🧠 Script para crear un usuario con permisos root (UID 0).
 # 🧠 Pide nombre, comentario, contraseña y opcionalmente crea enlaces simbólicos desde root.
 # ⚠️ Useradd warning: es una advertencia de que se esta utilizando el UID 0 (root).
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+echo -e "${YELLOW}El siguiente script, va a realizar los siguientes cambios:
+
+    - Solicita el nombre, descripción y contraseña 'oculta' del nuevo usuario.
+    - Crea el usuario con UID 0 (root) y GID 0 (root), con home y bash.
+    - Crea enlaces simbólicos de la configuración de root [enlaza .bashrc, .vimrc y .selected_editor desde /root/ al home del nuevo usuario] (opcional).
+    - Cambia el propietario del directorio /home/usuario a root:root.
+    - Informa que el usuario ha sido creado correctamente con UID 0.
+    ${NC}"
 
 read -p "¿Quieres crear un usuario con privilegios root? [s/N]: " confirmar
 [[ "$confirmar" != "s" && "$confirmar" != "S" ]] && {
