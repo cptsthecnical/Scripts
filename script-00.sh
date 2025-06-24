@@ -55,8 +55,8 @@ fi
 # instalaciones general 
 apt-get install -y \
     nmap \
-    iputils-ping lm-sensors iproute2 sudo vim net-tools curl btop iftop \
-    lsb-release arping wget sysstat snmp snmpd tcpdump \
+    iputils-ping lm-sensors iproute2 sudo vim net-tools curl btop iftop lsof \
+    lsb-release wget sysstat snmp snmpd tcpdump \
     ngrep iptraf-ng mlocate tar gzip tree ca-certificates \
     screen man-db mailutils dnsutils telnet rsyslog  
 
