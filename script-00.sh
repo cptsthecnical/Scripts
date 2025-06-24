@@ -161,7 +161,7 @@ chmod 777 /usr/bin/scanvuln
 cat <<EOF > /usr/bin/pingtime
 #!/bin/bash
 if [[ -z "$1" ]]; then
-  echo "Uso: pingtime <IP|host>"
+  echo "Uso: $0 <IP|host>"
   exit 1
 fi
 
@@ -171,24 +171,24 @@ read -rp "¿Quieres guardar el registro? (s/n): " respuesta
 timestamp=$(date +"%Y%m%d_%H%M%S")
 log_dir="/var/log/ping"
 log_file="$log_dir/ping_${host}_$timestamp.log"
+ping_cmd="ping -i 1"
 
 if [[ "$respuesta" =~ ^[Ss]$ ]]; then
   mkdir -p "$log_dir"
 
-  # Información inicial del host
   {
     echo -e "================================================================================\n"
     echo "Información inicial para $host"
     echo "Fecha: $(date)"
-    ip neigh show "$host"
-    nslookup "$host"
+    ip neigh show "$host" 2>/dev/null || echo "No se pudo obtener información ARP"
+    nslookup "$host" 2>/dev/null || echo "No se pudo obtener información DNS"
     echo -e "================================================================================\n"
   } >> "$log_file"
 
   read -rp "¿Registrar todos los logs (a) o solo cambios de estado (c)? [a/c]: " modo
 
   last_state=""
-  ping "$host" | while IFS= read -r line; do
+  $ping_cmd "$host" | while IFS= read -r line; do
     date_str="[$(date '+%Y-%m-%d %H:%M:%S')]"
 
     if [[ "$modo" =~ ^[Aa]$ ]]; then
@@ -210,7 +210,7 @@ if [[ "$respuesta" =~ ^[Ss]$ ]]; then
   echo "Registro guardado en $log_file"
 
 else
-  ping "$host" | while IFS= read -r line; do
+  $ping_cmd "$host" | while IFS= read -r line; do
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $line"
   done
 fi
