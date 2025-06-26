@@ -108,6 +108,7 @@ alias mv='mv -i'
 alias rm='rm -i'
 alias grep='grep --color=auto'
 alias df='df --exclude-type=tmpfs'
+alias rsync= 'rsync -avzc'
 
 ## Cambiar diseño del prompt (estilo cyberpunk)
 # **************************************
