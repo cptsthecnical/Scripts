@@ -108,7 +108,39 @@ alias mv='mv -i'
 alias rm='rm -i'
 alias grep='grep --color=auto'
 alias df='df --exclude-type=tmpfs'
-alias rsync= 'rsync -avzc'
+
+## creo función de atajos personalizados
+# **************************************
+ayuda() {
+  YELLOW="\e[33m"
+  RESET="\e[0m"
+
+  texto="
+${YELLOW}========================================================================================== ${RESET}
+${YELLOW}[parámetros útiles]:: ${RESET}
+
+${YELLOW}snmpwalk -v2c -c <COMMUNITY-SNMP> -Oneq <IP-SNMP> .1 > dc1-kvm1.snmpwalk ${RESET}
+envío al archivo dc1-kvm1.snmpwalk todos los resultados de snmp
+
+${YELLOW}rsync -avzc --progress /ruta/origen/ usuario@host:/ruta/destino/ ${RESET}
+migrar un archivo manteniendo todo (usuarios, permisos, hard links...)
+
+${YELLOW}========================================================================================== ${RESET}
+${YELLOW}[tar]:: ${RESET}
+
+${YELLOW}tar -cvf prueba.tar.gz comprimir/ ${RESET}
+crea el archivo tar sin comprimir eñ archivo
+
+${YELLOW}tar -czvf prueba.tar.gz comprimir/ ${RESET}
+crea el archivo tar y lo comprime con gzip
+
+${YELLOW}tar -xzvf prueba.tar.gz ${RESET}
+descomprime el archivo tar siempre que haya sido comprimido con gzip, (si no a sido comprimido utilizo -xvf para descomprimirlo)
+
+Línea 3${RESET}"
+
+  echo -e "$texto"
+}
 
 ## Cambiar diseño del prompt (estilo cyberpunk)
 # **************************************
