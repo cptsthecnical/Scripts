@@ -130,15 +130,6 @@ export LS_COLORS="di=1;32:fi=0;37:ln=1;35:so=0;38;5;208:pi=0;34:bd=0;33:cd=0;33:
 #     — archivos rotos en rojo normal (normal red).
 #     — archivos inexistentes en rojo normal (normal red).
 #     — ejecutables en rojo brillante (bold red).
-
-# opcion 2:
-export LS_COLORS="di=1;95:fi=0;37:ln=1;93:so=0;91:pi=0;94:bd=0;33:cd=0;33:or=1;41:mi=0;31:ex=1;92"
-#     — directorios en magenta brillante/neón.
-#     — enlaces simbólicos en amarillo brillante.
-#     — sockets en rojo claro (intenso).
-#     — tuberías (pipes) en azul neón.
-#     — archivos rotos en rojo con fondo rojo (muy llamativo).
-#     — ejecutables en verde neón brillante.
 EOF
 
 # Agrego mis propios comandos:
