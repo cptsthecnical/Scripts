@@ -108,6 +108,7 @@ alias mv='mv -i'
 alias rm='rm -i'
 alias grep='grep --color=auto'
 alias df='df --exclude-type=tmpfs'
+alias ayuda-rzync='rsync -avzc'
 
 ## Cambiar diseño del prompt (estilo cyberpunk)
 # **************************************
@@ -118,7 +119,27 @@ PS1='\[\e[0;90m\]r00t箱\e[38;5;196m[\H]\e[38;5;196m\e[1;32m \w\e[0;37m $: '
 
 ## cambiar colores para ls (estilo cyberpunk)
 # **************************************
+# opcion 1:
 export LS_COLORS="di=1;32:fi=0;37:ln=1;35:so=0;38;5;208:pi=0;34:bd=0;33:cd=0;33:or=0;31:mi=0;31:ex=1;31"
+#     — directorios en verde brillante (bold green).
+#     — archivos normales en gris claro (normal white/gray).
+#     — enlaces simbólicos en magenta brillante (bold magenta).
+#     — sockets en naranja quemado (color 208 en la paleta 256).
+#     — tuberías (pipes) en azul normal (normal blue).
+#     — dispositivos de bloque en amarillo normal.
+#     — dispositivos de carácter en amarillo normal.
+#     — archivos rotos en rojo normal (normal red).
+#     — archivos inexistentes en rojo normal (normal red).
+#     — ejecutables en rojo brillante (bold red).
+
+# opcion 2:
+export LS_COLORS="di=1;95:fi=0;37:ln=1;93:so=0;91:pi=0;94:bd=0;33:cd=0;33:or=1;41:mi=0;31:ex=1;92"
+#     — directorios en magenta brillante/neón.
+#     — enlaces simbólicos en amarillo brillante.
+#     — sockets en rojo claro (intenso).
+#     — tuberías (pipes) en azul neón.
+#     — archivos rotos en rojo con fondo rojo (muy llamativo).
+#     — ejecutables en verde neón brillante.
 EOF
 
 # Agrego mis propios comandos:
