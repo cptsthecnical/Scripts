@@ -262,8 +262,6 @@ crea el archivo tar y lo comprime con gzip, (sin z si solo quiero un archivo .ta
 
 ${YELLOW}tar -xzvf prueba.tar.gz${RESET}
 descomprime el archivo tar siempre que haya sido comprimido con gzip (si no ha sido comprimido, usar -xvf)
-
-Línea 3${RESET}
 "
 EOF
 
