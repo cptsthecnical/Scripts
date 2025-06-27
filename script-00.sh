@@ -257,11 +257,8 @@ migrar un archivo manteniendo todo (usuarios, permisos, hard links...)
 ${YELLOW}==========================================================================================${RESET}
 ${YELLOW}[tar]::${RESET}
 
-${YELLOW}tar -cvf prueba.tar.gz comprimir/${RESET}
-crea el archivo tar sin comprimir el archivo
-
 ${YELLOW}tar -czvf prueba.tar.gz comprimir/${RESET}
-crea el archivo tar y lo comprime con gzip
+crea el archivo tar y lo comprime con gzip, (sin z si solo quiero un archivo .tar sin comprimir)
 
 ${YELLOW}tar -xzvf prueba.tar.gz${RESET}
 descomprime el archivo tar siempre que haya sido comprimido con gzip (si no ha sido comprimido, usar -xvf)
