@@ -109,39 +109,6 @@ alias rm='rm -i'
 alias grep='grep --color=auto'
 alias df='df --exclude-type=tmpfs'
 
-## creo función de atajos personalizados
-# **************************************
-ayuda() {
-  YELLOW="\e[33m"
-  RESET="\e[0m"
-
-  texto="
-${YELLOW}========================================================================================== ${RESET}
-${YELLOW}[parámetros útiles]:: ${RESET}
-
-${YELLOW}snmpwalk -v2c -c <COMMUNITY-SNMP> -Oneq <IP-SNMP> .1 > dc1-kvm1.snmpwalk ${RESET}
-envío al archivo dc1-kvm1.snmpwalk todos los resultados de snmp
-
-${YELLOW}rsync -avzc --progress /ruta/origen/ usuario@host:/ruta/destino/ ${RESET}
-migrar un archivo manteniendo todo (usuarios, permisos, hard links...)
-
-${YELLOW}========================================================================================== ${RESET}
-${YELLOW}[tar]:: ${RESET}
-
-${YELLOW}tar -cvf prueba.tar.gz comprimir/ ${RESET}
-crea el archivo tar sin comprimir eñ archivo
-
-${YELLOW}tar -czvf prueba.tar.gz comprimir/ ${RESET}
-crea el archivo tar y lo comprime con gzip
-
-${YELLOW}tar -xzvf prueba.tar.gz ${RESET}
-descomprime el archivo tar siempre que haya sido comprimido con gzip, (si no a sido comprimido utilizo -xvf para descomprimirlo)
-
-Línea 3${RESET}"
-
-  echo -e "$texto"
-}
-
 ## Cambiar diseño del prompt (estilo cyberpunk)
 # **************************************
 # color 1
@@ -188,7 +155,7 @@ echo "[*] Escaneando con Nmap + scripts de vulnerabilidades..."
 sudo nmap -sV --script vuln "$ip"
 EOF
 
-chmod 777 /usr/bin/scanvuln
+chmod 770 /usr/bin/scanvuln
 
 # -
 
@@ -265,7 +232,45 @@ else
 fi
 EOF
 
-chmod 777 /usr/bin/pingtime
+chmod 770 /usr/bin/pingtime
+
+# - 
+
+# comando : ayuda
+# muestra un texto de buenas prácticas con comandos
+# -------------------------------------------------------------------
+cat <<EOF > /usr/bin/ayuda
+#!/bin/bash
+YELLOW="\e[33m"
+RESET="\e[0m"
+
+echo -e "
+${YELLOW}==========================================================================================${RESET}
+${YELLOW}[parámetros útiles]::${RESET}
+
+${YELLOW}snmpwalk -v2c -c <COMMUNITY-SNMP> -Oneq <IP-SNMP> .1 > dc1-kvm1.snmpwalk${RESET}
+envío al archivo dc1-kvm1.snmpwalk todos los resultados de snmp
+
+${YELLOW}rsync -avzc --progress /ruta/origen/ usuario@host:/ruta/destino/${RESET}
+migrar un archivo manteniendo todo (usuarios, permisos, hard links...)
+
+${YELLOW}==========================================================================================${RESET}
+${YELLOW}[tar]::${RESET}
+
+${YELLOW}tar -cvf prueba.tar.gz comprimir/${RESET}
+crea el archivo tar sin comprimir el archivo
+
+${YELLOW}tar -czvf prueba.tar.gz comprimir/${RESET}
+crea el archivo tar y lo comprime con gzip
+
+${YELLOW}tar -xzvf prueba.tar.gz${RESET}
+descomprime el archivo tar siempre que haya sido comprimido con gzip (si no ha sido comprimido, usar -xvf)
+
+Línea 3${RESET}
+"
+EOF
+
+chmod 770 /usr/bin/ayuda
 
 ## Configuración mínima de logs
 # **************************************
