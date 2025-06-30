@@ -260,7 +260,7 @@ ${YELLOW}=======================================================================
 ${YELLOW}[parámetros útiles]::${RESET}
 
 ${YELLOW}snmpwalk -v2c -c <COMMUNITY-SNMP> -Oneq <IP-SNMP> .1 > dc1-kvm1.snmpwalk${RESET}
-envío al archivo dc1-kvm1.snmpwalk todos los resultados de snmp
+envío al archivo dc1-kvm1.snmpwalk todos los resultados de snmp (snmp empiezan por .1)
 
 ${YELLOW}rsync -avzc --progress /ruta/origen/ usuario@host:/ruta/destino/${RESET}
 migrar un archivo manteniendo todo (usuarios, permisos, hard links...)
