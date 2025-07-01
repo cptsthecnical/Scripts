@@ -31,7 +31,7 @@ else
 fi
 
 echo
-echo "Accesible por ssh desde: $SSH_IP"
+echo -e "${YELLOW}Accesible por ssh desde:${NC}: $SSH_IP"
 echo
 echo -e "${YELLOW}===[ Network ]===================================================${NC}"
 if [ -f "$INTERFACES_FILE" ]; then
