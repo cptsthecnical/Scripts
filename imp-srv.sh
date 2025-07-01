@@ -2,8 +2,8 @@
 # 📝 este script se encarga de imprimir por consola los detalles del servidor de sistema, root, network, fylesystem, servicios, firewall
 
 HOSTNAME=$(hostname)
-OS_INFO=$(lsb_release -d 2>/dev/null || grep PRETTY_NAME /etc/os-release | cut -d= -f2 | tr -d \")
-ROOT_PASS="Wihepega-494"
+OS_INFO=$(lsb_release -d 2>/dev/null | cut -f2- || grep PRETTY_NAME /etc/os-release | cut -d= -f2 | tr -d \")
+ROOT_PASS="*********"
 SSH_IP=$(ip addr show | grep -w inet | grep -v 127.0.0.1 | awk '{print $2}' | cut -d/ -f1 | head -1)
 INTERFACES_FILE="/etc/network/interfaces"
 IPTABLES_FILE="/etc/iptables/rules.v4"
@@ -57,6 +57,5 @@ else
 fi
 
 echo
-echo "===[ others ]==================================================="
+echo "===[ Others ]==================================================="
 echo "[Isaac ~ imp-srv.sh]: $(date '+%a %b %d %H:%M:%S %Z %Y')."
-
