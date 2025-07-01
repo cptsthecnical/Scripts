@@ -20,9 +20,9 @@ check_service() {
   systemctl is-active --quiet "$1" && echo "[*] $1"
 }
 
-echo "Sistema: $OS_INFO"
-echo "Nombre de maquina: $HOSTNAME"
-echo "Passwd de root: $ROOT_PASS"
+echo -e "${YELLOW}Sistema:${NC} $OS_INFO"
+echo -e "${YELLOW}Nombre de maquina:${NC} $HOSTNAME"
+echo -e "${YELLOW}Passwd de root:${NC}: $ROOT_PASS"
 if [ -n "$PRIV_USERS" ]; then
   echo "* Hay usuarios de IT con privilegios de root:"
   echo "$PRIV_USERS"
