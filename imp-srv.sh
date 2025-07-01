@@ -1,6 +1,22 @@
 #!/bin/bash
 # 📝 este script se encarga de imprimir por consola los detalles del servidor de sistema, root, network, fylesystem, servicios, firewall
+YELLOW='\033[1;33m'
+NC='\033[0m'
 
+echo -e "${YELLOW}Seleccione una opción:"
+echo -e "*******************************************"
+echo "1) Cambiar contraseña de root"
+echo -e  "2) Generar archivo informativo del servidor${NC}"
+
+read -p "Opción (1/2): " opcion
+
+case $opcion in
+  1)
+    echo "Cambiando la contraseña de root..."
+    sudo passwd root
+    ;;
+  2)
+    
 HOSTNAME=$(hostname)
 OS_INFO=$(lsb_release -d 2>/dev/null | cut -f2- || grep PRETTY_NAME /etc/os-release | cut -d= -f2 | tr -d \")
 ROOT_PASS="<PASSWORD_ROOT>"
@@ -59,3 +75,8 @@ fi
 echo
 echo "===[ Others ]==================================================="
 echo "[Isaac ~ imp-srv.sh]: $(date '+%a %b %d %H:%M:%S %Z %Y')."
+    ;;
+  *)
+    echo "Opción inválida."
+    ;;
+esac
