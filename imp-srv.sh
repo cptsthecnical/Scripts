@@ -22,7 +22,7 @@ check_service() {
 
 echo -e "${YELLOW}Sistema:${NC} $OS_INFO"
 echo -e "${YELLOW}Nombre de maquina:${NC} $HOSTNAME"
-echo -e "${YELLOW}Passwd de root:${NC}: $ROOT_PASS"
+echo -e "${YELLOW}Passwd de root:${NC} $ROOT_PASS"
 if [ -n "$PRIV_USERS" ]; then
   echo "* Hay usuarios de IT con privilegios de root:"
   echo "$PRIV_USERS"
@@ -31,7 +31,7 @@ else
 fi
 
 echo
-echo -e "${YELLOW}Accesible por ssh desde:${NC}: $SSH_IP"
+echo -e "${YELLOW}Accesible por ssh desde:${NC} $SSH_IP"
 echo
 echo -e "${YELLOW}===[ Network ]===================================================${NC}"
 if [ -f "$INTERFACES_FILE" ]; then
