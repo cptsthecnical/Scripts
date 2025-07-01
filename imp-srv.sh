@@ -3,7 +3,7 @@
 
 HOSTNAME=$(hostname)
 OS_INFO=$(lsb_release -d 2>/dev/null | cut -f2- || grep PRETTY_NAME /etc/os-release | cut -d= -f2 | tr -d \")
-ROOT_PASS="*********"
+ROOT_PASS="<PASSWORD_ROOT>"
 SSH_IP=$(ip addr show | grep -w inet | grep -v 127.0.0.1 | awk '{print $2}' | cut -d/ -f1 | head -1)
 INTERFACES_FILE="/etc/network/interfaces"
 IPTABLES_FILE="/etc/iptables/rules.v4"
