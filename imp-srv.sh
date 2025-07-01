@@ -33,7 +33,7 @@ fi
 echo
 echo "Accesible por ssh desde: $SSH_IP"
 echo
-echo "${YELLOW}===[ Network ]===================================================${NC}"
+echo -e "${YELLOW}===[ Network ]===================================================${NC}"
 if [ -f "$INTERFACES_FILE" ]; then
   cat "$INTERFACES_FILE"
 else
@@ -41,17 +41,17 @@ else
 fi
 
 echo
-echo "${YELLOW}===[ Filesystem ]===============================================${NC}"
+echo -e "${YELLOW}===[ Filesystem ]===============================================${NC}"
 df -h --output=source,fstype,size,used,avail,pcent,target
 
 echo
-echo "${YELLOW}===[ Servicios ]================================================${NC}"
+echo -e "${YELLOW}===[ Servicios ]================================================${NC}"
 for svc in "${SERVICIOS[@]}"; do
   check_service "$svc"
 done
 
 echo
-echo "${YELLOW}===[ Firewall ]=================================================${NC}"
+echo -e "${YELLOW}===[ Firewall ]=================================================${NC}"
 if [ -f "$IPTABLES_FILE" ]; then
   cat "$IPTABLES_FILE"
 else
@@ -59,6 +59,6 @@ else
 fi
 
 echo
-echo "${YELLOW}===[ Others ]===================================================${NC}"
-echo -e "${YELLOW}[Isaac ~ imp-srv.sh]: $(date '+%a %b %d %H:%M:%S %Z %Y').${NC}"
-
+echo -e "${YELLOW}===[ Others ]===================================================${NC}"
+echo "[Isaac ~ imp-srv.sh]: $(date '+%a %b %d %H:%M:%S %Z %Y')."
+echo ""
