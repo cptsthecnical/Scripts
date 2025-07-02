@@ -20,7 +20,16 @@ check_service() {
   systemctl is-active --quiet "$1" && echo "[*] $1"
 }
 
+check_ipv6() {
+   if lsmod | grep -q '^ipv6'; then
+     echo "habilitado"
+   else
+     echo "deshabilitado"
+   fi
+}
+
 echo -e "${YELLOW}Sistema:${NC} $OS_INFO"
+echo -e "${YELLOW}IPv6:${NC} $(check_ipv6)"
 echo -e "${YELLOW}Nombre de maquina:${NC} $HOSTNAME"
 echo -e "${YELLOW}Passwd de root:${NC} $ROOT_PASS"
 if [ -n "$PRIV_USERS" ]; then
