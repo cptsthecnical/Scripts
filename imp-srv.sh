@@ -21,11 +21,25 @@ check_service() {
 }
 
 check_ipv6() {
-   if lsmod | grep -q '^ipv6'; then
-     echo "habilitado"
-   else
-     echo "deshabilitado"
-   fi
+  # Detectar si IPv6 está completamente deshabilitado vía sysctl
+  if [ -f /proc/sys/net/ipv6/conf/all/disable_ipv6 ] && [ "$(cat /proc/sys/net/ipv6/conf/all/disable_ipv6)" -eq 1 ]; then
+    echo "deshabilitado"
+    return
+  fi
+
+  # Verificar si hay alguna dirección IPv6 global asignada
+  if ip -6 addr show scope global | grep -q inet6; then
+    echo "habilitado"
+    return
+  fi
+
+  # Verificar si el sistema tiene rutas IPv6 (aunque no tenga dirección aún)
+  if ip -6 route show | grep -q .; then
+    echo "habilitado"
+    return
+  fi
+
+  echo "deshabilitado"
 }
 
 echo -e "${YELLOW}Sistema:${NC} $OS_INFO"
