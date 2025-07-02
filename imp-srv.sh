@@ -20,28 +20,6 @@ check_service() {
   systemctl is-active --quiet "$1" && echo "[*] $1"
 }
 
-check_ipv6() {
-  # Detectar si IPv6 está completamente deshabilitado vía sysctl
-  if [ -f /proc/sys/net/ipv6/conf/all/disable_ipv6 ] && [ "$(cat /proc/sys/net/ipv6/conf/all/disable_ipv6)" -eq 1 ]; then
-    echo "deshabilitado"
-    return
-  fi
-
-  # Verificar si hay alguna dirección IPv6 global asignada
-  if ip -6 addr show scope global | grep -q inet6; then
-    echo "habilitado"
-    return
-  fi
-
-  # Verificar si el sistema tiene rutas IPv6 (aunque no tenga dirección aún)
-  if ip -6 route show | grep -q .; then
-    echo "habilitado"
-    return
-  fi
-
-  echo "deshabilitado"
-}
-
 echo -e "${YELLOW}Sistema:${NC} $OS_INFO"
 echo -e "${YELLOW}Nombre de maquina:${NC} $HOSTNAME"
 echo -e "${YELLOW}Passwd de root:${NC} $ROOT_PASS"
@@ -53,7 +31,7 @@ else
 fi
 
 echo
-echo -e "${YELLOW}IPv6:${NC} $(check_ipv6)"
+echo -e "${YELLOW}IPv6:${NC} <habilitado o deshabilitado>"
 echo -e "${YELLOW}Accesible por ssh desde:${NC} $SSH_IP"
 echo
 echo -e "${YELLOW}===[ Network ]===================================================${NC}"
