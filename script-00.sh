@@ -58,7 +58,7 @@ apt-get install -y \
     iputils-ping lm-sensors iproute2 sudo vim net-tools curl btop iftop lsof \
     lsb-release wget sysstat snmp snmpd tcpdump \
     ngrep iptraf-ng mlocate tar gzip tree ca-certificates \
-    screen man-db mailutils dnsutils telnet rsyslog  
+    screen man-db mailutils dnsutils rsyslog  
 
 # Configuración de sensores
 echo "Configurando sensores:"
@@ -69,7 +69,7 @@ systemctl restart lm-sensors
 # Preguntar al usuario si desea cambiar el hostname
 # -------------------------------------------------------------------
 echo -e "${YELLOW}Cambiar hostname: ${NC}"
-read -p "¿Deseas agregar un nuevo hostname? (s/n): " respuestaHost
+read -p "¿Deseas agregar un nuevo hostname (ej: isaac.laboratory-00)? (s/n): " respuestaHost
 
 if [[ "$respuestaHost" == "s" || "$respuestaHost" == "S" ]]; then
     read -p "Introduce el nuevo hostname (isaac.laboratory-00): " new_hostname
@@ -592,7 +592,7 @@ echo -e "${YELLOW}Archivo SWAP: ${NC}"
 read -p "¿Deseas agregar el archivo /swapfile? (s/n): " respuestaswap
 
 if [[ "$respuestaswap" == "s" || "$respuestaswap" == "S" ]]; then
-    read -p "Introduce en GB el total de memoria (2G, 4G, 8G): " new_swap
+    read -p "Introduce en GB el total de memoria (ej: 2G, 4G, 8G): " new_swap
     # crear archivo swap de XGB
     sudo fallocate -l "$new_swap" /swapfile
     
