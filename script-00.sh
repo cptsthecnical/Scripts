@@ -177,7 +177,6 @@ cat <<EOF > /usr/bin/pingtime
 #!/bin/bash
 log_dir="/var/log/ping"
 
-# Si el primer argumento es -r, cambiar al directorio de logs
 if [[ "$1" == "-r" ]]; then
   cd "$log_dir" 2>/dev/null || { echo "No se pudo acceder a $log_dir"; exit 1; }
   echo "Ubicación actual: $(pwd)"
@@ -196,7 +195,6 @@ host="$1"
 read -rp "¿Quieres guardar el registro? (s/n): " respuesta
 
 timestamp=$(date +"%Y%m%d_%H%M%S")
-log_dir="/var/log/ping"
 log_file="$log_dir/ping_${host}_$timestamp.log"
 ping_cmd="ping -i 1"
 
@@ -237,8 +235,22 @@ if [[ "$respuesta" =~ ^[Ss]$ ]]; then
   echo "Registro guardado en $log_file"
 
 else
+  last_state=""
   $ping_cmd "$host" | while IFS= read -r line; do
-    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $line"
+    date_str="[$(date '+%Y-%m-%d %H:%M:%S')]"
+    echo "$date_str $line"
+
+    if echo "$line" | grep -q "bytes from"; then
+      current_state="up"
+    else
+      current_state="down"
+    fi
+
+    # Mostrar mensaje solo cuando cambia a down (sin señal)
+    if [[ "$current_state" != "$last_state" && "$current_state" == "down" ]]; then
+      echo "$date_str No hay señal o destino inalcanzable"
+    fi
+    last_state="$current_state"
   done
 fi
 EOF
