@@ -69,19 +69,15 @@ systemctl restart lm-sensors
 # Preguntar al usuario si desea cambiar el hostname
 # -------------------------------------------------------------------
 echo -e "${YELLOW}Cambiar hostname: ${NC}"
-read -p "¿Deseas agregar un nuevo hostname (ej: isaac.laboratory-00)? (s/n): " respuestaHost
+read -p "¿Deseas agregar un nuevo hostname? (s/n): " respuestaHost
 
-if [[ "$respuestaHost" == "s" || "$respuestaHost" == "S" ]]; then
+if [[ "$respuestaHost" =~ ^[sS]$ ]]; then
     read -p "Introduce el nuevo hostname (isaac.laboratory-00): " new_hostname
 
-    sudo hostname "$new_hostname"
-
-    sudo mv /etc/hostname /etc/hostname.old
+    # Actualizar /etc/hostname
     echo "$new_hostname" | sudo tee /etc/hostname > /dev/null
-    echo "El hostname se ha cambiado a: $new_hostname"
 
-    sudo mv /etc/hosts /etc/hosts.old
-
+    # Actualizar /etc/hosts
     sudo tee /etc/hosts > /dev/null <<EOF
 127.0.0.1   localhost
 127.0.1.1   $new_hostname
@@ -92,9 +88,14 @@ ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
 EOF
 
+    # Actualizar hostname en tiempo real y en systemd
+    sudo hostnamectl set-hostname "$new_hostname"
+
+    echo "El hostname se ha cambiado a: $new_hostname"
 else
     echo "Continuando con la instalación sin cambiar el hostname."
 fi
+
 # -------------------------------------------------------------------
 
 # Configuro bashrc
