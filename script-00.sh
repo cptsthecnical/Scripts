@@ -143,37 +143,37 @@ echo -e "${YELLOW}¿Quieres instalar mi script scanvuln? (s/n): ${NC}"
 read -r resscanvuln
 
 if [[ "$resscanvuln" =~ ^[Ss]$ ]]; then
-    cat <<EOF > /usr/bin/scanvuln
-    #!/bin/bash
-    if ! command -v nmap &>/dev/null; then
-      read -rp "[!] Nmap no esta instalado. ¿Quieres instalarlo? (s/n): " respuesta
-      if [[ "$respuesta" =~ ^[Ss]$ ]]; then
-        echo "[*] Instalando nmap..."
-        sudo apt-get update && sudo apt-get install -y nmap
-        if [[ $? -ne 0 ]]; then
-          echo "[!] Error al instalar nmap."
-          exit 1
-        fi
-      else
-        echo "[!] Nmap es necesario para realizar el escaneo."
-        exit 1
-      fi
-    fi
-    
-    echo "[*] Este comando realiza un escaneo de vulnerabilidades sobre la IP específica."
-    read -rp "Introduce la IP a escanear: " ip
-    
-    if [[ -z "$ip" ]]; then
-      echo "[!] No se ha introducido una IP valida."
+   cat <<EOF > /usr/bin/scanvuln
+#!/bin/bash
+if ! command -v nmap &>/dev/null; then
+  read -rp "[!] Nmap no esta instalado. ¿Quieres instalarlo? (s/n): " respuesta
+  if [[ "$respuesta" =~ ^[Ss]$ ]]; then
+    echo "[*] Instalando nmap..."
+    sudo apt-get update && sudo apt-get install -y nmap
+    if [[ $? -ne 0 ]]; then
+      echo "[!] Error al instalar nmap."
       exit 1
     fi
-    
-    echo "[*] Escaneando con Nmap + scripts de vulnerabilidades..."
-    sudo nmap -sV --script vuln "$ip"
-    EOF
-    
-    chmod 770 /usr/bin/scanvuln
-    exit 0
+  else
+    echo "[!] Nmap es necesario para realizar el escaneo."
+    exit 1
+  fi
+fi
+
+echo "[*] Este comando realiza un escaneo de vulnerabilidades sobre la IP específica."
+read -rp "Introduce la IP a escanear: " ip
+
+if [[ -z "$ip" ]]; then
+  echo "[!] No se ha introducido una IP valida."
+  exit 1
+fi
+
+echo "[*] Escaneando con Nmap + scripts de vulnerabilidades..."
+sudo nmap -sV --script vuln "$ip"
+EOF
+
+chmod 770 /usr/bin/scanvuln
+exit 0
 fi
 
 # - 
@@ -185,75 +185,75 @@ echo -e "${YELLOW}¿Quieres instalar mi script pingtime? (s/n): ${NC}"
 read -r respingtime
 
 if [[ "$respingtime" =~ ^[Ss]$ ]]; then
-    cat <<EOF > /usr/bin/pingtime
-    #!/bin/bash
-    log_dir="/var/log/ping"
-    
-    # Si el primer argumento es -r, cambiar al directorio de logs
-    if [[ "$1" == "-r" ]]; then
-      cd "$log_dir" 2>/dev/null || { echo "No se pudo acceder a $log_dir"; exit 1; }
-      echo "Ubicación actual: $(pwd)"
-      ls -l --color=auto
-      exit 0
-    fi
-    
-    if [[ -z "$1" ]]; then
-      echo "================================================================================"
-      echo "Uso: pingtime <IP|host>                                     # monitorizar ping"
-      echo "Uso: pingtime -r                                            # ver logs"
-      exit 1
-    fi
-    
-    host="$1"
-    read -rp "¿Quieres guardar el registro? (s/n): " respuesta
-    
-    timestamp=$(date +"%Y%m%d_%H%M%S")
-    log_dir="/var/log/ping"
-    log_file="$log_dir/ping_${host}_$timestamp.log"
-    ping_cmd="ping -i 1"
-    
-    if [[ "$respuesta" =~ ^[Ss]$ ]]; then
-      mkdir -p "$log_dir"
-    
-      {
-        echo -e "================================================================================\n"
-        echo "Información inicial para $host"
-        echo "Fecha: $(date)"
-        ip neigh show "$host" 2>/dev/null || echo "No se pudo obtener información ARP"
-        nslookup "$host" 2>/dev/null || echo "No se pudo obtener información DNS"
-        echo -e "================================================================================\n"
-      } >> "$log_file"
-    
-      read -rp "¿Registrar todos los logs (a) o solo cambios de estado (c)? [a/c]: " modo
-    
-      last_state=""
-      $ping_cmd "$host" | while IFS= read -r line; do
-        date_str="[$(date '+%Y-%m-%d %H:%M:%S')]"
-    
-        if [[ "$modo" =~ ^[Aa]$ ]]; then
-          echo "$date_str $line" | tee -a "$log_file"
-        else
-          if echo "$line" | grep -q "bytes from"; then
-            current_state="up"
-          else
-            current_state="down"
-          fi
-    
-          if [[ "$current_state" != "$last_state" ]]; then
-            echo "$date_str $line" | tee -a "$log_file"
-            last_state="$current_state"
-          fi
-        fi
-      done
-    
-      echo "Registro guardado en $log_file"
-    
+cat <<EOF > /usr/bin/pingtime
+#!/bin/bash
+log_dir="/var/log/ping"
+
+# Si el primer argumento es -r, cambiar al directorio de logs
+if [[ "$1" == "-r" ]]; then
+  cd "$log_dir" 2>/dev/null || { echo "No se pudo acceder a $log_dir"; exit 1; }
+  echo "Ubicación actual: $(pwd)"
+  ls -l --color=auto
+  exit 0
+fi
+
+if [[ -z "$1" ]]; then
+  echo "================================================================================"
+  echo "Uso: pingtime <IP|host>                                     # monitorizar ping"
+  echo "Uso: pingtime -r                                            # ver logs"
+  exit 1
+fi
+
+host="$1"
+read -rp "¿Quieres guardar el registro? (s/n): " respuesta
+
+timestamp=$(date +"%Y%m%d_%H%M%S")
+log_dir="/var/log/ping"
+log_file="$log_dir/ping_${host}_$timestamp.log"
+ping_cmd="ping -i 1"
+
+if [[ "$respuesta" =~ ^[Ss]$ ]]; then
+  mkdir -p "$log_dir"
+
+  {
+    echo -e "================================================================================\n"
+    echo "Información inicial para $host"
+    echo "Fecha: $(date)"
+    ip neigh show "$host" 2>/dev/null || echo "No se pudo obtener información ARP"
+    nslookup "$host" 2>/dev/null || echo "No se pudo obtener información DNS"
+    echo -e "================================================================================\n"
+  } >> "$log_file"
+
+  read -rp "¿Registrar todos los logs (a) o solo cambios de estado (c)? [a/c]: " modo
+
+  last_state=""
+  $ping_cmd "$host" | while IFS= read -r line; do
+    date_str="[$(date '+%Y-%m-%d %H:%M:%S')]"
+
+    if [[ "$modo" =~ ^[Aa]$ ]]; then
+      echo "$date_str $line" | tee -a "$log_file"
     else
-      $ping_cmd "$host" | while IFS= read -r line; do
-        echo "[$(date '+%Y-%m-%d %H:%M:%S')] $line"
-      done
+      if echo "$line" | grep -q "bytes from"; then
+        current_state="up"
+      else
+        current_state="down"
+      fi
+
+      if [[ "$current_state" != "$last_state" ]]; then
+        echo "$date_str $line" | tee -a "$log_file"
+        last_state="$current_state"
+      fi
     fi
-    EOF
+  done
+
+  echo "Registro guardado en $log_file"
+
+else
+  $ping_cmd "$host" | while IFS= read -r line; do
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $line"
+  done
+fi
+EOF
     
     chmod 770 /usr/bin/pingtime
     exit 0
