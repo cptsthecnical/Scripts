@@ -140,9 +140,9 @@ EOF
 # escanea rapidamente las vulnerabilidades de la IP asignada
 # -------------------------------------------------------------------
 echo -e "${YELLOW}¿Quieres instalar mi script scanvuln? (s/n): ${NC}"
-read -r res-scanvuln
+read -r resscanvuln
 
-if [[ "$res_scanvuln" =~ ^[Ss]$ ]]; then
+if [[ "$resscanvuln" =~ ^[Ss]$ ]]; then
     cat <<EOF > /usr/bin/scanvuln
     #!/bin/bash
     if ! command -v nmap &>/dev/null; then
@@ -182,9 +182,9 @@ fi
 # hace un ping registrando la fecha y tiempo exacto y de manera opcional guarda cada peticion en la ruta /var/log/ping/
 # -------------------------------------------------------------------
 echo -e "${YELLOW}¿Quieres instalar mi script pingtime? (s/n): ${NC}"
-read -r res-pingtime
+read -r respingtime
 
-if [[ "$res-pingtime" =~ ^[Ss]$ ]]; then
+if [[ "$respingtime" =~ ^[Ss]$ ]]; then
     cat <<EOF > /usr/bin/pingtime
     #!/bin/bash
     log_dir="/var/log/ping"
