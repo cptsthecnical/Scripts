@@ -133,17 +133,16 @@ export LS_COLORS="di=1;32:fi=0;37:ln=1;35:so=0;38;5;208:pi=0;34:bd=0;33:cd=0;33:
 #     — ejecutables en rojo brillante (bold red).
 EOF
 
+
 # Agrego mis propios comandos:
-
-
 
 # comando : scanvuln
 # escanea rapidamente las vulnerabilidades de la IP asignada
 # -------------------------------------------------------------------
 echo -e "${YELLOW}¿Quieres instalar mi script scanvuln? (s/n): ${NC}"
-read -r scanvuln
+read -r res-scanvuln
 
-if [[ ! "$scanvuln" =~ ^[Ss]$ ]]; then
+if [[ "$res_scanvuln" =~ ^[Ss]$ ]]; then
     cat <<EOF > /usr/bin/scanvuln
     #!/bin/bash
     if ! command -v nmap &>/dev/null; then
@@ -182,10 +181,10 @@ fi
 # comando : pingtime
 # hace un ping registrando la fecha y tiempo exacto y de manera opcional guarda cada peticion en la ruta /var/log/ping/
 # -------------------------------------------------------------------
-echo -e "${YELLOW}¿Quieres instalar mi script scanvuln? (s/n): ${NC}"
-read -r pingtime
+echo -e "${YELLOW}¿Quieres instalar mi script pingtime? (s/n): ${NC}"
+read -r res-pingtime
 
-if [[ ! "$pingtime" =~ ^[Ss]$ ]]; then
+if [[ "$res-pingtime" =~ ^[Ss]$ ]]; then
     cat <<EOF > /usr/bin/pingtime
     #!/bin/bash
     log_dir="/var/log/ping"
