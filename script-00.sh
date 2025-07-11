@@ -140,7 +140,7 @@ EOF
 # comando : scanvuln
 # escanea rapidamente las vulnerabilidades de la IP asignada
 # -------------------------------------------------------------------
-echo -e "¿Quieres instalar mi script scanvuln? (s/n):"
+echo -e "${YELLOW}¿Quieres instalar mi script scanvuln? (s/n): ${NC}"
 read -r scanvuln
 
 if [[ ! "$scanvuln" =~ ^[Ss]$ ]]; then
@@ -182,7 +182,7 @@ fi
 # comando : pingtime
 # hace un ping registrando la fecha y tiempo exacto y de manera opcional guarda cada peticion en la ruta /var/log/ping/
 # -------------------------------------------------------------------
-echo -e "¿Quieres instalar mi script scanvuln? (s/n):"
+echo -e "${YELLOW}¿Quieres instalar mi script scanvuln? (s/n): ${NC}"
 read -r pingtime
 
 if [[ ! "$pingtime" =~ ^[Ss]$ ]]; then
