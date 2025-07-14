@@ -280,22 +280,44 @@ RESET="\e[0m"
 
 echo -e "
 ${YELLOW}==========================================================================================${RESET}
-${YELLOW}[parámetros útiles]::${RESET}
+${YELLOW}[comandos generales]::${RESET}
+
+${YELLOW}chattr +i /datos/SalaDeReuniones/documento.txt${RESET}
+cambia atributos a nivel de sistema de archivos (ext2/3/4) y +i: establece el atributo inmutable (-i para revertirlo).
+
+${YELLOW}==========================================================================================${RESET}
+${YELLOW}[snmp]::${RESET}
 
 ${YELLOW}snmpwalk -v2c -c <COMMUNITY-SNMP> -Oneq <IP-SNMP> .1 > dc1-kvm1.snmpwalk${RESET}
 envío al archivo dc1-kvm1.snmpwalk todos los resultados de snmp (snmp empiezan por .1)
 
+${YELLOW}==========================================================================================${RESET}
+${YELLOW}[migración de datos (rsync y scp)]::${RESET}
+
 ${YELLOW}rsync -avzc --progress /ruta/origen/ usuario@host:/ruta/destino/${RESET}
-migrar un archivo manteniendo todo (usuarios, permisos, hard links...)
+[De Linux a Linux] - migrar un archivo manteniendo todo (usuarios, permisos, hard links...).
+
+${YELLOW}scp -r /ruta/origen/ usuario@host:/ruta/destino/${RESET}
+[De Windows a Linux] - migrar un archivo de manera simple pero lenta, no tiene checksum ni resume automático.
+# antes de utilizar scp también podemos utilizar rsync en Windos si está instalado rsync o WSL.
 
 ${YELLOW}==========================================================================================${RESET}
 ${YELLOW}[tar]::${RESET}
 
 ${YELLOW}tar -czvf prueba.tar.gz comprimir/${RESET}
-crea el archivo tar y lo comprime con gzip, (sin z si solo quiero un archivo .tar sin comprimir)
+crea el archivo tar y lo comprime con gzip, (sin el parámetro z, para no utilizar la compresión de gzip).
 
 ${YELLOW}tar -xzvf prueba.tar.gz${RESET}
-descomprime el archivo tar siempre que haya sido comprimido con gzip (si no ha sido comprimido, usar -xvf)
+descomprime el archivo tar siempre que haya sido comprimido con gzip (si no ha sido comprimido, usar -xvf).
+
+${YELLOW}==========================================================================================${RESET}
+${YELLOW}[samba]::${RESET}
+
+${YELLOW}smbstatus | grep "nombre del archivo.xls"${RESET}
+Busco en samba si el archivo .xls está siendo ejecutado y lo detengo con kill -9.
+
+${YELLOW}smbstatus -L${RESET}
+Lista todos los ficheros abiertos vía Samba, con usuario, PID, permisos y ruta.
 "
 EOF
 
