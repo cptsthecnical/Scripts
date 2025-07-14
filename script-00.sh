@@ -174,6 +174,7 @@ sudo nmap -sV --script vuln "$ip"
 EOF
 
 chmod 770 /usr/bin/scanvuln
+echo "Comando scanvuln habilitado"
 fi
 
 # - 
@@ -256,6 +257,7 @@ fi
 EOF
     
     chmod 770 /usr/bin/pingtime
+    echo "Comando pingtime habilitado"
 fi
 
 # - 
