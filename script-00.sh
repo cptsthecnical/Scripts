@@ -173,7 +173,6 @@ sudo nmap -sV --script vuln "$ip"
 EOF
 
 chmod 770 /usr/bin/scanvuln
-exit 0
 fi
 
 # - 
@@ -256,7 +255,6 @@ fi
 EOF
     
     chmod 770 /usr/bin/pingtime
-    exit 0
 fi
 
 # - 
