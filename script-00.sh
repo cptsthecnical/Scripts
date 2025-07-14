@@ -278,46 +278,15 @@ if [[ "$resayuda" =~ ^[Ss]$ ]]; then
 YELLOW="\e[33m"
 RESET="\e[0m"
 
-echo -e "
-${YELLOW}==========================================================================================${RESET}
-${YELLOW}[comandos generales]::${RESET}
-
-${YELLOW}chattr +i /datos/SalaDeReuniones/documento.txt${RESET}
-cambia atributos a nivel de sistema de archivos (ext2/3/4) y +i: establece el atributo inmutable (-i para revertirlo).
-
-${YELLOW}==========================================================================================${RESET}
-${YELLOW}[snmp]::${RESET}
-
-${YELLOW}snmpwalk -v2c -c <COMMUNITY-SNMP> -Oneq <IP-SNMP> .1 > dc1-kvm1.snmpwalk${RESET}
-envío al archivo dc1-kvm1.snmpwalk todos los resultados de snmp (snmp empiezan por .1)
-
-${YELLOW}==========================================================================================${RESET}
-${YELLOW}[migración de datos (rsync y scp)]::${RESET}
-
-${YELLOW}rsync -avzc --progress /ruta/origen/ usuario@host:/ruta/destino/${RESET}
-[De Linux a Linux] - migrar un archivo manteniendo todo (usuarios, permisos, hard links...).
-
-${YELLOW}scp -r /ruta/origen/ usuario@host:/ruta/destino/${RESET}
-[De Windows a Linux] - migrar un archivo de manera simple pero lenta, no tiene checksum ni resume automático.
-# antes de utilizar scp también podemos utilizar rsync en Windos si está instalado rsync o WSL.
-
-${YELLOW}==========================================================================================${RESET}
-${YELLOW}[tar]::${RESET}
-
-${YELLOW}tar -czvf prueba.tar.gz comprimir/${RESET}
-crea el archivo tar y lo comprime con gzip, (sin el parámetro z, para no utilizar la compresión de gzip).
-
-${YELLOW}tar -xzvf prueba.tar.gz${RESET}
-descomprime el archivo tar siempre que haya sido comprimido con gzip (si no ha sido comprimido, usar -xvf).
-
-${YELLOW}==========================================================================================${RESET}
-${YELLOW}[samba]::${RESET}
-
-${YELLOW}smbstatus | grep "nombre del archivo.xls"${RESET}
-Busco en samba si el archivo .xls está siendo ejecutado y lo detengo con kill -9.
-
-${YELLOW}smbstatus -L${RESET}
-Lista todos los ficheros abiertos vía Samba, con usuario, PID, permisos y ruta.
+printf "%b\n" "\
+${YELLOW}chattr +i /datos/SalaDeReuniones/documento.txt${RESET}                             - Establece atributo inmutable (impide modificar/borrar el archivo).
+${YELLOW}snmpwalk -v2c -c <COMMUNITY-SNMP> -Oneq <IP-SNMP> .1 > dc1-kvm1.snmpwalk${RESET}   - Exporta árbol SNMP completo.
+${YELLOW}rsync -avzc --progress /ruta/origen/ usuario@host:/ruta/destino/${RESET}           - Copia eficiente de Linux a Linux, mantiene permisos y metadatos.
+${YELLOW}scp -r /ruta/origen/ usuario@host:/ruta/destino/${RESET}                           - Copia directa, ideal si Windows no tiene rsync.
+${YELLOW}tar -czvf prueba.tar.gz comprimir/${RESET}                                         - Comprime carpeta con gzip.
+${YELLOW}tar -xzvf prueba.tar.gz${RESET}                                                    - Extrae contenido si fue comprimido con gzip.
+${YELLOW}smbstatus | grep \"nombre_del_archivo.xls\"${RESET}                                  - Verifica si un archivo está abierto por Samba.
+${YELLOW}smbstatus -L${RESET}                                                               - Lista todos los archivos abiertos vía Samba con usuarios y PIDs.
 "
 EOF
 
