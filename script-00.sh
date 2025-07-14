@@ -186,7 +186,7 @@ echo "¿Quieres instalar mi comando pingtime? (s/n):"
 read -r respingtime
 
 if [[ "$respingtime" =~ ^[Ss]$ ]]; then
-cat <<'EOF' > /usr/bin/pingtime
+cat <<'EOF' | sudo tee /usr/bin/pingtime > /dev/null
 #!/bin/bash
 log_dir="/var/log/ping"
 
