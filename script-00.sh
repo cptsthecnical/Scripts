@@ -144,10 +144,12 @@ echo "¿Quieres instalar mi comando scanvuln? (s/n):"
 read -r resscanvuln
 
 if [[ "$resscanvuln" =~ ^[Ss]$ ]]; then
-    cat <<'EOF' | sudo tee /usr/bin/scanvuln > /dev/null
+cat <<'EOF' | sudo tee /usr/bin/scanvuln > /dev/null
 #!/bin/bash
+
+# Comprobación de Nmap
 if ! command -v nmap &>/dev/null; then
-  read -rp "[!] Nmap no esta instalado. ¿Quieres instalarlo? (s/n): " respuesta
+  read -rp "[!] Nmap no está instalado. ¿Quieres instalarlo? (s/n): " respuesta
   if [[ "$respuesta" =~ ^[Ss]$ ]]; then
     echo "[*] Instalando nmap..."
     sudo apt-get update && sudo apt-get install -y nmap
@@ -161,15 +163,21 @@ if ! command -v nmap &>/dev/null; then
   fi
 fi
 
-echo "[*] Este comando realiza un escaneo de vulnerabilidades sobre la IP específica."
-read -rp "Introduce la IP a escanear: " ip
-
-if [[ -z "$ip" ]]; then
-  echo "[!] No se ha introducido una IP valida."
+# Verificar parámetro
+if [[ -z "$1" ]]; then
+  echo "================================================================================"
+  echo "Uso: scanvuln <IP>"
+  echo
+  echo "Este script realiza un escaneo de servicios y vulnerabilidades usando Nmap."
+  echo
+  echo "Ejemplo:"
+  echo "  scanvuln 192.168.1.100"
+  echo "================================================================================"
   exit 1
 fi
 
-echo "[*] Escaneando con Nmap + scripts de vulnerabilidades..."
+ip="$1"
+echo "[*] Escaneando la IP $ip con Nmap + scripts de vulnerabilidades..."
 sudo nmap -sV --script vuln "$ip"
 EOF
 
