@@ -174,7 +174,7 @@ sudo nmap -sV --script vuln "$ip"
 EOF
 
 chmod 770 /usr/bin/scanvuln
-echo "🎉 Comando scanvuln habilitado"
+echo "✅ Comando scanvuln habilitado"
 fi
 
 # - 
@@ -257,7 +257,7 @@ fi
 EOF
     
     chmod 770 /usr/bin/pingtime
-    echo "🎉 Comando pingtime habilitado"
+    echo "✅ Comando pingtime habilitado"
 fi
 
 # - 
@@ -296,7 +296,7 @@ descomprime el archivo tar siempre que haya sido comprimido con gzip (si no ha s
 EOF
 
     chmod 770 /usr/bin/ayuda
-    echo "🎉 Comando ayuda habilitado"
+    echo "✅ Comando ayuda habilitado"
 fi
 
 
