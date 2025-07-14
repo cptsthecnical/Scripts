@@ -140,7 +140,7 @@ EOF
 # escanea rapidamente las vulnerabilidades de la IP asignada
 # -------------------------------------------------------------------
 echo -e "${YELLOW}Mis propios comandos: ${NC}"
-echo "¿Quieres instalar mi comando "scanvuln"? (s/n):"
+echo "¿Quieres instalar mi comando scanvuln? (s/n):"
 read -r resscanvuln
 
 if [[ "$resscanvuln" =~ ^[Ss]$ ]]; then
@@ -182,7 +182,7 @@ fi
 # comando : pingtime
 # hace un ping registrando la fecha y tiempo exacto y de manera opcional guarda cada peticion en la ruta /var/log/ping/
 # -------------------------------------------------------------------
-echo "¿Quieres instalar mi comando "pingtime"? (s/n):"
+echo "¿Quieres instalar mi comando pingtime? (s/n):"
 read -r respingtime
 
 if [[ "$respingtime" =~ ^[Ss]$ ]]; then
@@ -265,7 +265,7 @@ fi
 # comando : ayuda
 # muestra un texto de buenas prácticas con comandos
 # -------------------------------------------------------------------
-echo "¿Quieres instalar mi comando "ayuda"? (s/n):"
+echo "¿Quieres instalar mi comando ayuda? (s/n):"
 read -r resayuda
 
 if [[ "$resayuda" =~ ^[Ss]$ ]]; then
