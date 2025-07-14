@@ -144,7 +144,7 @@ echo "¿Quieres instalar mi comando scanvuln? (s/n):"
 read -r resscanvuln
 
 if [[ "$resscanvuln" =~ ^[Ss]$ ]]; then
-    cat <<'EOF' > /usr/bin/scanvuln
+    cat <<'EOF' | sudo tee /usr/bin/scanvuln > /dev/null
 #!/bin/bash
 if ! command -v nmap &>/dev/null; then
   read -rp "[!] Nmap no esta instalado. ¿Quieres instalarlo? (s/n): " respuesta
@@ -269,7 +269,7 @@ echo "¿Quieres instalar mi comando ayuda? (s/n):"
 read -r resayuda
 
 if [[ "$resayuda" =~ ^[Ss]$ ]]; then
-   cat <<'EOF' > /usr/bin/ayuda
+    cat <<'EOF' | sudo tee /usr/bin/ayuda > /dev/null
 #!/bin/bash
 YELLOW="\e[33m"
 RESET="\e[0m"
