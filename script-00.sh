@@ -139,8 +139,8 @@ EOF
 # comando : scanvuln
 # escanea rapidamente las vulnerabilidades de la IP asignada
 # -------------------------------------------------------------------
-echo -e "${YELLOW}Mis propios comandos:"
-echo "¿Quieres instalar mi script scanvuln? (s/n):"
+echo -e "${YELLOW}Mis propios comandos: ${NC}"
+echo "¿Quieres instalar mi comando "scanvuln"? (s/n):"
 read -r resscanvuln
 
 if [[ "$resscanvuln" =~ ^[Ss]$ ]]; then
@@ -174,7 +174,7 @@ sudo nmap -sV --script vuln "$ip"
 EOF
 
 chmod 770 /usr/bin/scanvuln
-echo "Comando scanvuln habilitado"
+echo "🎉 Comando scanvuln habilitado"
 fi
 
 # - 
@@ -182,7 +182,7 @@ fi
 # comando : pingtime
 # hace un ping registrando la fecha y tiempo exacto y de manera opcional guarda cada peticion en la ruta /var/log/ping/
 # -------------------------------------------------------------------
-echo "¿Quieres instalar mi script pingtime? (s/n):"
+echo "¿Quieres instalar mi comando "pingtime"? (s/n):"
 read -r respingtime
 
 if [[ "$respingtime" =~ ^[Ss]$ ]]; then
@@ -257,7 +257,7 @@ fi
 EOF
     
     chmod 770 /usr/bin/pingtime
-    echo "Comando pingtime habilitado"
+    echo "🎉 Comando pingtime habilitado"
 fi
 
 # - 
@@ -265,7 +265,11 @@ fi
 # comando : ayuda
 # muestra un texto de buenas prácticas con comandos
 # -------------------------------------------------------------------
-cat <<EOF > /usr/bin/ayuda
+echo "¿Quieres instalar mi comando "ayuda"? (s/n):"
+read -r resayuda
+
+if [[ "$resayuda" =~ ^[Ss]$ ]]; then
+   cat <<EOF > /usr/bin/ayuda
 #!/bin/bash
 YELLOW="\e[33m"
 RESET="\e[0m"
@@ -291,7 +295,10 @@ descomprime el archivo tar siempre que haya sido comprimido con gzip (si no ha s
 "
 EOF
 
-chmod 770 /usr/bin/ayuda
+    chmod 770 /usr/bin/ayuda
+    echo "🎉 Comando ayuda habilitado"
+fi
+
 
 ## Configuración mínima de logs
 # **************************************
