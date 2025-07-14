@@ -279,7 +279,7 @@ YELLOW="\e[33m"
 RESET="\e[0m"
 
 printf "%b\n" "\
-${YELLOW}chattr +i /datos/SalaDeReuniones/documento.txt${RESET}                             - Establece atributo inmutable (impide modificar/borrar el archivo, -i para revertirlo).
+${YELLOW}chattr +i /ruta/origen/documento.txt${RESET}                                       - Establece atributo inmutable (impide modificar/borrar el archivo, -i para revertirlo).
 ${YELLOW}snmpwalk -v2c -c <COMMUNITY-SNMP> -Oneq <IP-SNMP> .1 > dc1-kvm1.snmpwalk${RESET}   - Exporta árbol SNMP completo al archivo dc1-kvm1.snmpwalk.
 ${YELLOW}rsync -avzc --progress /ruta/origen/ usuario@host:/ruta/destino/${RESET}           - Copia eficiente de Linux a Linux, mantiene permisos y metadatos (usuarios, hard-links...).
 ${YELLOW}scp -r /ruta/origen/ usuario@host:/ruta/destino/${RESET}                           - Copia directa pero más lenta, ideal si Windows no tiene rsync.
