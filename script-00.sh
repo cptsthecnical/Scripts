@@ -169,9 +169,7 @@ if [[ -z "$1" ]]; then
   echo "Uso: scanvuln <IP>"
   echo
   echo "Este script realiza un escaneo de servicios y vulnerabilidades usando Nmap."
-  echo
-  echo "Ejemplo:"
-  echo "  scanvuln 192.168.1.100"
+  echo "Ejemplo: scanvuln 192.168.1.100"
   echo "================================================================================"
   exit 1
 fi
