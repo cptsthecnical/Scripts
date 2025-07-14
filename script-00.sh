@@ -205,6 +205,7 @@ if [[ -z "$1" ]]; then
   echo "================================================================================"
   echo "Uso: pingtime <IP|host>                                     # monitorizar ping"
   echo "Uso: pingtime -r                                            # ver logs"
+  echo " "
   exit 1
 fi
 
