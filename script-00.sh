@@ -269,7 +269,7 @@ echo "¿Quieres instalar mi comando ayuda? (s/n):"
 read -r resayuda
 
 if [[ "$resayuda" =~ ^[Ss]$ ]]; then
-   cat <<EOF > /usr/bin/ayuda
+   cat <<'EOF' > /usr/bin/ayuda
 #!/bin/bash
 YELLOW="\e[33m"
 RESET="\e[0m"
