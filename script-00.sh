@@ -144,7 +144,7 @@ echo "¿Quieres instalar mi comando scanvuln? (s/n):"
 read -r resscanvuln
 
 if [[ "$resscanvuln" =~ ^[Ss]$ ]]; then
-   cat <<EOF > /usr/bin/scanvuln
+    cat <<'EOF' > /usr/bin/scanvuln
 #!/bin/bash
 if ! command -v nmap &>/dev/null; then
   read -rp "[!] Nmap no esta instalado. ¿Quieres instalarlo? (s/n): " respuesta
@@ -186,7 +186,7 @@ echo "¿Quieres instalar mi comando pingtime? (s/n):"
 read -r respingtime
 
 if [[ "$respingtime" =~ ^[Ss]$ ]]; then
-cat <<EOF > /usr/bin/pingtime
+cat <<'EOF' > /usr/bin/pingtime
 #!/bin/bash
 log_dir="/var/log/ping"
 
