@@ -665,13 +665,20 @@ EOF
 # editor de texto por defecto
 # **************************************
 # modifico el editor por defecto del sistema para muchas aplicaciones (como crontab)
-# Para el usuario actual
-echo "export VISUAL=vim" >> ~/.bashrc
-echo "export EDITOR=vim" >> ~/.bashrc
-# Para root (si usas sudo crontab -e)
-sudo bash -c 'echo "export VISUAL=vim" >> /root/.bashrc'
-sudo bash -c 'echo "export EDITOR=vim" >> /root/.bashrc'
-. "$HOME/.cargo/env"
+# Detectar si el usuario es root
+if [ "$EUID" -eq 0 ]; then
+    BASHRC="/root/.bashrc"
+else
+    BASHRC="$HOME/.bashrc"
+fi
+
+# Añadir VISUAL si no existe
+grep -qxF 'export VISUAL=vim' "$BASHRC" || echo 'export VISUAL=vim' >> "$BASHRC"
+
+# Añadir EDITOR si no existe
+grep -qxF 'export EDITOR=vim' "$BASHRC" || echo 'export EDITOR=vim' >> "$BASHRC"
+
+
 
 # Deshabilitar IPv6
 # **************************************
