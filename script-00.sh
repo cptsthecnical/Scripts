@@ -125,12 +125,12 @@ alias lsblk='lsblk -e7 -o NAME,MAJ:MIN,RM,SIZE,RO,TYPE,MOUNTPOINT,FSTYPE,MODEL,M
 
 ## Cambiar diseño del prompt (estilo cyberpunk)
 # -------------------------------------------------------------------
-# color 1 (estilo cyberpunk)
+# color (estilo cyberpunk)
 PS1='\[\e[0;90m\]\u箱\e[38;5;196m[\H]\e[38;5;196m\e[1;32m \w\e[0;37m $: '
 
 ## cambiar colores para ls (estilo cyberpunk)
 # -------------------------------------------------------------------
-# opcion 1 (cyverpunk):
+# opcion (cyverpunk)
 export LS_COLORS="di=1;32:fi=0;37:ln=1;35:so=0;38;5;208:pi=0;34:bd=0;33:cd=0;33:or=0;31:mi=0;31:ex=1;31"
 #     di — directorios en verde brillante (bold green).
 #     fi — archivos normales en gris claro (normal white/gray).
@@ -219,7 +219,6 @@ alias lsblk='lsblk -e7 -o NAME,MAJ:MIN,RM,SIZE,RO,TYPE,MOUNTPOINT,FSTYPE,MODEL,M
 # color (técnica/grisácea)
 PS1='\[\e[1;31m\]\u箱[\H] \w $: \[\e[0m\]'
 
-# opcion 2 (técnica/grisácea):
 # Opción técnica/grisácea
 export LS_COLORS="di=1;30:fi=0;37:ln=1;33:so=1;35:pi=1;33:bd=1;30:cd=1;30:or=1;31:mi=1;31:ex=1;31"
 #     di — directorios en gris oscuro técnico (bold black)
