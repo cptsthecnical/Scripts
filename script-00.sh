@@ -101,7 +101,7 @@ fi
 ## Configuro bashrc
 # Preguntar al usuario el estilo
 while true; do
-    echo "Selecciona el estilo:"
+    echo -e "${YELLOW}Selecciona el estilo: ${NC}"
     echo "1) Estilo cyberpunk"
     echo "2) Estilo técnica/grisácea"
     read -rp "Opción (1 o 2): " opcion
