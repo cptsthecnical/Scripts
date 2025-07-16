@@ -419,14 +419,15 @@ YELLOW="\e[33m"
 RESET="\e[0m"
 
 printf "%b\n" "\
-${YELLOW}chattr +i /ruta/origen/documento.txt${RESET}                                       - Establece atributo inmutable (impide modificar/borrar el archivo, -i para revertirlo).
-${YELLOW}snmpwalk -v2c -c <COMMUNITY-SNMP> -Oneq <IP-SNMP> .1 > dc1-kvm1.snmpwalk${RESET}   - Exporta árbol SNMP completo al archivo dc1-kvm1.snmpwalk.
-${YELLOW}rsync -avzc --progress /ruta/origen/ usuario@host:/ruta/destino/${RESET}           - Copia eficiente de Linux a Linux, mantiene permisos y metadatos (usuarios, hard-links...).
-${YELLOW}scp -r /ruta/origen/ usuario@host:/ruta/destino/${RESET}                           - Copia directa pero más lenta, ideal usando Windows, si Windows no tiene rsync.
-${YELLOW}tar -czvf prueba.tar.gz comprimir/${RESET}                                         - Comprime carpeta con gzip.
-${YELLOW}tar -xzvf prueba.tar.gz${RESET}                                                    - Extrae contenido si fue comprimido con gzip.
-${YELLOW}smbstatus | grep \"nombre_del_archivo.xls\"${RESET}                                  - Verifica si un archivo está abierto por Samba (lo detengo con kill -9).
-${YELLOW}smbstatus -L${RESET}                                                               - Lista todos los archivos abiertos vía Samba con usuarios y PIDs.
+${YELLOW}chattr +i /ruta/origen/documento.txt${RESET}                                           - Establece atributo inmutable (impide modificar/borrar el archivo, -i para revertirlo).
+${YELLOW}snmpwalk -v2c -c <COMMUNITY-SNMP> -Oneq <IP-SNMP> .1 > dc1-kvm1.snmpwalk${RESET}       - Exporta árbol SNMP completo al archivo dc1-kvm1.snmpwalk.
+${YELLOW}rsync -avzc --progress /ruta/origen/ usuario@host:/ruta/destino/${RESET}               - Copia eficiente de Linux a Linux, mantiene permisos y metadatos (usuarios, hard-links...).
+${YELLOW}scp -r /ruta/origen/ usuario@host:/ruta/destino/${RESET}                               - Copia directa pero más lenta, ideal usando Windows, si Windows no tiene rsync.
+${YELLOW}tar -czvf prueba.tar.gz comprimir/${RESET}                                             - Comprime carpeta con gzip.
+${YELLOW}tar -xzvf prueba.tar.gz${RESET}                                                        - Extrae contenido si fue comprimido con gzip.
+${YELLOW}smbstatus | grep \"nombre_del_archivo.xls\"${RESET}                                      - Verifica si un archivo está abierto por Samba (lo detengo con kill -9).
+${YELLOW}smbstatus -L${RESET}                                                                   - Lista todos los archivos abiertos vía Samba con usuarios y PIDs.
+${YELLOW}nmap -p- --open -T5 -v -n [Ip Víctima] -oG [Nombre del archivo de guardado.]${RESET}   - nmap: escanea todos los puertos de la victima y lo guarda con -oG en el archivo índicado.
 "
 EOF
 
