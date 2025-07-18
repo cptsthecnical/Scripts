@@ -217,7 +217,7 @@ alias lsblk='lsblk -e7 -o NAME,MAJ:MIN,RM,SIZE,RO,TYPE,MOUNTPOINT,FSTYPE,MODEL,M
 ## Cambiar diseño del prompt (estilo cyberpunk)
 # -------------------------------------------------------------------
 # color (técnica/grisácea)
-PS1='\[\e[0;90m\]\u ୧༼ಠ益ಠ╭∩╮༽\[\e[0;33m\][\H]\[\e[0m\] \[\e[1;37;41m\] \w \[\e[0m\]$: '
+PS1='\[\e[0;90m\]\u ୧༼ಠ益ಠ╭∩╮༽\[\e[0;33m\][\H]\[\e[0m\] \[\e[1;37;48;5;1m\] \w \[\e[0m\]$: '
 
 # Opción técnica/grisácea
 export LS_COLORS="di=1;30:fi=0;37:ln=1;33:so=1;35:pi=1;33:bd=1;30:cd=1;30:or=1;31:mi=1;31:ex=1;31"
