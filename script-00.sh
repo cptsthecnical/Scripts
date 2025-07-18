@@ -102,8 +102,8 @@ fi
 # Preguntar al usuario el estilo
 while true; do
     echo -e "${YELLOW}Selecciona el estilo: ${NC}"
-    echo "1) Estilo cyberpunk                        # VM y LXC"
-    echo "2) Estilo técnica/grisácea                 # PROXMOX"    
+    echo "1) Estilo cyberpunk                        # estilo cyberpunk (rosa y verde terminal)"
+    echo "2) Estilo técnica/grisácea                 # estilo alternativo (gris y amarillo)"    
     read -rp "Opción (1 o 2): " opcion
 
     case "$opcion" in
