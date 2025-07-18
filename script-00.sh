@@ -702,7 +702,7 @@ if [[ "$respuestaswap" == "s" || "$respuestaswap" == "S" ]]; then
     sudo chmod 600 /swapfile
     
     # formatear como swap
-    sudo mkswap /swapfile
+    mkswap /swapfile
     
     # activar swap
     sudo swapon /swapfile
