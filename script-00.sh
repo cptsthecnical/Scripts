@@ -532,7 +532,7 @@ rocommunity MaltLiquor_25 localhost
 rocommunity MaltLiquor_25 39.1.0.0/16
 rocommunity MaltLiquor_25 192.168.1.0/24
 
-# =====[ESCRITURA-VALORES]==========================================================================================
+# =====[SOBREESCRIBIR-VALORES]======================================================================================
 ## sobreescribo o fuerzo OIDs existentes
 syslocation "🤖 CPD"
 syscontact "🤖 Informatica <informatica@aptelliot.es>"
