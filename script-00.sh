@@ -560,13 +560,13 @@ view systemonly included .1.3.6.1.2.1.1.6        # Ubicación física del sistem
 
 # =====[PERMISOS-VISTAS]============================================================================================
 ## Restringe todo el árbol MIB y limita la información expuesta, permitiendo únicamente el acceso a los OIDs definidos explícitamente en la vista (ACCESOS-RESTRICTIVOS)
-## Permitir acceso de lectura para la vista definida
+# Permitir acceso de lectura para la vista definida
 access readonly "" any noauth exact systemonly none none
 
-## Permitir acceso de lectura y escritura para la vista definida
+# Permitir acceso de lectura y escritura para la vista definida
 #access rwcommunity "" any noauth exact systemonly none none
 
-## Permitir acceso de lectura y escritura con autenticación y cifrado para la vista definida
+# Permitir acceso de lectura y escritura con autenticación y cifrado para la vista definida
 #access rwcommunity "" any authPriv exact all none none
 EOF
 
