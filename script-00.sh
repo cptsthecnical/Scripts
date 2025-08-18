@@ -54,7 +54,7 @@ fi
 
 # instalaciones general 
 apt-get install -y \
-    nmap \
+    nmap tcpdump\
     iputils-ping lm-sensors iproute2 sudo vim net-tools curl btop iftop lsof \
     lsb-release wget sysstat snmp snmpd tcpdump \
     ngrep iptraf-ng mlocate tar gzip tree ca-certificates \
@@ -122,10 +122,13 @@ alias rm='rm -i'
 alias grep='grep --color=auto'
 alias df='df --exclude-type=tmpfs'
 alias lsblk='lsblk -e7 -o NAME,MAJ:MIN,RM,SIZE,RO,TYPE,MOUNTPOINT,FSTYPE,MODEL,MODE,STATE,VENDOR,UUID'
+alias find='find ./ -name'
+alias df='df -hTi'
 
 ## Cambiar diseño del prompt (estilo cyberpunk)
 # -------------------------------------------------------------------
 # color (estilo cyberpunk)
+# PS1='\[\e[0;90m\]\u箱\e[38;5;196m[\H]\e[0m \w\[\e[0;37m\] $: '
 PS1='\[\e[0;90m\]\u箱\e[38;5;196m[\H]\e[38;5;196m\e[1;32m \w\e[0;37m $: '
 
 ## cambiar colores para ls (estilo cyberpunk)
@@ -213,6 +216,8 @@ alias rm='rm -i'
 alias grep='grep --color=auto'
 alias df='df --exclude-type=tmpfs'
 alias lsblk='lsblk -e7 -o NAME,MAJ:MIN,RM,SIZE,RO,TYPE,MOUNTPOINT,FSTYPE,MODEL,MODE,STATE,VENDOR,UUID'
+alias find='find ./ -name'
+alias df='df -hTi'
 
 ## Cambiar diseño del prompt (estilo cyberpunk)
 # -------------------------------------------------------------------
@@ -244,21 +249,21 @@ set hlsearch                                  " Resalta resultados búsqueda
 set ignorecase                                " Ignora mayúsculas/minúsculas
 set smartcase                                 " Caso sensible si hay mayúsculas
 set expandtab                                 " Usa espacios en lugar de tabs
-set tabstop=4
-set shiftwidth=4
-set wildmenu                                  " Mejor autocompletado en cmd
-syntax on
-set background=dark
+set tabstop=4                                 " Número de espacios que representa un tabulador
+set shiftwidth=4                              " Número de espacios para indentación automática
+set wildmenu                                  " Mejor autocompletado en la línea de comandos
+syntax on                                     " Activa el resaltado de sintaxis
+set background=dark                           " Tema oscuro para el fondo
 
 " Colores personalizados básicos para consola
 highlight Normal ctermfg=248 ctermbg=236      " Texto gris medio / fondo gris carbón
-highlight Comment ctermfg=33                  " Comentarios azul marino fuerte
 highlight LineNr ctermfg=240                  " Números gris oscuro
 highlight CursorLine ctermbg=238              " Fondo línea cursor gris plomo
 highlight Keyword ctermfg=61                  " Palabras clave azul cobalto apagado
 highlight Function ctermfg=94                 " Funciones púrpura oscuro
 highlight Statement ctermfg=124               " Sentencias rojo sangre oscuro
 highlight Visual ctermbg=240                  " Selección gris oscuro
+highlight Comment ctermfg=3                   " Comentarios en amarillo
 
 set laststatus=2                              " Siempre mostrar línea de estado
 set noerrorbells                              " Sin sonidos de error
@@ -335,7 +340,7 @@ log_dir="/var/log/ping"
 
 # Si el primer argumento es -r, cambiar al directorio de logs
 if [[ "$1" == "-r" ]]; then
-  cd "$log_dir" 2>/dev/null || { echo "No se pudo acceder a $log_dir"; exit 1; }
+  cd "$log_dir" 2>/dev/null || { echo "No se pudo acceder a $log_dir posiblemente porque no existe ningún log."; exit 1; }
   echo "Ubicación actual: $(pwd)"
   ls -l --color=auto
   exit 0
@@ -428,6 +433,8 @@ ${YELLOW}tar -xzvf prueba.tar.gz${RESET}                                        
 ${YELLOW}smbstatus | grep \"nombre_del_archivo.xls\"${RESET}                                      - Verifica si un archivo está abierto por Samba (lo detengo con kill -9).
 ${YELLOW}smbstatus -L${RESET}                                                                   - Lista todos los archivos abiertos vía Samba con usuarios y PIDs.
 ${YELLOW}nmap -p- --open -T5 -v -n [Ip Víctima] -oG [Nombre del archivo de guardado.]${RESET}   - nmap: escanea todos los puertos de la victima y lo guarda con -oG en el archivo índicado.
+${YELLOW}curl ifconfig.es${RESET}                                                               - curl: muestra la ip pública (también existe ifconfig.me).
+${YELLOW}tcpdump -i eth0 -nn host [Ip Host]${RESET}                                             - tcpdump: captura en eth0 todo el tráfico IP hacia o desde 192.168.1.1, con -nn cambia el nombre puertos y servicio por números (https por 443).
 "
 EOF
 
@@ -517,10 +524,9 @@ source /etc/bash.bashrc
 
 # servidor de SNMP
 # **************************************
-mv /etc/snmp/snmpd.conf /etc/snmp/snmpd.conf.ori
-touch /etc/snmp/snmpd.conf
+cp /etc/snmp/snmpd.conf /etc/snmp/snmpd.conf.ori
 cat <<EOF > /etc/snmp/snmpd.conf
-## SNMPD Configuration | Isaac (v2) - 2025
+## SNMPD Configuration | Isaac (v5) - 07/2025
 ## puerto por defecto de escucha para SNMP
 agentAddress udp:161
 
@@ -528,16 +534,16 @@ agentAddress udp:161
 ## permite que equipos de esa red consulten SNMP con esa comunidad
 # **rocommunity**	: Read-Only
 # **rwcommunity**	: Read-Write
-rocommunity MaltLiquor_25 localhost
-rocommunity MaltLiquor_25 39.1.0.0/16
-rocommunity MaltLiquor_25 192.168.1.0/24
+rocommunity HandShake_25 localhost
+rocommunity HandShake_25 39.1.0.0/16
+rocommunity HandShake_25 192.168.1.0/24
 
 # =====[SOBREESCRIBIR-VALORES]======================================================================================
 ## sobreescribo o fuerzo OIDs existentes
 syslocation "🤖 CPD"
 syscontact "🤖 Informatica <informatica@aptelliot.es>"
 
-# =====[HABILITO-OIDS]==============================================================================================
+# =====[DOCUMENTACIÓN-OIDS]=========================================================================================
 ## OIDs importantes definidos por defecto:
 # sysObjectID: .1.3.6.1.2.1.1.2                  # Identificador único del objeto del sistema (por ejemplo, el tipo de dispositivo)
 # sysDescr: .1.3.6.1.2.1.1.1                     # Descripción del sistema (por ejemplo, el modelo y la versión del firmware)
@@ -572,6 +578,9 @@ EOF
 
 systemctl start snmpd
 systemctl enable snmpd
+
+echo "✅ Configurado e instalado snmp a través de snmpd como servidor consultado, ahora falta instalar desde el servidor cliente snmpwalk (consulta todo el subárbol de OIDs) y snmpget (consulta un OID en concreto)."
+echo ""
 
 # Hora
 # **************************************
@@ -681,8 +690,6 @@ grep -qxF 'export VISUAL=vim' "$BASHRC" || echo 'export VISUAL=vim' >> "$BASHRC"
 # Añadir EDITOR si no existe
 grep -qxF 'export EDITOR=vim' "$BASHRC" || echo 'export EDITOR=vim' >> "$BASHRC"
 
-
-
 # Deshabilitar IPv6
 # **************************************
 echo -e "# Deshabilitamos IPv6\nnet.ipv6.conf.all.disable_ipv6 = 1\nnet.ipv6.conf.default.disable_ipv6 = 1\nnet.ipv6.conf.lo.disable_ipv6 = 1" >> /etc/sysctl.conf
@@ -723,6 +730,68 @@ else
     echo "Continuando con la instalación sin crear el archivo /swapfile."
 fi
 # -------------------------------------------------------------------
+
+# Archivo iptables
+# **************************************
+apt install iptables iptables-persistent -y
+systemctl enable netfilter-persistent
+
+# iptables V4
+# -------------------------------------------------------------------
+cat <<EOF > /etc/iptables/rules.v4
+*filter
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+-A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+-A INPUT -p icmp -j ACCEPT
+-A INPUT -i lo -j ACCEPT
+# SSH
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 22 -j ACCEPT
+# Permitir HTTP (puerto 80) y HTTPS (puerto 443) si es necesario un panel web
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 443 -j ACCEPT
+# Permitimos recibir respuestas DHCP para monitorizar servicios DHCP
+#-A INPUT -p udp --sport 67 --dport 68 -j ACCEPT
+#-A OUTPUT -p udp --sport 68 --dport 67 -j ACCEPT
+# Cerramos resto
+-A INPUT -j REJECT --reject-with icmp-host-prohibited
+-A FORWARD -j REJECT --reject-with icmp-host-prohibited
+COMMIT
+EOF
+# -------------------------------------------------------------------
+
+systemctl start iptables
+iptables -L -n
+
+# iptables V6
+# -------------------------------------------------------------------
+cat <<EOF > /etc/iptables/rules.v6
+*filter
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+-A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+-A INPUT -p ipv6-icmp -j ACCEPT
+-A INPUT -i lo -j ACCEPT
+# SSH
+-A INPUT -p tcp -m state --state NEW -m tcp --dport 22 -j ACCEPT
+# Cerramos el resto
+-A INPUT -j REJECT --reject-with icmp6-adm-prohibited
+-A FORWARD -j REJECT --reject-with icmp6-adm-prohibited
+COMMIT
+EOF
+# -------------------------------------------------------------------
+
+systemctl start ip6tables 
+ip6tables -L -n
+
+# Actualizar proyecto
+systemctl restart iptables
+# Comprobar IPtables
+iptables -L -n -v -t filter
+
+echo "Iptables configurado correctamente."
 
 echo -e "${YELLOW}¡Listo! Los paquetes se instalaron y la configuración esta completa. ${NC}"
 echo -e "${YELLOW}Abre una nueva sesión para trabajar sobre los cambios. ${NC}"
