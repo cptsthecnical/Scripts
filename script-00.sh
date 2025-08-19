@@ -845,7 +845,7 @@ echo -e "${YELLOW}Configuración del sistema completada: ${NC}"
 read -p "¿Deseas reiniciar el sistema? (es recomendado) (s/n): " respuestareboot
 
 if [[ "$respuestareboot" == "s" || "$respuestareboot" == "S" ]]; then
-    echo "Configuración finalizada."
+    echo "Configuración finalizada. El sistema se reiniciará con los cambios instalados."
 
     # Reinicio para aplicar cambios
     reboot now
