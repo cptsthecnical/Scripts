@@ -10,7 +10,7 @@ ___________.__  .__  .__        __      _________               __
  |        \|  |_|  |_|  (  <_> )  |    /        \___  |\___ \  |  | \  ___/|  Y Y  \
 /_______  /|____/____/__|\____/|__|   /_______  / ____/____  > |__|  \___  >__|_|  /
         \/                                    \/\/         \/            \/      \/
-                                                   Installation Script for Debian 12      
+                                           Installation Script for Debian 12/13
                                                    
 EOF
 echo "El siguiente script, va a realizar los siguientes cambios:"
@@ -46,7 +46,7 @@ fi
 
 # Instalación de paquetes iniciales
 echo "Instalando paquetes..."
-apt-get update && apt-get upgrade -y
+apt update && apt upgrade -y
 
 ## Paquetes de ciberseguridad:
 # Preguntar al usuario si quiere instalar paquetes de ciberseguridad
@@ -64,12 +64,12 @@ fi
 # ------------------------------------------------------------------- 
 
 # instalaciones general 
-apt-get install -y \
+apt install -y \
     nmap tcpdump\
-    iputils-ping lm-sensors iproute2 sudo vim net-tools curl btop iftop lsof \
+    iputils-ping lm-sensors iproute2 sudo vim iproute2 curl btop iftop lsof \
     lsb-release wget sysstat snmp snmpd tcpdump \
     ngrep iptraf-ng mlocate tar gzip tree ca-certificates \
-    screen man-db mailutils dnsutils rsyslog  
+    screen man-db mailutils dnsutils rsyslog locales snmp snmpd
 
 # Configuración de sensores
 echo "Configurando sensores:"
@@ -310,7 +310,7 @@ if ! command -v nmap &>/dev/null; then
   read -rp "[!] Nmap no está instalado. ¿Quieres instalarlo? (s/n): " respuesta
   if [[ "$respuesta" =~ ^[Ss]$ ]]; then
     echo "[*] Instalando nmap..."
-    sudo apt-get update && sudo apt-get install -y nmap
+    sudo apt update && sudo apt install -y nmap
     if [[ $? -ne 0 ]]; then
       echo "[!] Error al instalar nmap."
       exit 1
@@ -609,7 +609,7 @@ case "$opcion" in
   1)
     echo ""
     echo "Configurando sincronización puntual (cron + ntpdate)..."
-    apt-get install -y ntpdate
+    apt install -y ntpdate
     ntpdate hora.roa.es
     echo "00 6 * * * /usr/sbin/ntpdate -s hora.roa.es" | crontab -l 2>/dev/null | grep -v 'ntpdate -s hora.roa.es' | { cat; echo "00 6 * * * /usr/sbin/ntpdate -s hora.roa.es"; } | crontab -
     echo "✅ Configuración completada con método puntual (cron + ntpdate)."
