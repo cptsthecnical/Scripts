@@ -8,9 +8,9 @@ echo " |    __)_ |  | |  | |  |/  _ \   __\  \_____  <   |  |/  ___/\   __\/ __ 
 echo " |        \|  |_|  |_|  (  <_> )  |    /        \___  |\___ \  |  | \  ___/|  Y Y  \ "
 echo "/_______  /|____/____/__|\____/|__|   /_______  / ____/____  > |__|  \___  >__|_|  / "
 echo "        \/                                    \/\/         \/            \/      \/  "
-echo "
+echo ""
 echo "El siguiente script, va a realizar los siguientes cambios:"
-echo -e "${YELLOW}
+echo "${YELLOW}
     - Actualizo el sistema y paquetes actuales
     - Instalación de paquetes de ciberseguridad (opcional).
     - Configuro paquete sensors.
