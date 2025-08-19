@@ -2,8 +2,15 @@
 YELLOW='\033[1;33m'
 NC='\033[0m'
 
-echo -e "${YELLOW}El siguiente script, va a realizar los siguientes cambios:
-
+echo "___________.__  .__  .__        __      _________               __                  "
+echo "\_   _____/|  | |  | |__| _____/  |_   /   _____/__.__. _______/  |_  ____   _____  "
+echo " |    __)_ |  | |  | |  |/  _ \   __\  \_____  <   |  |/  ___/\   __\/ __ \ /     \ "
+echo " |        \|  |_|  |_|  (  <_> )  |    /        \___  |\___ \  |  | \  ___/|  Y Y  \"
+echo "/_______  /|____/____/__|\____/|__|   /_______  / ____/____  > |__|  \___  >__|_|  /"
+echo "        \/                                    \/\/         \/            \/      \/ "
+echo "
+echo "El siguiente script, va a realizar los siguientes cambios:"
+echo "${YELLOW}
     - Actualizo el sistema y paquetes actuales
     - Instalación de paquetes de ciberseguridad (opcional).
     - Configuro paquete sensors.
