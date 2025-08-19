@@ -9,6 +9,8 @@ ___________.__  .__  .__        __      _________               __
  |        \|  |_|  |_|  (  <_> )  |    /        \___  |\___ \  |  | \  ___/|  Y Y  \
 /_______  /|____/____/__|\____/|__|   /_______  / ____/____  > |__|  \___  >__|_|  /
         \/                                    \/\/         \/            \/      \/
+                                          Desarrollado por aptElliot
+        
 EOF
 echo "El siguiente script, va a realizar los siguientes cambios:"
 echo -e "${YELLOW}
