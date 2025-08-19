@@ -61,5 +61,5 @@ fi
 
 echo
 echo -e "${YELLOW}===[ Others ]===================================================${NC}"
-echo "[Isaac ~ imp-srv.sh]: $(date '+%a %b %d %H:%M:%S %Y %Z') EUR."
+echo "[aptElliot ~ imp-srv.sh]: $(date '+%a %b %d %H:%M:%S %Y %Z') EUR."
 echo ""
