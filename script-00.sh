@@ -10,10 +10,12 @@ ___________.__  .__  .__        __      _________               __
  |        \|  |_|  |_|  (  <_> )  |    /        \___  |\___ \  |  | \  ___/|  Y Y  \
 /_______  /|____/____/__|\____/|__|   /_______  / ____/____  > |__|  \___  >__|_|  /
         \/                                    \/\/         \/            \/      \/
-                                                   Installation Script for Debian 12                                     
+                                                   Installation Script for Debian 12      
+                                                   
 EOF
 echo "El siguiente script, va a realizar los siguientes cambios:"
-echo -e "${YELLOW}    - Actualizo el sistema y paquetes actuales
+echo -e "${YELLOW}    
+    - Actualizo el sistema y paquetes actuales
     - Instalación de paquetes de ciberseguridad (opcional).
     - Configuro paquete sensors.
     - Configuro el hostname (opcional).
