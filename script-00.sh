@@ -3,15 +3,14 @@ YELLOW='\033[1;33m'
 NC='\033[0m'
 
 cat << 'EOF'
+
 ___________.__  .__  .__        __      _________               __
 \_   _____/|  | |  | |__| _____/  |_   /   _____/__.__. _______/  |_  ____   _____
  |    __)_ |  | |  | |  |/  _ \   __\  \_____  <   |  |/  ___/\   __\/ __ \ /     \
  |        \|  |_|  |_|  (  <_> )  |    /        \___  |\___ \  |  | \  ___/|  Y Y  \
 /_______  /|____/____/__|\____/|__|   /_______  / ____/____  > |__|  \___  >__|_|  /
         \/                                    \/\/         \/            \/      \/
-                                                   Installation Script for Debian 12
-                                          
-        
+                                                   Installation Script for Debian 12                                     
 EOF
 echo "El siguiente script, va a realizar los siguientes cambios:"
 echo -e "${YELLOW}
