@@ -610,11 +610,19 @@ read -rp "Selecciona una opción (1 o 2): " opcion
 case "$opcion" in
   1)
     echo ""
-    echo "Configurando sincronización puntual (cron + ntpdate)..."
-    apt install -y ntpdate
-    ntpdate hora.roa.es
-    echo "00 6 * * * /usr/sbin/ntpdate -s hora.roa.es" | crontab -l 2>/dev/null | grep -v 'ntpdate -s hora.roa.es' | { cat; echo "00 6 * * * /usr/sbin/ntpdate -s hora.roa.es"; } | crontab -
-    echo "✅ Configuración completada con método puntual (cron + ntpdate)."
+   echo "Configurando sincronización puntual (cron + ntpsec-ntpdate)..."
+   # Instalar el reemplazo de ntpdate
+   apt install -y ntpsec-ntpdate
+   # Sincronización puntual inmediata
+   /usr/sbin/ntpdate hora.roa.es
+   # Programar sincronización diaria a las 06:00 con cron
+   echo "00 6 * * * /usr/sbin/ntpdate -s hora.roa.es" | crontab -l 2>/dev/null | grep -v 'ntpdate -s hora.roa.es' | { cat; echo "00 6 * * * /usr/sbin/ntpdate -s hora.roa.es"; } | crontab -
+   # -l = lista crontab actual
+   # 2>/dev/null = evita error si no existe crontab previo
+   # grep -v = evita duplicados
+   # cat + echo = añade nueva línea
+   
+   echo "✅ Configuración completada con método puntual (cron + ntpsec-ntpdate)."
     ;;
   2)
     echo ""
