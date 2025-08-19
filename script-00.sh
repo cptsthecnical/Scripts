@@ -13,8 +13,7 @@ ___________.__  .__  .__        __      _________               __
                                                    Installation Script for Debian 12                                     
 EOF
 echo "El siguiente script, va a realizar los siguientes cambios:"
-echo -e "${YELLOW}
-    - Actualizo el sistema y paquetes actuales
+echo -e "${YELLOW}    - Actualizo el sistema y paquetes actuales
     - Instalación de paquetes de ciberseguridad (opcional).
     - Configuro paquete sensors.
     - Configuro el hostname (opcional).
