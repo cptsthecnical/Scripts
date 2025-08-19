@@ -69,7 +69,7 @@ apt install -y \
     nmap tcpdump\
     iputils-ping lm-sensors iproute2 sudo vim iproute2 curl btop iftop lsof \
     lsb-release wget sysstat snmp snmpd tcpdump \
-    ngrep iptraf-ng mlocate tar gzip tree ca-certificates \
+    ngrep iptraf-ng mlocate plocate tar gzip tree ca-certificates \
     screen man-db mailutils dnsutils rsyslog locales snmp snmpd
 
 # Configuración de sensores
@@ -618,10 +618,10 @@ case "$opcion" in
   2)
     echo ""
     echo "Configurando sincronización continua (ntpd)..."
-    apt install ntp -y
-    systemctl stop ntp
+    apt install ntp ntpsec -y
+    systemctl stop ntpsec
     mv /etc/ntpsec/ntp.conf /etc/ntpsec/ntp.old.conf 2>/dev/null
-    cat <<EOF > /etc/ntp.conf
+    cat <<EOF > /etc/ntpsec/ntp.conf
 # /etc/ntpsec/ntp.conf, configuration for ntpd; see ntp.conf(5) for help
 driftfile /var/lib/ntpsec/ntp.drift
 leapfile /usr/share/zoneinfo/leap-seconds.list
@@ -821,12 +821,12 @@ if [[ "$respuestassh" == "s" || "$respuestassh" == "S" ]]; then
     systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
     
     # Configuración SSH
-    cat <<EOF >> /etc/ssh/sshd_config
-    Port 22
-    PermitRootLogin yes
-    AddressFamily inet
-    ListenAddress 0.0.0.0
-    EOF
+cat <<EOF >> /etc/ssh/sshd_config
+Port 22
+PermitRootLogin yes
+AddressFamily inet
+ListenAddress 0.0.0.0
+EOF
     
     # Habilitar e iniciar servicio
     systemctl enable ssh
