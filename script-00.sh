@@ -807,5 +807,48 @@ iptables -L -n -v -t filter
 
 echo "Iptables configurado correctamente."
 
-echo -e "${YELLOW}¡Listo! Los paquetes se instalaron y la configuración esta completa. ${NC}"
-echo -e "${YELLOW}Abre una nueva sesión para trabajar sobre los cambios. ${NC}"
+# SSH
+# **************************************
+echo -e "${YELLOW}Configuración ssh: ${NC}"
+read -p "¿Deseas completar la configuración de SSH? (s/n): " respuestassh
+
+if [[ "$respuestassh" == "s" || "$respuestassh" == "S" ]]; then
+    ## SSH - acceso desde Proxmox LXC
+    apt install -y openssh-server
+    
+    # Evitar suspensión en el contenedor
+    systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+    
+    # Configuración SSH
+    cat <<EOF >> /etc/ssh/sshd_config
+    Port 22
+    PermitRootLogin yes
+    AddressFamily inet
+    ListenAddress 0.0.0.0
+    EOF
+    
+    # Habilitar e iniciar servicio
+    systemctl enable ssh
+    systemctl start ssh
+    systemctl status ssh
+
+    # Carpeta de trabajo
+    mkdir -p /aptelliot && cd /aptelliot
+else
+    echo "Continuando con la instalación sin la configuración ssh."
+fi
+
+# Reiniciar sistema
+# **************************************
+echo -e "${YELLOW}Configuración del sistema completada: ${NC}"
+read -p "¿Deseas reiniciar el sistema? (es recomendado) (s/n): " respuestareboot
+
+if [[ "$respuestareboot" == "s" || "$respuestareboot" == "S" ]]; then
+    echo "Configuración finalizada."
+
+    # Reinicio para aplicar cambios
+    reboot now
+else
+    echo "Configuración finalizada, (es recomendable reiniciar el sistema, ya no se a completado)."
+fi
+    
