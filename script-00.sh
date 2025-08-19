@@ -32,6 +32,7 @@ echo -e "${YELLOW}
     - Especifíco editor de texto vim por defecto.
     - Deshabilito IPv6.
     - Genero un archivo SWAP de memoría a medida (opcional).
+    - Configuración por defecto para SSH (opcional).
     ${NC}"
 
 echo -e "¿Quieres continuar con la instalación? (s/n):"
