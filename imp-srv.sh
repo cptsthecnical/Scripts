@@ -2,7 +2,6 @@
 # 📝 este script se encarga de imprimir por consola los detalles del servidor de sistema, root, network, fylesystem, servicios, firewall
 YELLOW='\033[1;33m'
 NC='\033[0m'
-clear
 
 HOSTNAME=$(hostname)
 OS_INFO=$(lsb_release -d 2>/dev/null | cut -f2- || grep PRETTY_NAME /etc/os-release | cut -d= -f2 | tr -d \")
