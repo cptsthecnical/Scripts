@@ -28,7 +28,7 @@ echo -e "${YELLOW}
     - Configuro SNMP.
     - Configuro NTP (elección de configuración según necesidades).
     - Habilito sar.
-    - Modifico las interfaces de red y cambio nombre por eth0.
+    - Modifico las interfaces de red.
     - Especifíco editor de texto vim por defecto.
     - Deshabilito IPv6.
     - Genero un archivo SWAP de memoría a medida (opcional).
@@ -448,7 +448,7 @@ ${YELLOW}smbstatus | grep \"nombre_del_archivo.xls\"${RESET}                    
 ${YELLOW}smbstatus -L${RESET}                                                                   - Lista todos los archivos abiertos vía Samba con usuarios y PIDs.
 ${YELLOW}nmap -p- --open -T5 -v -n [Ip Víctima] -oG [Nombre del archivo de guardado.]${RESET}   - nmap: escanea todos los puertos de la victima y lo guarda con -oG en el archivo índicado.
 ${YELLOW}curl ifconfig.es${RESET}                                                               - curl: muestra la ip pública (también existe ifconfig.me).
-${YELLOW}tcpdump -i eth0 -nn host [Ip Host]${RESET}                                             - tcpdump: captura en eth0 todo el tráfico IP hacia o desde 192.168.1.1, con -nn cambia el nombre puertos y servicio por números (https por 443).
+${YELLOW}tcpdump -i ens33 -nn host [Ip Host]${RESET}                                             - tcpdump: captura en eth0 todo el tráfico IP hacia o desde 192.168.1.1, con -nn cambia el nombre puertos y servicio por números (https por 443).
 ${YELLOW}netstat -nlpt${RESET}                                                                  - netstat: muestra qué procesos están escuchando en qué puertos TCP de tu máquina, con su PID correspondiente.
 "
 EOF
@@ -670,14 +670,12 @@ sed -i 's/GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="net.ifnames=0 biosdevname=0"
 # Regeneramos el archivo de grub
 grub-mkconfig -o /boot/grub/grub.cfg
 
-# Modificamos el archivo /etc/network/interfaces reemplazando ens33 por eth0
-# auto eth0
-mv /etc/network/interfaces /etc/network/_interfaces.ori
+# Modificamos el archivo /etc/network/interfaces
+mv /etc/network/interfaces /etc/network/interfaces.ori
 touch /etc/network/interfaces
 cat <<EOF > /etc/network/interfaces
 # This file describes the network interfaces available on your system
 # and how to activate them. For more information, see interfaces(5).
-
 source /etc/network/interfaces.d/*
 
 # The loopback network interface
@@ -685,8 +683,8 @@ auto lo
 iface lo inet loopback
 
 # The primary network interface
-allow-hotplug eth0
-iface eth0  inet dhcp
+allow-hotplug ens33
+iface ens33 inet dhcp
 EOF
 
 # editor de texto por defecto
