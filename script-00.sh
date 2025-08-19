@@ -10,7 +10,6 @@ ___________.__  .__  .__        __      _________               __
 /_______  /|____/____/__|\____/|__|   /_______  / ____/____  > |__|  \___  >__|_|  /
         \/                                    \/\/         \/            \/      \/
 EOF
-echo ""
 echo "El siguiente script, va a realizar los siguientes cambios:"
 echo -e "${YELLOW}
     - Actualizo el sistema y paquetes actuales
