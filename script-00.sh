@@ -10,7 +10,7 @@ echo "/_______  /|____/____/__|\____/|__|   /_______  / ____/____  > |__|  \___ 
 echo "        \/                                    \/\/         \/            \/      \/  "
 echo "
 echo "El siguiente script, va a realizar los siguientes cambios:"
-echo "${YELLOW}
+echo -e "${YELLOW}
     - Actualizo el sistema y paquetes actuales
     - Instalación de paquetes de ciberseguridad (opcional).
     - Configuro paquete sensors.
