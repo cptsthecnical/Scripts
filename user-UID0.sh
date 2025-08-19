@@ -19,7 +19,6 @@ ___________.__  .__  .__        __      _________               __
 EOF
 echo "El siguiente script, va a realizar los siguientes cambios:"
 echo -e "${YELLOW}
-
     - Solicita el nombre, descripción y contraseña 'oculta' del nuevo usuario.
     - Crea el usuario con UID 0 (root) y GID 0 (root), con home y bash.
     - Crea enlaces simbólicos de la configuración de root [enlaza .bashrc, .vimrc y .selected_editor desde /root/ al home del nuevo usuario] (opcional).
