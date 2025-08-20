@@ -447,7 +447,7 @@ ${YELLOW}rsync -avzc --progress /ruta/origen/ usuario@host:/ruta/destino/${RESET
 ${YELLOW}scp -r /ruta/origen/ usuario@host:/ruta/destino/${RESET}                                         - Copia directa pero más lenta, ideal usando Windows, si Windows no tiene rsync.
 ${YELLOW}chattr +i /ruta/origen/documento.txt${RESET}                                                     - Establece atributo inmutable (impide modificar/borrar el archivo, -i para revertirlo).
 
-# compresión de archivos
+# compresión
 ${YELLOW}tar -czvf prueba.tar.gz comprimir/${RESET}                                                        - Comprime carpeta con gzip.
 ${YELLOW}tar -xzvf prueba.tar.gz${RESET}                                                                   - Extrae contenido si fue comprimido con gzip.
 
