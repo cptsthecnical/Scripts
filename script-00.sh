@@ -563,7 +563,7 @@ echo 'uname -srm' >> /etc/bash.bashrc
     # recargo el archivo bash.bashrc
     source /etc/bash.bashrc
     
-    echo "Mensaje de bienvenida configurado."
+    echo "✅ Mensaje de bienvenida configurado."
 else
     echo "Continuando con la instalación sin el mensaje de bienvenida."
 fi
