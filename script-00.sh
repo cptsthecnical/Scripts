@@ -504,7 +504,7 @@ localectl
 ## Dibujo con ASCII y mensaje de monitorización de bienvenida:
 # Preguntar al usuario si quiere instalar dicha configuración
 # -------------------------------------------------------------------
-echo -e "${YELLOW}Paquetes de red-hat: ${NC}"
+echo -e "${YELLOW}Mensaje de monitorización de bienvenida: ${NC}"
 read -p "¿Deseas Configurar un dibujo con ASCII y un mensaje de monitorización de bienvenida en /etc/bash.bashrc? (s/n): " respuestaASCII
 
 if [[ "$respuestaASCII" == "s" || "$respuestaASCII" == "S" ]]; then
