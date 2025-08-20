@@ -430,7 +430,7 @@ fi
 # muestra un texto de buenas prácticas con comandos
 # -------------------------------------------------------------------
 echo "¿Quieres instalar mi comando ayuda en local? (s/n):"
-echo "(Este comando ya se a instalado como alias y lo ejecuta desde uno de mis repositorios públicos)."
+echo "(Este comando ya se a instalado como alias y se ejecuta desde uno de mis repositorios públicos)."
 read -r resayuda
 
 if [[ "$resayuda" =~ ^[Ss]$ ]]; then
