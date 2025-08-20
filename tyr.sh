@@ -18,7 +18,10 @@ build_python() {
     pip install pyinstaller
     MAIN=$(ls *.py | head -n1)
     pyinstaller --onefile "$MAIN"
-    echo "[+] Binario Python generado en: dist/"
+    echo "[+] Binario Python generado en: dist/<paquete>"
+    echo "[-] mover el binario a /usr/local/bin o alguna carpeta del PATH si quieres que sea ejecutable globalmente:"
+    echo "    - mv dist/<paquete> /usr/local/bin/"
+    echo "    - ./<paquete>"
     deactivate
 }
 
