@@ -136,6 +136,7 @@ alias grep='grep --color=auto'
 alias lsblk='lsblk -e7 -o NAME,MAJ:MIN,RM,SIZE,RO,TYPE,MOUNTPOINT,FSTYPE,MODEL,MODE,STATE,VENDOR,UUID'
 alias find='find ./ -name'
 alias df='df -hTi'
+alias ayuda='bash -c "$(wget https://raw.githubusercontent.com/aptelliot/scripts/refs/heads/main/ayuda.sh -qO -)"'
 
 ## Cambiar diseño del prompt (estilo cyberpunk)
 # -------------------------------------------------------------------
@@ -226,10 +227,10 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias rm='rm -i'
 alias grep='grep --color=auto'
-alias df='df --exclude-type=tmpfs'
 alias lsblk='lsblk -e7 -o NAME,MAJ:MIN,RM,SIZE,RO,TYPE,MOUNTPOINT,FSTYPE,MODEL,MODE,STATE,VENDOR,UUID'
 alias find='find ./ -name'
 alias df='df -hTi'
+alias ayuda='bash -c "$(wget https://raw.githubusercontent.com/aptelliot/scripts/refs/heads/main/ayuda.sh -qO -)"'
 
 ## Cambiar diseño del prompt (estilo cyberpunk)
 # -------------------------------------------------------------------
@@ -428,7 +429,8 @@ fi
 # comando : ayuda
 # muestra un texto de buenas prácticas con comandos
 # -------------------------------------------------------------------
-echo "¿Quieres instalar mi comando ayuda? (s/n):"
+echo "¿Quieres instalar mi comando ayuda en local? (s/n):"
+echo "(Este comando ya se a instalado como alias y lo ejecuta desde uno de mis repositorios públicos)."
 read -r resayuda
 
 if [[ "$resayuda" =~ ^[Ss]$ ]]; then
