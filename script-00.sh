@@ -230,7 +230,7 @@ alias lsblk='lsblk -e7 -o NAME,MAJ:MIN,RM,SIZE,RO,TYPE,MOUNTPOINT,FSTYPE,MODEL,M
 alias find='find ./ -name'
 alias df='df -hTi'
 
-## Cambiar diseño del prompt (estilo cyberpunk)
+## Cambiar diseño del prompt (técnica/grisácea)
 # -------------------------------------------------------------------
 # color rojo
 # PS1='\[\e[0;90m\]\u箱\e[38;5;196m[\H]\[\e[0m\] \[\e[1;37;48;5;1m\] \w \[\e[0m\]$: '
