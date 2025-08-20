@@ -136,7 +136,7 @@ alias grep='grep --color=auto'
 alias lsblk='lsblk -e7 -o NAME,MAJ:MIN,RM,SIZE,RO,TYPE,MOUNTPOINT,FSTYPE,MODEL,MODE,STATE,VENDOR,UUID'
 alias find='find ./ -name'
 alias df='df -hTi'
-alias ayuda='bash -c "$(wget https://raw.githubusercontent.com/aptelliot/scripts/refs/heads/main/ayuda.sh -qO -)"'
+alias ayuda='bash -c \"\$(wget https://raw.githubusercontent.com/aptelliot/scripts/refs/heads/main/ayuda.sh -qO -)\"'
 
 ## Cambiar diseño del prompt (estilo cyberpunk)
 # -------------------------------------------------------------------
@@ -230,7 +230,7 @@ alias grep='grep --color=auto'
 alias lsblk='lsblk -e7 -o NAME,MAJ:MIN,RM,SIZE,RO,TYPE,MOUNTPOINT,FSTYPE,MODEL,MODE,STATE,VENDOR,UUID'
 alias find='find ./ -name'
 alias df='df -hTi'
-alias ayuda='bash -c "$(wget https://raw.githubusercontent.com/aptelliot/scripts/refs/heads/main/ayuda.sh -qO -)"'
+alias ayuda='bash -c \"\$(wget https://raw.githubusercontent.com/aptelliot/scripts/refs/heads/main/ayuda.sh -qO -)\"'
 
 ## Cambiar diseño del prompt (estilo cyberpunk)
 # -------------------------------------------------------------------
