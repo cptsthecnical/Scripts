@@ -16,24 +16,24 @@ ___________.__  .__  .__        __      _________               __
 EOF
 echo "El siguiente script, va a realizar los siguientes cambios:"
 echo -e "${YELLOW}    
-    - Actualizo el sistema y paquetes actuales
+    - Actualizo el sistema y paquetes.
     - Instalación de paquetes de ciberseguridad (opcional).
     - Configuro paquete sensors.
     - Configuro el hostname (opcional).
-    - Configuro en archivo de ~/.bashrc
-    - Agrego mis propios comandos [scanvuln y pingtime].
+    - Configuro en archivo de ~/.bashrc.
+    - Agrego mis propios comandos (opcional).
     - Configuro sistema de logs.
     - Configuro Idioma.
     - Configuro .vimrc.
-    - Configuro dibujo con ASCII y mensaje de monitorización de bienvenida en /etc/bash.bashrc
+    - Configuro dibujo con ASCII y mensaje de monitorización de bienvenida en /etc/bash.bashrc.
     - Configuro SNMP.
     - Configuro NTP (elección de configuración según necesidades).
-    - Habilito sar.
+    - Habilito SAR.
     - Modifico las interfaces de red.
     - Especifíco editor de texto vim por defecto.
     - Deshabilito IPv6.
     - Genero un archivo SWAP de memoría a medida (opcional).
-    - Configuración por defecto para SSH (opcional).
+    - Configuro SSH (opcional).
     ${NC}"
 
 echo -e "¿Quieres continuar con la instalación? (s/n):"
