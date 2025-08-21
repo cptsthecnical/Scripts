@@ -69,6 +69,7 @@ build_java() {
     fi
 }
 
+# Función para GO
 build_go() {
     echo "[+] Proyecto Go detectado"
     sudo apt update
@@ -77,6 +78,19 @@ build_go() {
     for SRC in *.go; do
         BIN="${SRC%.go}"
         go build -o "$BIN" "$SRC"
+        echo "[+] Compilado: $BIN"
+    done
+}
+
+# Función para Rust
+build_rust() {
+    echo "[+] Proyecto Rust detectado"
+    sudo apt update
+    sudo apt install -y rustc cargo
+    cd "$PROYECTO"
+    for SRC in *.rs; do
+        BIN="${SRC%.rs}"
+        rustc "$SRC" -o "$BIN"
         echo "[+] Compilado: $BIN"
     done
 }
@@ -92,6 +106,8 @@ elif ls *.cpp >/dev/null 2>&1; then
     build_cpp
 elif ls *.java >/dev/null 2>&1; then
     build_java
+elif ls *.rs >/dev/null 2>&1; then
+    build_rust
 elif ls *.go >/dev/null 2>&1; then
     build_go
 else
