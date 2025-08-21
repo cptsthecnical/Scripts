@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# 👢🐂🌵🐍	Murder On The Bayou
 # 🧠 script de compilación genérica para Debian 
 #   - Autor: Elliot (SysAdmin)
 #   - Uso: ./tyr.sh <ruta_proyecto>
@@ -68,6 +69,18 @@ build_java() {
     fi
 }
 
+build_go() {
+    echo "[+] Proyecto Go detectado"
+    sudo apt update
+    sudo apt install -y golang-go
+    cd "$PROYECTO"
+    for SRC in *.go; do
+        BIN="${SRC%.go}"
+        go build -o "$BIN" "$SRC"
+        echo "[+] Compilado: $BIN"
+    done
+}
+
 # Detección de proyecto
 cd "$PROYECTO"
 
@@ -79,6 +92,8 @@ elif ls *.cpp >/dev/null 2>&1; then
     build_cpp
 elif ls *.java >/dev/null 2>&1; then
     build_java
+elif ls *.go >/dev/null 2>&1; then
+    build_go
 else
     echo "[!] No se detecta proyecto Python, C, C++ ni Java en $PROYECTO"
     exit 1
