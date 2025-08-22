@@ -11,7 +11,7 @@ ___________.__  .__  .__        __      _________               __
  |        \|  |_|  |_|  (  <_> )  |    /        \___  |\___ \  |  | \  ___/|  Y Y  \
 /_______  /|____/____/__|\____/|__|   /_______  / ____/____  > |__|  \___  >__|_|  /
         \/                                    \/\/         \/            \/      \/
-                                           Installation Script for Debian 12/13
+                                            Installation Script for Debian 13
                                                    
 EOF
 echo "El siguiente script, va a realizar los siguientes cambios:"
