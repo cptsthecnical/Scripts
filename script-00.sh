@@ -740,9 +740,15 @@ syscontact "🤖 Informatica <informatica@aptelliot.es>"
 # sysServices: .1.3.6.1.2.1.1.7                  # Servicios disponibles en el sistema (por ejemplo, SNMP, HTTP, FTP)
 
 # =====[PERSONALIZACIÓN-RAMAS]======================================================================================
-## agrego OIDs personalizados que ejecutan comandos del sistema y exponen su salida vía SNMP
-#extend test1 /bin/echo "Hello world"            # método actual: crea un identificador SNMP llamado test1 que al consultarlo devolverá "Hello world".
-#exec 1.3.6.1.4.1.2021.8 /bin/echo "Hello world" # método antiguo: asocia directamente ese OID con el comando y devuelve su salida por SNMP
+## integrar scripts o comandos externos a SNMP
+# expone un OID personalizado que ejecuta comandos del sistema y exponen su salida
+#extend test1 /bin/echo "Hello world"
+
+# pass - expone un OID que devuelve según este ejemplo de script la temperatura del servidor
+#pass .1.3.6.1.4.1.2021.100 /usr/local/bin/check_temp.sh
+
+# pass_persist - script se ejecute una sola vez y permanezca en memoria, útil para métricas que se consultan muy seguidas
+#pass_persist .1.3.6.1.4.1.2021.101 /usr/local/bin/check_metrics_persist.sh
 
 # =====[ACCESOS-RESTRICTIVOS]=======================================================================================
 ## restringe el acceso solo a esos OIDs específicos del sistema
