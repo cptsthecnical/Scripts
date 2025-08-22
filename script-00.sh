@@ -486,8 +486,11 @@ read -r restyr
 
 if [[ "$restyr" =~ ^[Ss]$ ]]; then
 cat <<'EOF' | sudo tee /usr/bin/tyr > /dev/null
-#!/bin/bash
+#!/usr/bin/env bash
 # script de compilación genérica para Debian 
+YELLOW='\033[1;33m'
+NC='\033[0m'
+clear
 
 set -e
 PROYECTO="${1:-.}"
@@ -504,10 +507,10 @@ build_python() {
     pip install pyinstaller
     MAIN=$(ls *.py | head -n1)
     pyinstaller --onefile "$MAIN"
-    echo "[+] Binario Python generado en: dist/<paquete>"
-    echo "[-] mover el binario a /usr/local/bin o alguna carpeta del PATH si quieres que sea ejecutable globalmente:"
-    echo "    mv dist/<paquete> /usr/local/bin/"
-    echo "    ./<paquete>"
+    echo -e "${YELLOW}[+] Binario Python generado en: dist/<paquete> ${NC}"
+    echo -e "${YELLOW}[-] mover el binario a /usr/local/bin o alguna carpeta del PATH si quieres que sea ejecutable globalmente: ${NC}"
+    echo -e "${YELLOW}    mv dist/<paquete> /usr/local/bin/ ${NC}"
+    echo -e "${YELLOW}    ./<paquete> ${NC}"
     deactivate
 }
 
@@ -520,7 +523,8 @@ build_c() {
     for SRC in *.c; do
         BIN="${SRC%.c}"
         gcc "$SRC" -o "$BIN" -Wall -O2
-        echo "[+] Compilado: $BIN"
+        
+        echo -e "${YELLOW}[+] Compilado: $BIN ${NC}"
     done
 }
 
@@ -533,7 +537,8 @@ build_cpp() {
     for SRC in *.cpp; do
         BIN="${SRC%.cpp}"
         g++ "$SRC" -o "$BIN" -Wall -O2 -std=c++17
-        echo "[+] Compilado: $BIN"
+        
+        echo -e "${YELLOW}[+] Compilado: $BIN ${NC}"
     done
 }
 
@@ -545,12 +550,14 @@ build_java() {
     cd "$PROYECTO"
     for SRC in *.java; do
         javac "$SRC"
-        echo "[+] Compilado: ${SRC%.java}.class"
+        
+        echo -e "${YELLOW}[+] Compilado: ${SRC%.java}.class ${NC}"
     done
     # Opcional: empaquetar en un JAR
     if ls *.class >/dev/null 2>&1; then
         jar cf app.jar *.class
-        echo "[+] Empaquetado JAR: app.jar"
+        
+        echo -e "${YELLOW}[+] Empaquetado JAR: app.jar ${NC}"
     fi
 }
 
@@ -563,7 +570,8 @@ build_go() {
     for SRC in *.go; do
         BIN="${SRC%.go}"
         go build -o "$BIN" "$SRC"
-        echo "[+] Compilado: $BIN"
+        
+        echo -e "${YELLOW}[+] Compilado: $BIN ${NC}"
     done
 }
 
@@ -576,7 +584,8 @@ build_rust() {
     for SRC in *.rs; do
         BIN="${SRC%.rs}"
         rustc "$SRC" -o "$BIN"
-        echo "[+] Compilado: $BIN"
+        
+        echo -e "${YELLOW}[+] Compilado: $BIN ${NC}"
     done
 }
 
@@ -599,6 +608,7 @@ else
     echo "[!] No se detecta proyecto Python, C, C++ ni Java en $PROYECTO"
     exit 1
 fi
+
 EOF
 
 chmod 770 /usr/bin/scanvuln
