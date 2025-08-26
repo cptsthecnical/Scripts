@@ -381,7 +381,7 @@ fi
 # comando : ayuda
 # muestra un texto de buenas prácticas con comandos
 # -------------------------------------------------------------------
-echo "¿Quieres instalar mi comando ayuda en local? (s/n):"
+echo "¿Quieres instalar mi comando ayuda? (s/n):"
 read -r resayuda
 
 if [[ "$resayuda" =~ ^[Ss]$ ]]; then
