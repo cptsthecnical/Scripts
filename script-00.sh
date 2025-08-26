@@ -693,7 +693,7 @@ echo 'echo "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 echo 'echo "Información del sistema:"' >> /etc/bash.bashrc
 echo 'echo "CPU: $(grep -m1 '\''model name'\'' /proc/cpuinfo | cut -d ":" -f2 | sed '\''s/^ //'\'' )"' >> /etc/bash.bashrc
 echo 'echo "RAM libre: $(free -h | awk '\''/^Mem:/ {print $7}'\'')"' >> /etc/bash.bashrc
-echo 'echo "Espacio en /: $(df -h / | awk '\''$NF=="/"{print $4}'\'')"' >> /etc/bash.bashrc
+echo 'echo "Espacio libre en /: $(df -h / | awk '\''$NF=="/"{print $4}'\'')"' >> /etc/bash.bashrc
 echo 'echo "Datos escritos desde el arranque: $(awk '\''{sum += $10} END {gb = sum * 512 / (1024*1024*1024); if (gb >= 1024) printf "%.2f TB", gb/1024; else printf "%.2f GB", gb}'\'' /proc/diskstats)"' >> /etc/bash.bashrc
 echo 'echo "Tiempo desde el último arranque: $(awk '\''{ print int($1/86400) " days, " int(($1%86400)/3600) " hours, " int(($1%3600)/60) " minutes" }'\'' /proc/uptime)"' >> /etc/bash.bashrc
 echo 'sensors 2>/dev/null || echo "No se detectaron sensores."' >> /etc/bash.bashrc
