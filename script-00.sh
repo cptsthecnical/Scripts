@@ -32,6 +32,7 @@ echo -e "${YELLOW}
     - Especifíco editor de texto vim por defecto.
     - Deshabilito IPv6.
     - Genero un archivo SWAP de memoría a medida (opcional).
+    - Configuro plantillas inicial de iptables (v4 y v6).
     - Configuro SSH (opcional).
     ${NC}"
 
