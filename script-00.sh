@@ -413,8 +413,11 @@ ${YELLOW}lsblk -e7 -o NAME,MAJ:MIN,RM,SIZE,RO,TYPE,MOUNTPOINT,FSTYPE,MODEL,MODE,
 ${YELLOW}hdparm -I /dev/sda3${RESET}                                                                       - Muestra capacidades del disco/SSD (modelo, firmware, modos DMA/UDMA, velocidades, características SMART soportadas, límites de seguridad, etc.).
 ${YELLOW}smartctl -axH /dev/sda3${RESET}                                                                   - Muestra todo SMART (atributos, historial de errores, tests) -x (tablas y logs vendor-specific), -H (salud PASSED/FAILED).
 
+# nmap
+${YELLOW}nmap -p- --open -T5 -v -n [Ip Víctima] -oG [Nombre del archivo de guardado.]${RESET}              - escanea todos los puertos abiertos de la victima. Parámetros opcionales (-oG) lo guarda en el archivo índicado, (-n) no muestra los DNS.
+${YELLOW}nmap -sV --script vuln [Ip Víctima]${RESET}                                                       - escanea las vulnerabilidades (CVE) en un host específico.
+
 # redes
-${YELLOW}nmap -p- --open -T5 -v -n [Ip Víctima] -oG [Nombre del archivo de guardado.]${RESET}              - nmap: escanea todos los puertos de la victima. Parámetros opcionales (-oG) lo guarda en el archivo índicado, (-n) no muestra los DNS.
 ${YELLOW}curl ifconfig.es${RESET}                                                                          - curl: muestra la ip pública (también existe ifconfig.me).
 ${YELLOW}tcpdump -i ens33 -nn host [Ip Host]${RESET}                                                       - tcpdump: captura en eth0 todo el tráfico IP hacia o desde 192.168.1.1, con -nn cambia el nombre puertos y servicio por números (https por 443).
 ${YELLOW}netstat -nlpt${RESET}                                                                             - netstat: muestra qué procesos están escuchando en qué puertos TCP de tu máquina, con su PID correspondiente.
