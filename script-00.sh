@@ -902,9 +902,11 @@ cat <<EOF > /etc/iptables/rules.v4
 # Permitir HTTP (puerto 80) y HTTPS (puerto 443) si es necesario un panel web
 -A INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT
 -A INPUT -m state --state NEW -m tcp -p tcp --dport 443 -j ACCEPT
-# Permitimos recibir respuestas DHCP para monitorizar servicios DHCP
+# Permitimos recibir respuestas DHCP si nuestra IP es dinámica
 #-A INPUT -p udp --sport 67 --dport 68 -j ACCEPT
 #-A OUTPUT -p udp --sport 68 --dport 67 -j ACCEPT
+# Ejemplo:: Permitir acceso al panel web de administración Greenbone
+#-A INPUT -p tcp --dport 9392 -j ACCEPT
 # Cerramos resto
 -A INPUT -j REJECT --reject-with icmp-host-prohibited
 -A FORWARD -j REJECT --reject-with icmp-host-prohibited
