@@ -29,7 +29,6 @@ echo -e "${YELLOW}
     - Configuro SNMP.
     - Configuro NTP (elección de configuración según necesidades).
     - Habilito SAR.
-    - Modifico las interfaces de red.
     - Especifíco editor de texto vim por defecto.
     - Deshabilito IPv6.
     - Genero un archivo SWAP de memoría a medida (opcional).
@@ -293,52 +292,6 @@ EOF
 done
 
 # Agrego mis propios comandos:
-
-# comando : scanvuln
-# escanea rapidamente las vulnerabilidades de la IP asignada
-# -------------------------------------------------------------------
-echo -e "${YELLOW}Mis propios comandos: ${NC}"
-echo "¿Quieres instalar mi comando scanvuln? (s/n):"
-read -r resscanvuln
-
-if [[ "$resscanvuln" =~ ^[Ss]$ ]]; then
-cat <<'EOF' | sudo tee /usr/bin/scanvuln > /dev/null
-#!/bin/bash
-
-# Comprobación de Nmap
-if ! command -v nmap &>/dev/null; then
-  read -rp "[!] Nmap no está instalado. ¿Quieres instalarlo? (s/n): " respuesta
-  if [[ "$respuesta" =~ ^[Ss]$ ]]; then
-    echo "[*] Instalando nmap..."
-    sudo apt update && sudo apt install -y nmap
-    if [[ $? -ne 0 ]]; then
-      echo "[!] Error al instalar nmap."
-      exit 1
-    fi
-  else
-    echo "[!] Nmap es necesario para realizar el escaneo."
-    exit 1
-  fi
-fi
-
-# Verificar parámetro
-if [[ -z "$1" ]]; then
-  echo "================================================================================"
-  echo "Uso: scanvuln <IP>"        # escaneo de servicios y vulnerabilidades usando Nmap        
-  echo " "
-  exit 1
-fi
-
-ip="$1"
-echo "[*] Escaneando la IP $ip con Nmap + scripts de vulnerabilidades..."
-sudo nmap -sV --script vuln "$ip"
-EOF
-
-chmod 770 /usr/bin/scanvuln
-echo "✅ Comando scanvuln habilitado"
-fi
-
-# - 
 
 # comando : pingtime
 # hace un ping registrando la fecha y tiempo exacto y de manera opcional guarda cada peticion en la ruta /var/log/ping/
@@ -608,10 +561,9 @@ else
     echo "[!] No se detecta proyecto Python, C, C++ ni Java en $PROYECTO"
     exit 1
 fi
-
 EOF
 
-chmod 770 /usr/bin/scanvuln
+chmod 770 /usr/bin/tyr
 echo "✅ Comando tyr habilitado"
 fi
 
