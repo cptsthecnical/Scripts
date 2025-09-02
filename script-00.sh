@@ -399,6 +399,7 @@ ${YELLOW}snmpwalk -v2c -c <community-snmp> -Oneq <ip-snmp> .1 > dc1-kvm1.snmpwal
 ${YELLOW}rsync -avzc --progress /ruta/origen/ usuario@host:/ruta/destino/${RESET}                         - Copia eficiente de Linux a Linux, mantiene permisos y metadatos (usuarios, hard-links...).
 ${YELLOW}scp -r /ruta/origen/ usuario@host:/ruta/destino/${RESET}                                         - Copia directa pero más lenta, ideal usando Windows, si Windows no tiene rsync.
 ${YELLOW}chattr +i /ruta/origen/documento.txt${RESET}                                                     - Establece atributo inmutable (impide modificar/borrar el archivo, -i para revertirlo).
+${YELLOW}sudo du -h --max-depth=1 /var/lib | sort -rh | head -n 10${RESET}                                - Comprueba el almacenamiento utilizado en /var/lib.
 
 # compresión
 ${YELLOW}tar -czvf prueba.tar.gz comprimir/${RESET}                                                        - Comprime carpeta con gzip.
