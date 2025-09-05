@@ -115,8 +115,8 @@ fi
 # Preguntar al usuario el estilo
 while true; do
     echo -e "${YELLOW}Selecciona el estilo: ${NC}"
-    echo "1) Estilo cyberpunk                        # diferencial y profesional (rosa y verde)"
-    echo "2) Estilo personal                         # alternativo e informal (gris y amarillo)"    
+    echo "1) Estilo cyberpunk                        # diferencial y profesional (rosa y verde) | para pruebas o terminales distintivas."
+    echo "2) Estilo personal                         # alternativo e informal (gris y amarillo) | para trabajar con servidores."    
     read -rp "Opción (1 o 2): " opcion
 
     case "$opcion" in
@@ -135,7 +135,7 @@ alias rm='rm -i'
 alias grep='grep --color=auto'
 alias lsblk='lsblk -e7 -o NAME,MAJ:MIN,RM,SIZE,RO,TYPE,MOUNTPOINT,FSTYPE,MODEL,MODE,STATE,VENDOR,UUID'
 alias find='find ./ -name'
-alias df='df -hTi'
+alias dfi='df -hTi'
 
 ## Cambiar diseño del prompt (estilo cyberpunk)
 # -------------------------------------------------------------------
@@ -228,7 +228,7 @@ alias rm='rm -i'
 alias grep='grep --color=auto'
 alias lsblk='lsblk -e7 -o NAME,MAJ:MIN,RM,SIZE,RO,TYPE,MOUNTPOINT,FSTYPE,MODEL,MODE,STATE,VENDOR,UUID'
 alias find='find ./ -name'
-alias df='df -hTi'
+alias dfi='df -hTi'
 
 ## Cambiar diseño del prompt (técnica/grisácea)
 # -------------------------------------------------------------------
