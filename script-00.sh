@@ -232,10 +232,10 @@ alias dfi='df -hTi'
 
 ## Cambiar diseño del prompt (técnica/grisácea)
 # -------------------------------------------------------------------
-# color rojo
-# PS1='\[\e[0;90m\]\u箱\e[38;5;196m[\H]\[\e[0m\] \[\e[1;37;48;5;1m\] \w \[\e[0m\]$: '
-# color (técnica/grisácea)
-PS1='\[\e[0;90m\]\u ୧༼ಠ益ಠ╭∩╮༽\[\e[0;33m\][\H]\[\e[0m\] \[\e[1;37;48;5;1m\] \w \[\e[0m\]$: '
+# color técnica-rojo
+PS1='\[\e[0;90m\]\u箱\e[38;5;196m[\H]\[\e[0m\] \[\e[1;37;48;5;1m\] \w \[\e[0m\]$: '
+# color (producción-grisácea)
+# PS1='\[\e[0;90m\]\u ୧༼ಠ益ಠ╭∩╮༽\[\e[0;33m\][\H]\[\e[0m\] \[\e[1;37;48;5;1m\] \w \[\e[0m\]$: '
 
 # Opción técnica/grisácea
 export LS_COLORS="di=1;30:fi=0;37:ln=1;33:so=1;35:pi=1;33:bd=1;30:cd=1;30:or=1;31:mi=1;31:ex=1;31"
