@@ -12,10 +12,10 @@ if not exist "%DestinationFolder%" (
     mkdir "%DestinationFolder%"
 )
 
-:: Lista de repositorios
+:: Lista de repositorios (todos los enlaces seguidos por un espacio separatorio)
 set "repos=https://github.com/aptelliot/Scripts/archive/refs/heads/main.zip https://github.com/aptelliot/Technical-Documentation/archive/refs/heads/main.zip https://github.com/aptelliot/prueba-privada/archive/refs/heads/main.zip"
 
-:: Descargar cada repo
+:: Descargar cada repositorio
 for %%u in (%repos%) do (
     set "repoUrl=%%u"
     
@@ -23,16 +23,15 @@ for %%u in (%repos%) do (
     for /F "tokens=4 delims=/" %%a in ("!repoUrl!") do set "repoName=%%a"
 
     set "filePath=%DestinationFolder%\!repoName!.zip"
-
     echo Descargando !repoName!.zip...
 
-    :: Intento de descarga pública
+    :: Intento de descarga
     curl -L -o "!filePath!" "!repoUrl!" --silent
     if exist "!filePath!" (
-        echo !repoName!.zip descargado públicamente en %DestinationFolder%
+        echo !repoName!.zip descargado sin token en %DestinationFolder%
     ) else (
         if not "%GitHubToken%"=="" (
-            echo No se pudo descargar públicamente !repoName!.zip
+            echo No se pudo descargar sin token !repoName!.zip
             echo Intentando con token...
             curl -L -o "!filePath!" -H "Authorization: token %GitHubToken%" -H "User-Agent: curl" "!repoUrl!" --silent
             if exist "!filePath!" (
