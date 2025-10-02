@@ -1,32 +1,30 @@
 ## script para Windows en powershell para migrar con doble click mis apuntes a un USB
 # Configuración
-$GitHubUser = "TU_USUARIO"
-$Token = "TU_TOKEN"         # ⚠️ Mantener seguro
-$DestinationFolder = "E:\"  # ⚠️ Cambiar por la unidad usb
+$DestinationFolder = "F:\repositorio\"      # Cambiar por tu unidad USB
+$repos = @(
+    "https://github.com/aptelliot/Scripts/archive/refs/heads/main.zip",
+    "https://github.com/aptelliot/Technical-Documentation/archive/refs/heads/main.zip"
+)
 
 # Crear carpeta de destino si no existe
 if (-not (Test-Path $DestinationFolder)) { New-Item -ItemType Directory -Path $DestinationFolder }
 
-# Lista de repositorios a clonar (pueden ser privados o públicos)
-$repos = @(
-    "https://github.com/aptelliot/Technical-Documentation",
-    "https://github.com/aptelliot/Scripts",
-    "https://github.com/aptelliot/repo-prueba"
-)
-
 foreach ($repoUrl in $repos) {
-    # Extraer nombre del repositorio
-    $repoName = ($repoUrl -split "/")[-1]
-    $repoPath = Join-Path $DestinationFolder $repoName
+    # Extraer nombre del repositorio de la URL
+    $repoName = ($repoUrl -split "/")[4]    # 0=https:, 1=, 2=github.com, 3=usuario, 4=repo
+    $fileName = "$repoName.zip"             # Usamos el nombre del repo en vez de main.zip
+    $filePath = Join-Path $DestinationFolder $fileName
 
-    # Insertar token para repos privados
-    $cloneUrl = $repoUrl -replace "https://", "https://$GitHubUser`:$Token@"
-
-    if (-not (Test-Path $repoPath)) {
-        Write-Host "Clonando $repoName..."
-        git clone $cloneUrl $repoPath
-    } else {
-        Write-Host "Actualizando $repoName..."
-        git -C $repoPath pull
+    Write-Host "Descargando $fileName..."
+    try {
+        Invoke-WebRequest -Uri $repoUrl -OutFile $filePath -UseBasicParsing -Headers @{ "User-Agent" = "Mozilla/5.0" }
+        if (Test-Path $filePath) {
+            Write-Host "$fileName descargado correctamente en $DestinationFolder"
+        } else {
+            Write-Host "Error: no se pudo descargar $fileName"
+        }
+    }
+    catch {
+        Write-Host ('Excepción al descargar {0}: {1}' -f $fileName, $_.Exception.Message)
     }
 }
