@@ -2,6 +2,7 @@
 setlocal enabledelayedexpansion
 
 :: script para Windows en CMD para migrar con doble click mis apuntes públicos a un USB
+:: en el caso de que ya esté registrado en github no me pedirá el token de registro
 :: Configuración
 set "DestinationFolder=E:\"
 set "GitHubToken=TOKEN"  
