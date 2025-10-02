@@ -23,7 +23,7 @@ for %%u in (%repos%) do (
     for /F "tokens=4 delims=/" %%a in ("!repoUrl!") do set "repoName=%%a"
 
     set "filePath=%DestinationFolder%\!repoName!.zip"
-    echo Descargando !repoName!.zip...
+    echo Preparando !repoName!.zip...
 
 :: Intento de descarga
     curl -L -o "!filePath!" "!repoUrl!" --silent
