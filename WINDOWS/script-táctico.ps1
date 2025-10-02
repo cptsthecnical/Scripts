@@ -1,30 +1,52 @@
 ## script para Windows en powershell para migrar con doble click mis apuntes públicos a un USB
 # Configuración
-$DestinationFolder = "F:\repositorio\"      # Cambiar por tu unidad USB
-$repos = @(
+$DestinationFolder = "E:\"  # Cambiar por tu unidad USB
+$GitHubToken = "TOKEN"                  # Solo necesario para repos privados
+# para generar un token en Settings > Developer Settings > Personal Access Token > Token (Classic)
+$repos = @(                             
     "https://github.com/aptelliot/Scripts/archive/refs/heads/main.zip",
-    "https://github.com/aptelliot/Technical-Documentation/archive/refs/heads/main.zip"
+    "https://github.com/aptelliot/Technical-Documentation/archive/refs/heads/main.zip",
+    "https://github.com/aptelliot/prueba-privada/archive/refs/heads/main.zip"  
 )
 
 # Crear carpeta de destino si no existe
 if (-not (Test-Path $DestinationFolder)) { New-Item -ItemType Directory -Path $DestinationFolder }
 
 foreach ($repoUrl in $repos) {
-    # Extraer nombre del repositorio de la URL
-    $repoName = ($repoUrl -split "/")[4]    # 0=https:, 1=, 2=github.com, 3=usuario, 4=repo
-    $fileName = "$repoName.zip"             # Usamos el nombre del repo en vez de main.zip
+    $repoName = ($repoUrl -split "/")[4]
+    $fileName = "$repoName.zip"
     $filePath = Join-Path $DestinationFolder $fileName
 
-    Write-Host "Descargando $fileName..."
+    $descargado = $false
+
+    # Intentar descarga pública
     try {
         Invoke-WebRequest -Uri $repoUrl -OutFile $filePath -UseBasicParsing -Headers @{ "User-Agent" = "Mozilla/5.0" }
         if (Test-Path $filePath) {
-            Write-Host "$fileName descargado correctamente en $DestinationFolder"
-        } else {
-            Write-Host "Error: no se pudo descargar $fileName"
+            Write-Host "$fileName descargado públicamente en $DestinationFolder"
+            $descargado = $true
         }
     }
     catch {
-        Write-Host ('Excepción al descargar {0}: {1}' -f $fileName, $_.Exception.Message)
+        Write-Host "No se pudo descargar públicamente $fileName"
+    }
+
+    # Si falla, intentar con token
+    if (-not $descargado -and $GitHubToken -ne "") {
+        Write-Host "Intentando descargar $fileName con token..."
+        try {
+            Invoke-WebRequest -Uri $repoUrl -OutFile $filePath -UseBasicParsing -Headers @{
+                "Authorization" = "token $GitHubToken"
+                "User-Agent"    = "Mozilla/5.0"
+            }
+            if (Test-Path $filePath) {
+                Write-Host "$fileName descargado con token en $DestinationFolder"
+            } else {
+                Write-Host "Error: no se pudo descargar $fileName incluso con token"
+            }
+        }
+        catch {
+            Write-Host ('Excepción al descargar {0} con token: {1}' -f $fileName, $_.Exception.Message)
+        }
     }
 }
