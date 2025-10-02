@@ -3,7 +3,7 @@ setlocal enabledelayedexpansion
 
 :: script para Windows en CMD para migrar con doble click mis apuntes públicos a un USB
 :: Configuración
-set "DestinationFolder=F:\repositorio"
+set "DestinationFolder=E:\"
 set "GitHubToken=TOKEN"  
 
 
