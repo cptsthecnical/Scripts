@@ -25,22 +25,22 @@ for %%u in (%repos%) do (
     set "filePath=%DestinationFolder%\!repoName!.zip"
     echo Descargando !repoName!.zip...
 
-    :: Intento de descarga
+:: Intento de descarga
     curl -L -o "!filePath!" "!repoUrl!" --silent
     if exist "!filePath!" (
-        echo !repoName!.zip descargado sin token en %DestinationFolder%
+        echo [yes] - !repoName!.zip descargado sin token en %DestinationFolder%
     ) else (
         if not "%GitHubToken%"=="" (
             echo No se pudo descargar sin token !repoName!.zip
             echo Intentando con token...
             curl -L -o "!filePath!" -H "Authorization: token %GitHubToken%" -H "User-Agent: curl" "!repoUrl!" --silent
             if exist "!filePath!" (
-                echo !repoName!.zip descargado con token en %DestinationFolder%
+                echo [yes] - !repoName!.zip descargado con token en %DestinationFolder%
             ) else (
-                echo Error: no se pudo descargar !repoName!.zip incluso con token
+                echo [no] - Error: no se pudo descargar !repoName!.zip incluso con token
             )
         ) else (
-            echo Error: no se pudo descargar !repoName!.zip y no hay token
+            echo [no] - Error: no se pudo descargar !repoName!.zip y no hay token
         )
     )
 )
