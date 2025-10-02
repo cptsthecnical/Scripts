@@ -1,4 +1,6 @@
 <?php
+// script para generador de tareas estilo KANBAN | para ejecutarlo tengo que tener instalo php como variable de entorno. php ./Fenix-41.php
+
 // Archivo de tareas
 define('TASK_FILE', 'Task-Fenix41.json');
 define('ARCHIVE_FILE', 'ashes.txt');
