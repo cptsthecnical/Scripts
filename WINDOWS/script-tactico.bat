@@ -4,7 +4,7 @@ setlocal enabledelayedexpansion
 :: script para Windows en CMD para migrar con doble click mis apuntes públicos a un USB
 :: Configuración
 set "DestinationFolder=E:\"
-set "GitHubToken=TOKEN" 
+set "GitHubToken=TOKEN"
 
 :: Crear carpeta de destino si no existe
 if not exist "%DestinationFolder%" (
