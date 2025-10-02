@@ -1,7 +1,7 @@
 ## script para Windows en powershell para migrar con doble click mis apuntes públicos a un USB
 # Configuración
-$DestinationFolder = "E:\"  # Cambiar por tu unidad USB
-$GitHubToken = "TOKEN"                  # Solo necesario para repos privados
+$DestinationFolder = "E:\"    # Cambiar por tu unidad USB
+$GitHubToken = "TOKEN"        # Solo necesario para repos privados
 # para generar un token en Settings > Developer Settings > Personal Access Token > Token (Classic)
 $repos = @(                             
     "https://github.com/aptelliot/Scripts/archive/refs/heads/main.zip",
