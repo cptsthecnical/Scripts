@@ -1,4 +1,4 @@
-## script para Windows en powershell para migrar con doble click mis apuntes a un USB
+## script para Windows en powershell para migrar con doble click mis apuntes públicos a un USB
 # Configuración
 $DestinationFolder = "F:\repositorio\"      # Cambiar por tu unidad USB
 $repos = @(
