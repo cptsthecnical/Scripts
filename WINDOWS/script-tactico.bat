@@ -2,49 +2,52 @@
 setlocal enabledelayedexpansion
 
 :: script para Windows en CMD para migrar con doble click mis apuntes públicos a un USB
-:: en el caso de que ya esté registrado en github no me pedirá el token de registro
 :: Configuración
 set "DestinationFolder=E:\"
-set "GitHubToken=TOKEN"  
-
+set "GitHubToken=TOKEN" 
 
 :: Crear carpeta de destino si no existe
 if not exist "%DestinationFolder%" (
     mkdir "%DestinationFolder%"
 )
 
-:: Lista de repositorios (todos los enlaces seguidos por un espacio separatorio)
-set "repos=https://github.com/aptelliot/Scripts/archive/refs/heads/main.zip https://github.com/aptelliot/Technical-Documentation/archive/refs/heads/main.zip https://github.com/aptelliot/prueba-privada/archive/refs/heads/main.zip"
+:: Lista de repositorios (formato: tipo^|url-github/zipball/main) 
+set "repos=public^|https://github.com/aptelliot/Scripts/zipball/main public^|https://github.com/aptelliot/Technical-Documentation/zipball/main private^|https://api.github.com/repos/aptelliot/prueva-repositorio-privado/zipball/main"
 
-:: Descargar cada repositorio
+:: Descargar cada repo
 for %%u in (%repos%) do (
-    set "repoUrl=%%u"
-    
-    :: Extraer nombre del repositorio (4º token)
-    for /F "tokens=4 delims=/" %%a in ("!repoUrl!") do set "repoName=%%a"
+    for /F "tokens=1,2 delims=^|" %%a in ("%%u") do (
+        set "repoType=%%a"
+        set "repoUrl=%%b"
 
-    set "filePath=%DestinationFolder%\!repoName!.zip"
-    echo Preparando !repoName!.zip...
-
-:: Intento de descarga
-    curl -L -o "!filePath!" "!repoUrl!" --silent
-    if exist "!filePath!" (
-        echo [yes] - !repoName!.zip descargado sin token en %DestinationFolder%
-    ) else (
-        if not "%GitHubToken%"=="" (
-            echo No se pudo descargar sin token !repoName!.zip
-            echo Intentando con token...
-            curl -L -o "!filePath!" -H "Authorization: token %GitHubToken%" -H "User-Agent: curl" "!repoUrl!" --silent
-            if exist "!filePath!" (
-                echo [yes] - !repoName!.zip descargado con token en %DestinationFolder%
-            ) else (
-                echo [no] - Error: no se pudo descargar !repoName!.zip incluso con token
-            )
+        :: Extraer nombre del repositorio si es publico o privado
+        if "!repoType!"=="public" (
+            for /F "tokens=4 delims=/" %%c in ("!repoUrl!") do set "repoName=%%c"
         ) else (
-            echo [no] - Error: no se pudo descargar !repoName!.zip y no hay token
+            for /F "tokens=5 delims=/" %%c in ("!repoUrl!") do set "repoName=%%c"
+        )
+
+        set "filePath=%DestinationFolder%\!repoName!.zip"
+
+        echo =========================================
+        echo Preparando !repoName!.zip...
+
+        :: Intento de descarga
+        if "!repoType!"=="public" (
+            curl -L -o "!filePath!" "!repoUrl!" --silent
+        ) else (
+            curl -L -o "!filePath!" -H "Authorization: token %GitHubToken%" -H "User-Agent: curl" "!repoUrl!" --silent
+        )
+
+        :: Valido la descarga
+        if exist "!filePath!" (
+            echo [yes] - !repoName!.zip descargado en %DestinationFolder%
+        ) else (
+            echo [no] - Error al descargar !repoName!.zip
         )
     )
 )
 
+echo.
 echo Descarga finalizada.
 pause
