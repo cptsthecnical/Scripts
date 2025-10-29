@@ -12,7 +12,7 @@ if not exist "%DestinationFolder%" (
 )
 
 # para generar un token en Settings > Developer Settings > Personal Access Token > Token (Classic)
-set "repos="public^| https://github.com/aptelliot/Scripts/zipball/main public^|https://github.com/aptelliot/Technical-Documentation/zipball/main private^|https://github.com/aptelliot/prueba-privada/zipball/main"  
+set "repos="public^|https://github.com/aptelliot/Scripts/zipball/main public^|https://github.com/aptelliot/Technical-Documentation/zipball/main private^|https://github.com/aptelliot/prueba-privada/zipball/main"  
 
 :: Descargar cada repo
 for %%u in (%repos%) do (
