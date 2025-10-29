@@ -1,7 +1,8 @@
 @echo off
 setlocal enabledelayedexpansion
-
+## es mejor ejecutar este script .bat que en .ps1 porque en los active directory se suele bloquear los .ps1
 ## script para Windows en powershell para migrar con doble click mis apuntes públicos a un USB
+
 # Configuración
 set "DestinationFolder=E:\00-MANUALES"        # Cambiar por tu unidad USB
 set "GitHubToken=TOKEN"                       # Solo necesario para repos privados
@@ -30,8 +31,10 @@ for %%u in (%repos%) do (
 
         :: Intento de descarga
         if "!repoType!"=="public" (
+            echo Visibilidad: !repoType!
             curl -L -o "!filePath!" "!repoUrl!" --silent
         ) else (
+            echo Visibilidad: !repoType!
             curl -L -o "!filePath!" -H "Authorization: token %GitHubToken%" -H "User-Agent: curl" "!repoUrl!" --silent
         )
 
