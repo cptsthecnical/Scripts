@@ -1,9 +1,8 @@
 @echo off
 setlocal enabledelayedexpansion
-## es mejor ejecutar este script .bat que en .ps1 porque en los active directory se suele bloquear los .ps1
-## script para Windows en powershell para migrar con doble click mis apuntes públicos a un USB
 
-# Configuración
+:: script para Windows en CMD para migrar con doble click mis apuntes públicos/privados a un USB
+:: Configuración
 set "DestinationFolder=E:\00-MANUALES"        # Cambiar por tu unidad USB
 set "GitHubToken=TOKEN"                       # Solo necesario para repos privados
 
@@ -13,7 +12,7 @@ if not exist "%DestinationFolder%" (
 )
 
 # para generar un token en Settings > Developer Settings > Personal Access Token > Token (Classic)
-set "repos="public^|https://github.com/cptsthecnical/Scripts/zipball/main public^|https://github.com/cptsthecnical/Technical-Documentation/zipball/main private^|https://github.com/cptsthecnical/prueba-privada/zipball/main"  
+set "repos=public^|https://github.com/cptsthecnical/Scripts/zipball/main public^|https://github.com/cptsthecnical/Technical-Documentation/zipball/main private^|https://github.com/cptsthecnical/prueba-privada/zipball/main"  
 
 :: Descargar cada repo
 for %%u in (%repos%) do (
