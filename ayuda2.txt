@@ -37,6 +37,3 @@ traceroute [ip host]                                                            
 nmap -p- --open -T5 -v -n [ip Víctima] -oG [Nombre del archivo de guardado.]              - escanea todos los puertos abiertos de la victima. Parámetros opcionales (-oG) lo guarda en el archivo índicado, (-n) no muestra los DNS.
 nmap -sV --script vuln [Ip Víctima]                                                       - escanea las vulnerabilidades (CVE) en un host específico.
 nping --icmp --icmp-type 13 [ip Host]                                                     - envia paquetes ICMP de tipo 13, son solicitudes Timestamp Request. Este tipo de paquete se utiliza para solicitar la hora actual de un host remoto.
-
-## 📦 hackthebox 
-netstat -rn
