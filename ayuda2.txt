@@ -17,7 +17,7 @@ snmpwalk -v2c -c <community-snmp> -Oneq <ip-snmp> .1 > dc1-kvm1.snmpwalk        
 smbstatus | grep "nombre_del_archivo.xls"                                                 - Verifica si un archivo está abierto por Samba (lo detengo con kill -9).
 smbstatus -L                                                                              - Lista todos los archivos abiertos vía Samba con usuarios y PIDs.
 
-## 🧠 forense
+## 🔬 forense
 lsblk -e7 -o NAME,MAJ:MIN,RM,SIZE,RO,TYPE,MOUNTPOINT,FSTYPE,MODEL,MODE,STATE,VENDOR,UUID' - Muestra información detallada de los dispositivos de bloques detectados.
 hdparm -I /dev/sda3                                                                       - Muestra capacidades del disco/SSD (modelo, firmware, modos DMA/UDMA, velocidades, características SMART soportadas, límites de seguridad, etc.).
 smartctl -axH /dev/sda3                                                                   - Muestra todo SMART (atributos, historial de errores, tests) -x (tablas y logs vendor-specific), -H (salud PASSED/FAILED).
