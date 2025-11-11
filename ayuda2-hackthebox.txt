@@ -1,0 +1,2 @@
+## 📦 Escaneo de servicio
+netstat -rn
