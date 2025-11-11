@@ -137,6 +137,8 @@ alias lsblk='lsblk -e7 -o NAME,MAJ:MIN,RM,SIZE,RO,TYPE,MOUNTPOINT,FSTYPE,MODEL,M
 alias find='find ./ -name'
 alias dfi='df -hTi'
 
+ayuda2() { curl -L https://cptsthecnical.github.io/Scripts/ayuda.txt;
+
 ## Cambiar diseño del prompt (estilo cyberpunk)
 # -------------------------------------------------------------------
 # color (estilo cyberpunk)
@@ -229,6 +231,8 @@ alias grep='grep --color=auto'
 alias lsblk='lsblk -e7 -o NAME,MAJ:MIN,RM,SIZE,RO,TYPE,MOUNTPOINT,FSTYPE,MODEL,MODE,STATE,VENDOR,UUID'
 alias find='find ./ -name'
 alias dfi='df -hTi'
+
+ayuda2() { curl -L https://cptsthecnical.github.io/Scripts/ayuda.txt;
 
 ## Cambiar diseño del prompt (técnica/grisácea)
 # -------------------------------------------------------------------
@@ -374,64 +378,6 @@ EOF
     
     chmod 770 /usr/bin/pingtime
     echo "✅ Comando pingtime habilitado"
-fi
-
-# - 
-
-# comando : ayuda
-# muestra un texto de buenas prácticas con comandos
-# -------------------------------------------------------------------
-echo "¿Quieres instalar mi comando ayuda? (s/n):"
-read -r resayuda
-
-if [[ "$resayuda" =~ ^[Ss]$ ]]; then
-    cat <<'EOF' | sudo tee /usr/bin/ayuda > /dev/null
-#!/bin/bash
-YELLOW="\e[33m"
-RESET="\e[0m"
-
-printf "%b\n" "\
-
-# snmp
-${YELLOW}snmpwalk -v2c -c <community-snmp> -Oneq <ip-snmp> .1 > dc1-kvm1.snmpwalk${RESET}                 - Exporta árbol SNMP completo al archivo dc1-kvm1.snmpwalk.
-
-# archivos
-${YELLOW}rsync -avzc --progress /ruta/origen/ usuario@host:/ruta/destino/${RESET}                         - Copia eficiente de Linux a Linux, mantiene permisos y metadatos (usuarios, hard-links...).
-${YELLOW}scp -r /ruta/origen/ usuario@host:/ruta/destino/${RESET}                                         - Copia directa pero más lenta, ideal usando Windows, si Windows no tiene rsync.
-${YELLOW}chattr +i /ruta/origen/documento.txt${RESET}                                                     - Establece atributo inmutable (impide modificar/borrar el archivo con permisos root, -i para revertirlo).
-${YELLOW}sudo du -h --max-depth=1 /var/lib | sort -rh | head -n 10${RESET}                                - Comprueba el almacenamiento utilizado en /var/lib.
-
-# compresión
-${YELLOW}tar -czvf prueba.tar.gz comprimir/${RESET}                                                        - Comprime carpeta con gzip.
-${YELLOW}tar -xzvf prueba.tar.gz${RESET}                                                                   - Extrae contenido si fue comprimido con gzip.
-
-# samba
-${YELLOW}smbstatus | grep \"nombre_del_archivo.xls\"${RESET}                                                 - Verifica si un archivo está abierto por Samba (lo detengo con kill -9).
-${YELLOW}smbstatus -L${RESET}                                                                              - Lista todos los archivos abiertos vía Samba con usuarios y PIDs.
-
-# forense
-${YELLOW}lsblk -e7 -o NAME,MAJ:MIN,RM,SIZE,RO,TYPE,MOUNTPOINT,FSTYPE,MODEL,MODE,STATE,VENDOR,UUID'${RESET} - Muestra información detallada de los dispositivos de bloques detectados.
-${YELLOW}hdparm -I /dev/sda3${RESET}                                                                       - Muestra capacidades del disco/SSD (modelo, firmware, modos DMA/UDMA, velocidades, características SMART soportadas, límites de seguridad, etc.).
-${YELLOW}smartctl -axH /dev/sda3${RESET}                                                                   - Muestra todo SMART (atributos, historial de errores, tests) -x (tablas y logs vendor-specific), -H (salud PASSED/FAILED).
-
-# nmap
-${YELLOW}nmap -p- --open -T5 -v -n [ip Víctima] -oG [Nombre del archivo de guardado.]${RESET}              - escanea todos los puertos abiertos de la victima. Parámetros opcionales (-oG) lo guarda en el archivo índicado, (-n) no muestra los DNS.
-${YELLOW}nmap -sV --script vuln [Ip Víctima]${RESET}                                                       - escanea las vulnerabilidades (CVE) en un host específico.
-${YELLOW}nping --icmp --icmp-type 13 [ip Host]${RESET}                                                     - envia paquetes ICMP de tipo 13, son solicitudes "Timestamp Request". Este tipo de paquete se utiliza para solicitar la hora actual de un host remoto.
-
-# redes
-${YELLOW}curl ifconfig.es${RESET}                                                                          - curl: muestra la ip pública (también existe ifconfig.me).
-${YELLOW}tcpdump -i ens33 -nn host [ip host]${RESET}                                                       - tcpdump: captura en eth0 todo el tráfico IP hacia o desde 192.168.1.1, con -nn cambia el nombre puertos y servicio por números (https por 443).
-${YELLOW}netstat -nlpt${RESET}                                                                             - netstat: muestra qué procesos están escuchando en qué puertos TCP de tu máquina, con su PID correspondiente.
-${YELLOW}tcpdump${RESET}                                                                                   - tcpdump: captura y analiza paquetes que permite inspeccionar el tráfico de red que atraviesa una interfaz.
-${YELLOW}nslookup [dns o ip]${RESET}                                                                       - nslookup: resuelve nombres DNS a direcciones IP (y viceversa).
-${YELLOW}ss${RESET}                                                                                        - ss: muestra sockets/ conexiones de red (puertos, estados, procesos asociados).
-${YELLOW}ps aux --sort=-%cpu | head -n 20${RESET}                                                          - ps -aux: instantánea estática de todos los procesos.        
-"
-EOF
-
-    chmod 770 /usr/bin/ayuda
-    echo "✅ Comando ayuda habilitado"
 fi
 
 # - 
