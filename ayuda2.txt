@@ -33,14 +33,13 @@ ss                                                                              
 ps aux --sort=-%cpu | head -n 20                                                          - ps -aux: instantánea estática de todos los procesos.
 traceroute [ip host]                                                                      - Muestra la ruta que siguen los paquetes desde tu equipo hasta el host indicado, mostrando cada salto intermedio.
 
-## 🕵️ nmap
+## ☎️ nmap
 nmap -p- --open -T5 -v -n [ip Víctima] -oG [Nombre del archivo de guardado.]              - escanea todos los puertos abiertos de la victima. Parámetros opcionales (-oG) lo guarda en el archivo índicado, (-n) no muestra los DNS.
 nmap -sV --script vuln [Ip Víctima]                                                       - escanea las vulnerabilidades (CVE) en un host específico.
 nping --icmp --icmp-type 13 [ip Host]                                                     - envia paquetes ICMP de tipo 13, son solicitudes Timestamp Request. Este tipo de paquete se utiliza para solicitar la hora actual de un host remoto.
 
-
-
-## 📦 HackTheBox
+## -
+## 🕷️ HackTheBox
 netstat -rn
 nmap -sS -sV -T4 target.com                                                               - Escaneo rápido de puertos comunes y detectar servicios.
 nmap -p 1-65535 -A -T4 target.com -oA resultado                                           - Escaneo completo de todos los puertos con OS y scripts.
