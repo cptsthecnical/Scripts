@@ -10,7 +10,7 @@ wget https://cptsthecnical.github.io/Scripts/ayuda.txt -O nombre.txt            
 tar -czvf prueba.tar.gz comprimir/                                                        - Comprime carpeta con gzip.
 tar -xzvf prueba.tar.gz                                                                   - Extrae contenido si fue comprimido con gzip.
 
-## 💽 snmp
+## 💾 snmp
 snmpwalk -v2c -c <community-snmp> -Oneq <ip-snmp> .1 > dc1-kvm1.snmpwalk                  - Exporta árbol SNMP completo al archivo dc1-kvm1.snmpwalk.
 
 ## 💃 samba
