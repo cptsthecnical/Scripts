@@ -1,17 +1,17 @@
 # archivos
-rsync -avzc --progress /ruta/origen/ usuario@host:/ruta/destino/                         - Copia eficiente de Linux a Linux, mantiene permisos y metadatos (usuarios, hard-links...).
-scp -r /ruta/origen/ usuario@host:/ruta/destino/                                         - Copia directa pero más lenta, ideal usando Windows, si Windows no tiene rsync.
-chattr +i /ruta/origen/documento.txt                                                     - Establece atributo inmutable (impide modificar/borrar el archivo con permisos root, -i para revertirlo).
-sudo du -h --max-depth=1 /var/lib | sort -rh | head -n 10                                - Comprueba el almacenamiento utilizado en /var/lib.
-find ./ -name                                                                            - Busca un archivo dentro de una carpta en concreto.
-wget https://cptsthecnical.github.io/Scripts/ayuda.txt -O nombre.txt                     - Descarga el archivo con otro nombre.
+rsync -avzc --progress /ruta/origen/ usuario@host:/ruta/destino/                          - Copia eficiente de Linux a Linux, mantiene permisos y metadatos (usuarios, hard-links...).
+scp -r /ruta/origen/ usuario@host:/ruta/destino/                                          - Copia directa pero más lenta, ideal usando Windows, si Windows no tiene rsync.
+chattr +i /ruta/origen/documento.txt                                                      - Establece atributo inmutable (impide modificar/borrar el archivo con permisos root, -i para revertirlo).
+sudo du -h --max-depth=1 /var/lib | sort -rh | head -n 10                                 - Comprueba el almacenamiento utilizado en /var/lib.
+find ./ -name                                                                             - Busca un archivo dentro de una carpta en concreto.
+wget https://cptsthecnical.github.io/Scripts/ayuda.txt -O nombre.txt                      - Descarga el archivo con otro nombre.
 
 # compresión
 tar -czvf prueba.tar.gz comprimir/                                                        - Comprime carpeta con gzip.
 tar -xzvf prueba.tar.gz                                                                   - Extrae contenido si fue comprimido con gzip.
 
 # snmp
-snmpwalk -v2c -c <community-snmp> -Oneq <ip-snmp> .1 > dc1-kvm1.snmpwalk                 - Exporta árbol SNMP completo al archivo dc1-kvm1.snmpwalk.
+snmpwalk -v2c -c <community-snmp> -Oneq <ip-snmp> .1 > dc1-kvm1.snmpwalk                  - Exporta árbol SNMP completo al archivo dc1-kvm1.snmpwalk.
 
 # samba
 smbstatus | grep "nombre_del_archivo.xls"                                                 - Verifica si un archivo está abierto por Samba (lo detengo con kill -9).
