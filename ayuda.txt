@@ -1,3 +1,11 @@
+
+  +---------------------------------------------------------------------------+
+  | Recordar y olvidar función de ininicio                                    |
+  |---------------------------------------------------------------------------|
+  | ayuda2() { curl -L https://cptsthecnical.github.io/Scripts/ayuda.txt; }   |
+  | unset -f ayuda2                                                           |
+  +---------------------------------------------------------------------------+
+
 # snmp
 snmpwalk -v2c -c <community-snmp> -Oneq <ip-snmp> .1 > dc1-kvm1.snmpwalk                 - Exporta árbol SNMP completo al archivo dc1-kvm1.snmpwalk.
 
