@@ -1,6 +1,4 @@
 <?php
-// script para generador de tareas estilo KANBAN | para ejecutarlo tengo que tener instalo php como variable de entorno. php ./Fenix-41.php
-
 // Archivo de tareas
 define('TASK_FILE', 'Task-Fenix41.json');
 define('ARCHIVE_FILE', 'ashes.txt');
@@ -14,7 +12,12 @@ function loadTasks() {
         return [];
     }
     $json = file_get_contents(TASK_FILE);
-    $tasks = json_decode($json, true) ?: [];
+    $tasks = json_decode($json, true);
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        echo "Error leyendo el archivo JSON: " . json_last_error_msg() . "\n";
+        // Mantener archivo original, no reemplazar
+        return [];
+    }
 
     // Asegurar que las tareas sean un array asociativo con padres
     if (!is_array($tasks) || array_values($tasks) === $tasks) {
@@ -24,7 +27,19 @@ function loadTasks() {
 }
 
 function saveTasks($tasks) {
-    file_put_contents(TASK_FILE, json_encode($tasks));
+    // Hacer backup antes de guardar
+    if (file_exists(TASK_FILE)) {
+        copy(TASK_FILE, TASK_FILE . '.bak');
+    }
+
+    $json = json_encode($tasks, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    if ($json === false) {
+        echo "Error guardando tareas: " . json_last_error_msg() . "\n";
+        return false;
+    }
+
+    file_put_contents(TASK_FILE, $json);
+    return true;
 }
 
 function saveCompletedTasksToFile($tasks, $filename) {
@@ -49,10 +64,8 @@ function showTasks($tasks) {
         echo "No hay tareas.\n";
     } else {
         foreach ($tasks as $parent => $taskList) {
-            echo "\n";
-            echo "=====================================================\n";
-            echo "[🐦🔥 $parent]:\n";
-            echo "\n";
+            echo "\n=====================================================\n";
+            echo "[🐦🔥 $parent]:\n\n";
             foreach ($taskList as $index => $task) {
                 $status = $task['done'] ? "[x]" : "[ ]";
                 echo "$status " . ($index + 1) . ". " . $task['name'] . "\n";
@@ -73,23 +86,23 @@ while (true) {
         echo " |    __)/ __ \ /    \|  \  \/  //   |  ||   |  \n";
         echo " |     \|  ___/|   |  \  |>    </    ^   /   |  \n";
         echo " \___  /\____  >___|  /__/__/\_ \____   ||___|  \n";
-        echo "     \/      \/     \/         \/    |__|       \n";
-        echo "\n";
-        // Menú de opciones
+        echo "     \/      \/     \/         \/    |__|       \n\n";
+
+        // Menú
         echo "1.  Agregar una tarea \n";
         echo "2.  Crear un nuevo padre \n";
-        echo "\033[31m3.  Borrar todas las tareas       ~ De manera irrecuperable. \033[0m\n";
-        echo "\033[31m4.  Borrar un padre               ~ De manera irrecuperable. \033[0m\n";
-        echo "\033[31m5.  Borrar una tarea específica   ~ De manera irrecuperable. \033[0m\n";
-        echo "\033[31m6.  Borrar tareas completadas [x]   ~ Guarda las tareas antiguas si es necesario. \033[0m\n";
+        echo "\033[31m3.  Borrar todas las tareas           ~ De manera irrecuperable. \033[0m\n";
+        echo "\033[31m4.  Borrar un padre                   ~ De manera irrecuperable. \033[0m\n";
+        echo "\033[31m5.  Borrar una tarea específica       ~ De manera irrecuperable. \033[0m\n";
+        echo "\033[31m6.  Borrar tareas completadas [x]     ~ Guarda las tareas antiguas si es necesario. \033[0m\n";
         echo "\033[32m7.  Marcar una tarea como realizada \033[0m\n";
         echo "\033[33m8.  Quitar tarea como realizada \033[0m\n";
         echo "\033[33m9.  Renombrar un padre o una tarea \033[0m\n";
         echo "\033[33m10. Mover posición de una tarea \033[0m\n";
         echo "11. Ver tareas \n";
         echo "0. Salir \n";
-        echo "\n";
-        echo "\033[30;43m Selecciona una opción:                                                               \033[0m \n";
+        echo "\033[30;43m Selecciona una opción: \033[0m \n";
+
         $option = intval(trim(fgets(STDIN)));
 
         switch ($option) {
@@ -100,10 +113,8 @@ while (true) {
                 }
                 echo "Selecciona el padre al que deseas asignar la tarea:\n";
                 $parents = array_keys($tasks);
-                foreach ($parents as $index => $parent) {
+                foreach ($parents as $index => $parent)
                     echo ($index + 1) . ". $parent\n";
-                }
-                echo "Número de padre: ";
                 $parentIndex = intval(trim(fgets(STDIN))) - 1;
                 if (!isset($parents[$parentIndex])) {
                     echo "Selección no válida.\n";
@@ -143,10 +154,8 @@ while (true) {
                 }
                 echo "Selecciona el padre a borrar:\n";
                 $parents = array_keys($tasks);
-                foreach ($parents as $index => $parent) {
+                foreach ($parents as $index => $parent)
                     echo ($index + 1) . ". $parent\n";
-                }
-                echo "Número de padre: ";
                 $parentIndex = intval(trim(fgets(STDIN))) - 1;
                 if (!isset($parents[$parentIndex])) {
                     echo "Selección no válida.\n";
@@ -154,7 +163,7 @@ while (true) {
                 }
                 $parent = $parents[$parentIndex];
 
-                echo "¿Estás seguro de que quieres borrar el padre '$parent' y todas sus tareas? (s/n): ";
+                echo "¿Estás seguro? (s/n): ";
                 $confirm = trim(fgets(STDIN));
                 if (strtolower($confirm) === 's') {
                     unset($tasks[$parent]);
@@ -172,27 +181,22 @@ while (true) {
                 }
                 echo "Selecciona el padre de la tarea a borrar:\n";
                 $parents = array_keys($tasks);
-                foreach ($parents as $index => $parent) {
+                foreach ($parents as $index => $parent)
                     echo ($index + 1) . ". $parent\n";
-                }
-                echo "Número de padre: ";
                 $parentIndex = intval(trim(fgets(STDIN))) - 1;
                 if (!isset($parents[$parentIndex])) {
                     echo "Selección no válida.\n";
                     break;
                 }
                 $parent = $parents[$parentIndex];
-
                 if (empty($tasks[$parent])) {
                     echo "No hay tareas en este padre.\n";
                     break;
                 }
 
                 echo "Selecciona la tarea a borrar:\n";
-                foreach ($tasks[$parent] as $index => $task) {
+                foreach ($tasks[$parent] as $index => $task)
                     echo ($index + 1) . ". " . $task['name'] . "\n";
-                }
-                echo "Número de tarea: ";
                 $taskIndex = intval(trim(fgets(STDIN))) - 1;
                 if (!isset($tasks[$parent][$taskIndex])) {
                     echo "Selección no válida.\n";
@@ -204,155 +208,101 @@ while (true) {
                 break;
 
             case 6:
-                echo "¿Quieres guardar las tareas completadas antes de borrarlas? (s/n): ";
+                echo "¿Guardar tareas completadas antes de borrarlas? (s/n): ";
                 $saveOption = trim(fgets(STDIN));
                 if (strtolower($saveOption) === 's') {
                     saveCompletedTasksToFile($tasks, ARCHIVE_FILE);
-                    echo "Tareas completadas guardadas en 'ashes.txt'.\n";
+                    echo "Tareas guardadas.\n";
                 }
+
                 foreach ($tasks as $parent => &$taskList) {
-                    $taskList = array_filter($taskList, fn($task) => !$task['done']);
+                    $taskList = array_values(array_filter($taskList, fn($task) => !$task['done']));
                 }
                 saveTasks($tasks);
                 echo "Tareas completadas eliminadas.\n";
                 break;
 
             case 7:
-                if (empty($tasks)) {
-                    echo "No hay tareas para marcar como realizadas.\n";
-                    break;
-                }
-                echo "Selecciona el padre de la tarea a marcar como realizada:\n";
-                $parents = array_keys($tasks);
-                foreach ($parents as $index => $parent) {
-                    echo ($index + 1) . ". $parent\n";
-                }
-                echo "Número de padre: ";
-                $parentIndex = intval(trim(fgets(STDIN))) - 1;
-                if (!isset($parents[$parentIndex])) {
-                    echo "Selección no válida.\n";
-                    break;
-                }
-                $parent = $parents[$parentIndex];
-
-                if (empty($tasks[$parent])) {
-                    echo "No hay tareas en este padre.\n";
-                    break;
-                }
-
-                echo "Selecciona la tarea a marcar como realizada:\n";
-                foreach ($tasks[$parent] as $index => $task) {
-                    echo ($index + 1) . ". " . $task['name'] . "\n";
-                }
-                echo "Número de tarea: ";
-                $taskIndex = intval(trim(fgets(STDIN))) - 1;
-                if (!isset($tasks[$parent][$taskIndex])) {
-                    echo "Selección no válida.\n";
-                    break;
-                }
-                $tasks[$parent][$taskIndex]['done'] = true;
-                saveTasks($tasks);
-                echo "Tarea marcada como realizada.\n";
-                break;
-
             case 8:
+                $markDone = $option === 7;
                 if (empty($tasks)) {
-                    echo "No hay tareas para desmarcar.\n";
+                    echo "No hay tareas.\n";
                     break;
                 }
-                echo "Selecciona el padre de la tarea a desmarcar:\n";
+                echo "Selecciona el padre de la tarea:\n";
                 $parents = array_keys($tasks);
-                foreach ($parents as $index => $parent) {
+                foreach ($parents as $index => $parent)
                     echo ($index + 1) . ". $parent\n";
-                }
-                echo "Número de padre: ";
                 $parentIndex = intval(trim(fgets(STDIN))) - 1;
                 if (!isset($parents[$parentIndex])) {
                     echo "Selección no válida.\n";
                     break;
                 }
                 $parent = $parents[$parentIndex];
-
                 if (empty($tasks[$parent])) {
                     echo "No hay tareas en este padre.\n";
                     break;
                 }
 
-                echo "Selecciona la tarea a desmarcar:\n";
-                foreach ($tasks[$parent] as $index => $task) {
+                echo "Selecciona la tarea:\n";
+                foreach ($tasks[$parent] as $index => $task)
                     echo ($index + 1) . ". " . $task['name'] . "\n";
-                }
-                echo "Número de tarea: ";
                 $taskIndex = intval(trim(fgets(STDIN))) - 1;
                 if (!isset($tasks[$parent][$taskIndex])) {
                     echo "Selección no válida.\n";
                     break;
                 }
-                $tasks[$parent][$taskIndex]['done'] = false;
+
+                $tasks[$parent][$taskIndex]['done'] = $markDone;
                 saveTasks($tasks);
-                echo "Tarea desmarcada.\n";
+                echo $markDone ? "Tarea marcada como realizada.\n" : "Tarea desmarcada.\n";
                 break;
 
             case 9:
-                echo "¿Qué deseas renombrar?\n";
-                echo "1. Una tarea\n";
-                echo "2. Un padre\n";
-                echo "Selecciona una opción: ";
+                echo "1. Renombrar tarea\n2. Renombrar padre\nSelecciona: ";
                 $renameOption = intval(trim(fgets(STDIN)));
-
                 if ($renameOption === 1) {
-                    // Renombrar una tarea
                     if (empty($tasks)) {
-                        echo "No hay tareas para renombrar.\n";
+                        echo "No hay tareas.\n";
                         break;
                     }
-                    echo "Selecciona el padre de la tarea a renombrar:\n";
+                    echo "Selecciona el padre de la tarea:\n";
                     $parents = array_keys($tasks);
-                    foreach ($parents as $index => $parent) {
+                    foreach ($parents as $index => $parent)
                         echo ($index + 1) . ". $parent\n";
-                    }
-                    echo "Número de padre: ";
                     $parentIndex = intval(trim(fgets(STDIN))) - 1;
                     if (!isset($parents[$parentIndex])) {
                         echo "Selección no válida.\n";
                         break;
                     }
                     $parent = $parents[$parentIndex];
-
                     if (empty($tasks[$parent])) {
                         echo "No hay tareas en este padre.\n";
                         break;
                     }
 
-                    echo "Selecciona la tarea a renombrar:\n";
-                    foreach ($tasks[$parent] as $index => $task) {
+                    echo "Selecciona la tarea:\n";
+                    foreach ($tasks[$parent] as $index => $task)
                         echo ($index + 1) . ". " . $task['name'] . "\n";
-                    }
-                    echo "Número de tarea: ";
                     $taskIndex = intval(trim(fgets(STDIN))) - 1;
                     if (!isset($tasks[$parent][$taskIndex])) {
                         echo "Selección no válida.\n";
                         break;
                     }
 
-                    echo "Escribe el nuevo nombre de la tarea: ";
-                    $newTaskName = trim(fgets(STDIN));
-                    $tasks[$parent][$taskIndex]['name'] = $newTaskName;
+                    echo "Nuevo nombre de la tarea: ";
+                    $tasks[$parent][$taskIndex]['name'] = trim(fgets(STDIN));
                     saveTasks($tasks);
-                    echo "Tarea renombrada con éxito.\n";
-
+                    echo "Tarea renombrada.\n";
                 } elseif ($renameOption === 2) {
-                    // Renombrar un padre
                     if (empty($tasks)) {
-                        echo "No hay padres para renombrar.\n";
+                        echo "No hay padres.\n";
                         break;
                     }
-                    echo "Selecciona el padre a renombrar:\n";
+                    echo "Selecciona el padre: ";
                     $parents = array_keys($tasks);
-                    foreach ($parents as $index => $parent) {
+                    foreach ($parents as $index => $parent)
                         echo ($index + 1) . ". $parent\n";
-                    }
-                    echo "Número de padre: ";
                     $parentIndex = intval(trim(fgets(STDIN))) - 1;
                     if (!isset($parents[$parentIndex])) {
                         echo "Selección no válida.\n";
@@ -360,112 +310,81 @@ while (true) {
                     }
                     $oldParentName = $parents[$parentIndex];
 
-                    echo "Escribe el nuevo nombre del padre: ";
+                    echo "Nuevo nombre del padre: ";
                     $newParentName = trim(fgets(STDIN));
-
                     if (isset($tasks[$newParentName])) {
                         echo "Ya existe un padre con ese nombre.\n";
                         break;
                     }
 
-                    // Renombrar clave en el array
                     $tasks[$newParentName] = $tasks[$oldParentName];
                     unset($tasks[$oldParentName]);
                     saveTasks($tasks);
-                    echo "Padre renombrado con éxito.\n";
-
-                } else {
+                    echo "Padre renombrado.\n";
+                } else
                     echo "Opción no válida.\n";
-                }
                 break;
 
             case 10:
-                // Verificar si hay tareas disponibles
                 if (empty($tasks)) {
-                    echo "No hay tareas disponibles para reordenar.\n";
+                    echo "No hay tareas disponibles.\n";
                     break;
                 }
-
-                // Mostrar padres disponibles
-                echo "Selecciona el padre de la tarea a mover:\n";
+                echo "Selecciona el padre: ";
                 $parents = array_keys($tasks);
-                foreach ($parents as $index => $parent) {
+                foreach ($parents as $index => $parent)
                     echo ($index + 1) . ". $parent\n";
-                }
-
-                echo "Número de padre: ";
                 $parentIndex = intval(trim(fgets(STDIN))) - 1;
                 if (!isset($parents[$parentIndex])) {
                     echo "Selección no válida.\n";
                     break;
                 }
                 $parent = $parents[$parentIndex];
-
-                // Verificar si hay tareas dentro del padre
                 if (empty($tasks[$parent])) {
                     echo "No hay tareas en este padre.\n";
                     break;
                 }
 
-                // Mostrar las tareas disponibles
-                echo "🐣 Selecciona la tarea a mover:\n";
-                foreach ($tasks[$parent] as $index => $task) {
+                echo "Selecciona la tarea a mover:\n";
+                foreach ($tasks[$parent] as $index => $task)
                     echo ($index + 1) . ". " . $task['name'] . "\n";
-                }
-
-                echo "Número de tarea a mover: ";
                 $taskIndex = intval(trim(fgets(STDIN))) - 1;
                 if (!isset($tasks[$parent][$taskIndex])) {
                     echo "Selección no válida.\n";
                     break;
                 }
 
-                // Guardar la tarea a mover y eliminarla temporalmente
                 $taskToMove = $tasks[$parent][$taskIndex];
                 array_splice($tasks[$parent], $taskIndex, 1);
 
-                // Mostrar nuevamente las tareas disponibles después de la eliminación
-                echo "🦅 Selecciona la nueva posición para la tarea:\n";
-                foreach ($tasks[$parent] as $index => $task) {
+                echo "Nueva posición:\n";
+                foreach ($tasks[$parent] as $index => $task)
                     echo ($index + 1) . ". " . $task['name'] . "\n";
-                }
-                echo (count($tasks[$parent]) + 1) . ". Última posición\n"; // Opción para ponerla al final
+                echo (count($tasks[$parent]) + 1) . ". Última posición\n";
 
-                echo "Número de nueva posición: ";
                 $newPosition = intval(trim(fgets(STDIN))) - 1;
+                if ($newPosition < 0)
+                    $newPosition = 0;
+                elseif ($newPosition > count($tasks[$parent]))
+                    $newPosition = count($tasks[$parent]);
 
-                // Asegurar que la posición sea válida
-                if ($newPosition < 0) {
-                    $newPosition = 0; // Si ingresa un número menor, se pone al inicio
-                } elseif ($newPosition > count($tasks[$parent])) {
-                    $newPosition = count($tasks[$parent]); // Si es mayor, se pone al final
-                }
-
-                // Insertar la tarea en la nueva posición
                 array_splice($tasks[$parent], $newPosition, 0, [$taskToMove]);
-
-                // Guardar los cambios
                 saveTasks($tasks);
-                echo "Tarea movida con éxito.\n";
+                echo "Tarea movida.\n";
                 break;
 
             case 11:
-                // Ver tareas
-                break;
-
+                break; // Ver tareas ya está implícito
             case 0:
-                echo "Saliendo del gestor de tareas...\n";
+                echo "Saliendo...\n";
                 exit;
-
             default:
-                echo "Opción no válida. Inténtalo de nuevo.\n";
+                echo "Opción no válida.\n";
                 break;
         }
     } catch (Exception $e) {
-        // Maneja la excepción si ocurre, mostrando un mensaje
         echo "Interrupción detectada. Guardando y saliendo...\n";
-        // Guardar el estado actual de las tareas antes de salir
         saveTasks($tasks);
-        exit; // Termina la ejecución de manera segura
+        exit;
     }
 }
