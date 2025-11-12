@@ -1,4 +1,12 @@
 <?php
+// Instalación de PHP en Windows:
+// ******************************
+// 1 - Descarga PHP: desde windows.php.net - elige la versión Thread Safe zip.
+// 2 - Extrae: por ejemplo en C:\php.
+// 3 - Configura php.ini: copia php.ini-development como php.ini y edita si necesitas extensiones.
+// 4 - Agrega a PATH: Panel de control → Sistema → Configuración avanzada → Variables de entorno → Path → Editar → Nuevo → C:\php
+// 5 - Verifica: abre cmd y ejecuta: php -v
+
 // Archivo de tareas
 define('TASK_FILE', 'Task-Fenix41.json');
 define('ARCHIVE_FILE', 'ashes.txt');
