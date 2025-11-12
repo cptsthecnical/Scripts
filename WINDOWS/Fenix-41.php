@@ -9,7 +9,7 @@
 
 // Archivo de tareas
 define('TASK_FILE', 'Task-Fenix41.json');
-define('ARCHIVE_FILE', 'ashes.txt');
+define('BACKUP_FILE', 'ashes.txt');
 
 echo "\n";
 echo "\n";
@@ -219,7 +219,7 @@ while (true) {
                 echo "¿Guardar tareas completadas antes de borrarlas? (s/n): ";
                 $saveOption = trim(fgets(STDIN));
                 if (strtolower($saveOption) === 's') {
-                    saveCompletedTasksToFile($tasks, ARCHIVE_FILE);
+                    saveCompletedTasksToFile($tasks, BACKUP_FILE);
                     echo "Tareas guardadas.\n";
                 }
 
