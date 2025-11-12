@@ -39,7 +39,7 @@ nmap -sV --script vuln [Ip Víctima]                                            
 nping --icmp --icmp-type 13 [ip Host]                                                     - envia paquetes ICMP de tipo 13, son solicitudes Timestamp Request. Este tipo de paquete se utiliza para solicitar la hora actual de un host remoto.
 
 ## -
-## 🕷️ HackTheBox
+## 🐞 HackTheBox
 netstat -rn
 nmap -sS -sV -T4 target.com                                                               - Escaneo rápido de puertos comunes y detectar servicios.
 nmap -p 1-65535 -A -T4 target.com -oA resultado                                           - Escaneo completo de todos los puertos con OS y scripts.
